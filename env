@@ -31,12 +31,12 @@
 #--------------------------------------------------------------------
 
 # Aktifkan konfigurasi database
-database.default.hostname = localhost
+<!-- database.default.hostname = localhost
 database.default.database = sekolah
 database.default.username = root 
 database.default.password = rootjeno
 database.default.DBDriver = MySQLi
-database.default.port = 3306
+database.default.port = 3306 -->
 
 # If you use MySQLi as tests, first update the values of Config\Database::$tests.
 # database.tests.hostname = localhost
