@@ -81,7 +81,7 @@ class App extends BaseConfig
     | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
     |
     */
-    public string $permittedURIChars = 'a-z 0-9~%.:_\-';
+    public string $permittedURIChars = 'a-z 0-9~%.:_\-' ;
 
     /**
      * --------------------------------------------------------------------------
@@ -199,4 +199,39 @@ class App extends BaseConfig
      * @see http://www.w3.org/TR/CSP/
      */
     public bool $CSPEnabled = false;
+
+    // Session Configuration
+    /**
+     * --------------------------------------------------------------------------
+     * Session Driver
+     * --------------------------------------------------------------------------
+     *
+     * Choose the driver to handle the session. The default driver is 'CodeIgniter\Session\Handlers\FileHandler',
+     * but others are available such as 'CodeIgniter\Session\Handlers\DatabaseHandler'.
+     *
+     * @var string
+     */
+    public $sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Session Cookie Name
+     * --------------------------------------------------------------------------
+     *
+     * The name of the cookie to store the session ID.
+     *
+     * @var string
+     */
+    public $sessionCookieName = 'ci_session';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Session Expiration
+     * --------------------------------------------------------------------------
+     *
+     * The session expiration time in seconds. Default is 7200 seconds (2 hours).
+     *
+     * @var int
+     */
+    public $sessionExpiration = 7200;
 }
