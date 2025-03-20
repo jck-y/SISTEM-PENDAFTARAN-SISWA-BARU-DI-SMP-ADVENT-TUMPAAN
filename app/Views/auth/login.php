@@ -52,21 +52,32 @@
 </head>
 <body>
     <div class="login-container">
-    <img src="https://www.simivalleyelementary.org/build/image/3.png?h=200&fit=max&s=db9ab56df5b6520e116417b618007eff" alt="Logo" class="img-fluid mx-auto d-block" width="100">
+        <img src="https://www.simivalleyelementary.org/build/image/3.png?h=200&fit=max&s=db9ab56df5b6520e116417b618007eff" alt="Logo" class="img-fluid mx-auto d-block" width="100">
         <h4 class="mt-3">Login</h4>
-        <form>
+        
+        <?php if (session()->getFlashdata('error')): ?>
+            <div class="alert alert-danger">
+                <?= session()->getFlashdata('error') ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- Form Login -->
+        <form action="/auth/login" method="post">
+            <?= csrf_field() ?>
             <div class="mb-3 input-group">
                 <span class="input-group-text bg-transparent border-white text-white"><i class="bi bi-person"></i></span>
-                <input type="text" class="form-control" placeholder="Username" required>
+                <input type="text" class="form-control" name="nama" placeholder="Username" required>
             </div>
             <div class="mb-3 input-group">
                 <span class="input-group-text bg-transparent border-white text-white"><i class="bi bi-lock"></i></span>
-                <input type="password" class="form-control" placeholder="Password" required>
+                <input type="password" class="form-control" name="password" placeholder="Password" required>
             </div>
             <button type="submit" class="btn btn-primary w-100">Login</button>
             <button type="button" class="btn btn-primary w-100 mt-2">Register</button>
         </form>
+
     </div>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
