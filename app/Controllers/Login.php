@@ -12,7 +12,7 @@ class LoginController extends Controller
     {
         return view('login');
     }
-
+        
     public function auth()
     {
         $session = session();
