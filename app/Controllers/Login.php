@@ -2,60 +2,56 @@
 
 namespace App\Controllers;
 
+use App\Models\AdminModel;
+use App\Models\KepalaSekolahModel;
 use CodeIgniter\Controller;
 
-class Login extends Controller
+class LoginController extends Controller
 {
     public function index()
     {
         return view('login');
     }
 
-    public function process()
+    public function auth()
     {
         $session = session();
-        $username = $this->request->getPost('username');
+        $adminModel = new AdminModel();
+        $kepalaSekolahModel = new KepalaSekolahModel();
+
+        $nama = $this->request->getPost('nama');
         $password = $this->request->getPost('password');
 
-        // Define user credentials
-        $users = [
-            'admin' => [
-                'password' => 'admin',
-                'role' => 'admin',
-                'redirect' => 'admin'
-            ],
-            'operator' => [
-                'password' => 'operator',
-                'role' => 'operator',
-                'redirect' => 'operator'
-            ],
-            'kepsek' => [
-                'password' => 'kepsek',
-                'role' => 'kepsek',
-                'redirect' => 'kepsek'
-            ],
-            'siswa' => [
-                'password' => 'siswa',
-                'role' => 'siswa',
-                'redirect' => 'siswa'
-            ]
-        ];
-
-        if (isset($users[$username]) && $users[$username]['password'] === $password) {
+        // Cek di tabel admin
+        $admin = $adminModel->getAdminByNama($nama);
+        if ($admin && password_verify($password, $admin['password'])) {
             $session->set([
-                'loggedin' => true,
-                'username' => $username,
-                'role' => $users[$username]['role']
+                'nama' => $admin['nama'],
+                'role' => 'admin',
+                'logged_in' => true
             ]);
-            return redirect()->to($users[$username]['redirect']);
-        } else {
-            return redirect()->to('login')->with('error', 'Invalid credentials');
+            return redirect()->to('/dashboard');
         }
+
+        // Cek di tabel kepala_sekolah
+        $kepalaSekolah = $kepalaSekolahModel->getKepalaSekolahByNama($nama);
+        if ($kepalaSekolah && password_verify($password, $kepalaSekolah['password'])) {
+            $session->set([
+                'nama' => $kepalaSekolah['nama'],
+                'role' => 'kepala_sekolah',
+                'logged_in' => true
+            ]);
+            return redirect()->to('/dashboard');
+        }
+
+        // Jika gagal login
+        $session->setFlashdata('error', 'Nama atau password salah');
+        return redirect()->to('/login');
     }
 
     public function logout()
     {
         session()->destroy();
-        return redirect()->to('/');
+        return redirect()->to('/login');
     }
 }
