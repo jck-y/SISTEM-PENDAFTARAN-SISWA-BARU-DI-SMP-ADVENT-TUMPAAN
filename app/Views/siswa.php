@@ -144,7 +144,7 @@
         <div class="form-header">
             <h2>FORMULIR PENDAFTARAN SISWA BARU</h2>
         </div>
-        <form>
+        <form action="<?= base_url('siswa/save_siswa'); ?>" method="post" id="siswaForm">
             <div class="form-group">
                 <label for="nama_lengkap">Nama Lengkap</label>
                 <input type="text" id="nama_lengkap" name="nama_lengkap">
@@ -162,8 +162,12 @@
                 <input type="text" id="nisn" name="nisn">
             </div>
             <div class="form-group">
-                <label for="tempat_tanggal_lahir">Tempat Tanggal Lahir</label>
-                <input type="text" id="tempat_tanggal_lahir" name="tempat_tanggal_lahir">
+                <label for="tempat_lahir">Tempat Lahir</label>
+                <input type="text" id="tempat_lahir" name="tempat_lahir">
+            </div>
+            <div class="form-group">
+                <label for="tanggal_lahir">Tanggal Lahir</label>
+                <input type="date" id="tanggal_lahir" name="tanggal_lahir">
             </div>
             <div class="form-group">
                 <label for="jenis_kelamin">Jenis Kelamin</label>
@@ -189,10 +193,10 @@
                 <label for="anak_ke">Anak ke</label>
                 <input type="number" id="anak_ke" name="anak_ke" class="highlighted-field">
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="status">Status</label>
                 <input type="text" id="status" name="status">
-            </div>
+            </div> -->
             <div class="form-group">
                 <label for="alamat_siswa">Alamat Siswa :</label>
                 <input type="text" id="alamat_siswa" name="alamat_siswa">
@@ -213,11 +217,42 @@
                 <label for="alamat_sekolah">Alamat Sekolah</label>
                 <input type="text" id="alamat_sekolah" name="alamat_sekolah">
             </div>
+
             <div class="button-group">
-                <button type="button">Orang Tua Kandung</button>
-                <button type="button">Orang Tua Wali</button>
+                <button type="submit" name="redirect_to" value="orangtua_kandung" id="btnKandung">Orang Tua Kandung</button>
+                <button type="submit" name="redirect_to" value="orangtua_wali" id="btnWali">Orang Tua Wali</button>
             </div>
         </form>
     </div>
+
+    <script>
+        // Menambahkan validasi sebelum submit form
+        document.getElementById('siswaForm').addEventListener('submit', function(event) {
+            // Mengambil semua field wajib
+            let valid = true;
+            const requiredFields = [
+                'nama_lengkap', 'nama_panggilan', 'nomor_induk_asal', 'nisn', 
+                'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 
+                'anak_ke', 'status', 'alamat_siswa', 'nama_sekolah', 
+                'nama_tk_asal', 'telepon', 'alamat_sekolah'
+            ];
+
+            // Cek jika ada field yang kosong
+            for (let field of requiredFields) {
+                let input = document.getElementById(field);
+                if (!input || input.value.trim() === '') {
+                    valid = false;
+                    input.style.borderColor = 'red'; // Tandai dengan border merah
+                } else {
+                    input.style.borderColor = ''; // Reset border jika sudah terisi
+                }
+            }
+
+            if (!valid) {
+                event.preventDefault(); // Hentikan form submission jika ada field kosong
+                alert("Harap mengisi semua kolom yang wajib!");
+            }
+        });
+    </script>
 </body>
 </html>
