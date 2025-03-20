@@ -45,7 +45,7 @@ class Auth extends BaseController
 
         if ($user) {
             // Catatan: untuk operator tidak ada kolom password di database Anda
-            if ($role != 'operator' && password_verify($password, $user['password'])) {
+            if ($role != 'operator' && $password === $user['password']) { // Ganti password_verify dengan perbandingan langsung
                 session()->set([
                     'id' => $user['id'],
                     'nama' => $user['nama'],
