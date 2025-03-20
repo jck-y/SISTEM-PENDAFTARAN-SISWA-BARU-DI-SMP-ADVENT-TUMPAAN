@@ -33,6 +33,11 @@ class Login extends Controller
                 'password' => 'kepsek',
                 'role' => 'kepsek',
                 'redirect' => 'kepsek'
+            ],
+            'siswa' => [
+                'password' => 'siswa',
+                'role' => 'siswa',
+                'redirect' => 'siswa'
             ]
         ];
 
