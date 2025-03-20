@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -42,7 +41,6 @@
             font-weight: bold;
             text-transform: uppercase;
         }
-
         .form-header h3 {
             font-size: 1rem;
             font-weight: bold;
@@ -82,7 +80,6 @@
             border-radius: 5px;
             display: none;
         }
-
         .button-group {
             display: flex;
             justify-content: center;

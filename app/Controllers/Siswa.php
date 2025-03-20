@@ -18,6 +18,8 @@ class Siswa extends BaseController
         return view('siswa');
     }
 
+
+
     public function orangtua_kandung()
     {
         return view('orangtua_kandung');
@@ -142,5 +144,6 @@ class Siswa extends BaseController
         } else {
             return redirect()->back()->with('error', 'Gagal mengunggah gambar');
         }
+
     }
 }
