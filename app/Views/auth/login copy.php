@@ -26,6 +26,14 @@
                                 <label class="form-label">Password</label>
                                 <input type="password" name="password" class="form-control" required>
                             </div>
+                            <div class="mb-3">
+                                <label class="form-label">Role</label>
+                                <select name="role" class="form-control" required>
+                                    <option value="admin">Admin</option>
+                                    <option value="kepala_sekolah">Kepala Sekolah</option>
+                                    <option value="operator">Operator</option>
+                                </select>
+                            </div>
                             <button type="submit" class="btn btn-primary">Login</button>
                         </form>
                     </div>
