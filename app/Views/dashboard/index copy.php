@@ -7,6 +7,7 @@
 <body>
     <div class="container mt-5">
         <h1>Selamat Datang, <?= $nama ?></h1>
+        <p>Role: <?= $role ?></p>
         <a href="/auth/logout" class="btn btn-danger">Logout</a>
     </div>
 </body>
