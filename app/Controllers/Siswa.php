@@ -14,4 +14,13 @@ class Siswa extends Controller
         }
         return view('siswa');
     }
+    public function orangTuaKandung()
+    {
+        return view('orangtua');
+    }
+
+    public function orangTuaWali()
+    {
+        return view('orangtuawali');
+    }
 }

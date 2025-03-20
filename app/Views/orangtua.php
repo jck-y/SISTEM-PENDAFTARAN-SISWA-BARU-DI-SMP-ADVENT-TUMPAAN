@@ -1,10 +1,10 @@
-<!-- app/Views/siswa.php -->
+<!-- app/Views/orangtua_kandung.php -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulir Pendaftaran Siswa Baru</title>
+    <title>Formulir Pendaftaran Siswa Baru - Orang Tua Kandung</title>
     <style>
         * {
             margin: 0;
@@ -38,9 +38,16 @@
         }
 
         .form-header h2 {
-            font-size: 1.2rem; /* Adjusted to match Figma */
+            font-size: 1.2rem; /* Matches Figma */
             font-weight: bold;
             text-transform: uppercase;
+        }
+
+        .form-header h3 {
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 5px;
         }
 
         .form-group {
@@ -81,16 +88,24 @@
             background-color: #fff;
         }
 
+        .sub-label {
+            color: white;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-left: 10px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
         .button-group {
             display: flex;
-            justify-content: space-between;
-            gap: 10px;
+            justify-content: center;
             margin-top: 20px;
         }
 
         .button-group button {
-            flex: 1;
             padding: 12px;
+            width: 100%;
             border: none;
             border-radius: 5px;
             background-color: #fff;
@@ -106,7 +121,7 @@
             background-color: #e0e0e0;
         }
 
-        /* Highlighted fields (ANAK KE) */
+        /* Highlighted field (Penghasilan Ibu) */
         .highlighted-field {
             background-color: #e0f0ff; /* Light blue highlight as per Figma */
         }
@@ -122,7 +137,12 @@
                 font-size: 1.5rem;
             }
 
-            .form-group label {
+            .form-header h3 {
+                font-size: 1.2rem;
+            }
+
+            .form-group label,
+            .sub-label {
                 font-size: 1rem;
             }
 
@@ -143,79 +163,74 @@
     <div class="form-wrapper">
         <div class="form-header">
             <h2>FORMULIR PENDAFTARAN SISWA BARU</h2>
+            <h3>ORANG TUA KANDUNG</h3>
         </div>
         <form>
             <div class="form-group">
-                <label for="nama_lengkap">Nama Lengkap</label>
-                <input type="text" id="nama_lengkap" name="nama_lengkap">
+                <label for="nama_lengkap_ayah">Nama Lengkap Ayah</label>
+                <input type="text" id="nama_lengkap_ayah" name="nama_lengkap_ayah">
             </div>
             <div class="form-group">
-                <label for="nama_panggilan">Nama Panggilan</label>
-                <input type="text" id="nama_panggilan" name="nama_panggilan">
+                <label for="nama_lengkap_ibu">Nama Lengkap Ibu</label>
+                <input type="text" id="nama_lengkap_ibu" name="nama_lengkap_ibu">
             </div>
             <div class="form-group">
-                <label for="nomor_induk_asal">Nomor Induk Asal</label>
-                <input type="text" id="nomor_induk_asal" name="nomor_induk_asal">
+                <label for="alamat_ayah">Alamat Ayah</label>
+                <input type="text" id="alamat_ayah" name="alamat_ayah">
             </div>
             <div class="form-group">
-                <label for="nisn">NISN</label>
-                <input type="text" id="nisn" name="nisn">
+                <label for="alamat_ibu">Alamat Ibu</label>
+                <input type="text" id="alamat_ibu" name="alamat_ibu">
             </div>
             <div class="form-group">
-                <label for="tempat_tanggal_lahir">Tempat Tanggal Lahir</label>
-                <input type="text" id="tempat_tanggal_lahir" name="tempat_tanggal_lahir">
-            </div>
-            <div class="form-group">
-                <label for="jenis_kelamin">Jenis Kelamin</label>
-                <select id="jenis_kelamin" name="jenis_kelamin">
-                    <option value="">Pilih Jenis Kelamin</option>
-                    <option value="Laki-laki">Laki-laki</option>
-                    <option value="Perempuan">Perempuan</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="agama">Agama</label>
-                <select id="agama" name="agama">
-                    <option value="">Pilih Agama</option>
-                    <option value="Islam">Islam</option>
-                    <option value="Kristen">Kristen</option>
-                    <option value="Katolik">Katolik</option>
-                    <option value="Hindu">Hindu</option>
-                    <option value="Buddha">Buddha</option>
-                    <option value="Konghucu">Konghucu</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="anak_ke">Anak ke</label>
-                <input type="number" id="anak_ke" name="anak_ke" class="highlighted-field">
-            </div>
-            <div class="form-group">
-                <label for="status">Status</label>
-                <input type="text" id="status" name="status">
-            </div>
-            <div class="form-group">
-                <label for="alamat_siswa">Alamat Siswa :</label>
-                <input type="text" id="alamat_siswa" name="alamat_siswa">
-            </div>
-            <div class="form-group">
-                <label for="nama_sekolah">Nama Sekolah</label>
-                <input type="text" id="nama_sekolah" name="nama_sekolah">
-            </div>
-            <div class="form-group">
-                <label for="nama_tk_asal">Nama TK Asal:</label>
-                <input type="text" id="nama_tk_asal" name="nama_tk_asal">
-            </div>
-            <div class="form-group">
-                <label for="telepon">Telepon/HP</label>
+                <label for="telepon">Telepon/No HP</label>
                 <input type="tel" id="telepon" name="telepon">
             </div>
             <div class="form-group">
-                <label for="alamat_sekolah">Alamat Sekolah</label>
-                <input type="text" id="alamat_sekolah" name="alamat_sekolah">
+                <label for="pekerjaan_ayah">Pekerjaan Ayah</label>
+                <input type="text" id="pekerjaan_ayah" name="pekerjaan_ayah">
+            </div>
+            <div class="form-group">
+                <label for="pekerjaan_ibu">Pekerjaan Ibu</label>
+                <input type="text" id="pekerjaan_ibu" name="pekerjaan_ibu">
+            </div>
+            <div class="form-group">
+                <label>Pendidikan Terakhir Orang Tua</label>
+                <div class="sub-label">Ayah</div>
+                <select id="pendidikan_ayah" name="pendidikan_ayah">
+                    <option value="">Pilih Pendidikan</option>
+                    <option value="SD">SD</option>
+                    <option value="SMP">SMP</option>
+                    <option value="SMA">SMA</option>
+                    <option value="D3">D3</option>
+                    <option value="S1">S1</option>
+                    <option value="S2">S2</option>
+                    <option value="S3">S3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <div class="sub-label">Ibu</div>
+                <select id="pendidikan_ibu" name="pendidikan_ibu">
+                    <option value="">Pilih Pendidikan</option>
+                    <option value="SD">SD</option>
+                    <option value="SMP">SMP</option>
+                    <option value="SMA">SMA</option>
+                    <option value="D3">D3</option>
+                    <option value="S1">S1</option>
+                    <option value="S2">S2</option>
+                    <option value="S3">S3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="penghasilan_ayah">Penghasilan Ayah</label>
+                <input type="text" id="penghasilan_ayah" name="penghasilan_ayah">
+            </div>
+            <div class="form-group">
+                <label for="penghasilan_ibu">Penghasilan Ibu</label>
+                <input type="text" id="penghasilan_ibu" name="penghasilan_ibu" class="highlighted-field">
             </div>
             <div class="button-group">
-                <button type="button" onclick="window.location.href='<?= base_url('orangtua') ?>'">Orang Tua Kandung</button>
-                <button type="button" onclick="window.location.href='<?= base_url('orangtuawali') ?>'">Orang Tua Wali</button>
+                <button type="button">Berikutnya</button>
             </div>
         </form>
     </div>
