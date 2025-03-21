@@ -106,6 +106,13 @@
             background-color: #e0e0e0;
         }
 
+        .button-group button:disabled {
+            background-color: #cccccc;
+            color: #666666;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
         /* Highlighted fields (ANAK KE) */
         .highlighted-field {
             background-color: #e0f0ff; /* Light blue highlight as per Figma */
@@ -144,7 +151,13 @@
         <div class="form-header">
             <h2>FORMULIR PENDAFTARAN SISWA BARU</h2>
         </div>
+        <!-- <div>
+            <h1>Selamat Datang, <?= $nama ?></h1>
+            <a href="/auth/logout" class="btn btn-danger">Logout</a>
+        </div> -->
+        
         <form action="<?= base_url('siswa/save_siswa'); ?>" method="post" id="siswaForm">
+            <!-- Form fields tetap sama -->
             <div class="form-group">
                 <label for="nama_lengkap">Nama Lengkap</label>
                 <input type="text" id="nama_lengkap" name="nama_lengkap">
@@ -193,10 +206,6 @@
                 <label for="anak_ke">Anak ke</label>
                 <input type="number" id="anak_ke" name="anak_ke" class="highlighted-field">
             </div>
-            <!-- <div class="form-group">
-                <label for="status">Status</label>
-                <input type="text" id="status" name="status">
-            </div> -->
             <div class="form-group">
                 <label for="alamat_siswa">Alamat Siswa :</label>
                 <input type="text" id="alamat_siswa" name="alamat_siswa">
@@ -219,40 +228,87 @@
             </div>
 
             <div class="button-group">
-                <button type="submit" name="redirect_to" value="orangtua_kandung" id="btnKandung">Orang Tua Kandung</button>
-                <button type="submit" name="redirect_to" value="orangtua_wali" id="btnWali">Orang Tua Wali</button>
+                <button type="submit" name="redirect_to" value="orangtua_kandung" id="btnKandung" disabled>Orang Tua Kandung</button>
+                <button type="submit" name="redirect_to" value="orangtua_wali" id="btnWali" disabled>Orang Tua Wali</button>
             </div>
         </form>
     </div>
 
     <script>
-        // Menambahkan validasi sebelum submit form
-        document.getElementById('siswaForm').addEventListener('submit', function(event) {
-            // Mengambil semua field wajib
-            let valid = true;
-            const requiredFields = [
-                'nama_lengkap', 'nama_panggilan', 'nomor_induk_asal', 'nisn', 
-                'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 
-                'anak_ke', 'status', 'alamat_siswa', 'nama_sekolah', 
-                'nama_tk_asal', 'telepon', 'alamat_sekolah'
-            ];
+        const form = document.getElementById('siswaForm');
+        const btnKandung = document.getElementById('btnKandung');
+        const btnWali = document.getElementById('btnWali');
+        
+        // Daftar semua field yang wajib diisi
+        const requiredFields = [
+            'nama_lengkap', 'nama_panggilan', 'nomor_induk_asal', 'nisn',
+            'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama',
+            'anak_ke', 'alamat_siswa', 'nama_sekolah', 'nama_tk_asal',
+            'telepon', 'alamat_sekolah'
+        ];
 
-            // Cek jika ada field yang kosong
-            for (let field of requiredFields) {
-                let input = document.getElementById(field);
-                if (!input || input.value.trim() === '') {
-                    valid = false;
-                    input.style.borderColor = 'red'; // Tandai dengan border merah
-                } else {
-                    input.style.borderColor = ''; // Reset border jika sudah terisi
+        // Fungsi untuk memeriksa apakah semua field sudah terisi
+        function checkFormValidity() {
+            let allFilled = true;
+            
+            requiredFields.forEach(fieldId => {
+                const input = document.getElementById(fieldId);
+                if (!input.value.trim() || (input.tagName === 'SELECT' && input.value === '')) {
+                    allFilled = false;
                 }
-            }
+            });
 
-            if (!valid) {
-                event.preventDefault(); // Hentikan form submission jika ada field kosong
-                alert("Harap mengisi semua kolom yang wajib!");
+            // Aktifkan atau nonaktifkan tombol berdasarkan status pengisian form
+            btnKandung.disabled = !allFilled;
+            btnWali.disabled = !allFilled;
+        }
+
+        // Event listener untuk setiap perubahan pada input
+        requiredFields.forEach(fieldId => {
+            const input = document.getElementById(fieldId);
+            input.addEventListener('input', checkFormValidity);
+            input.addEventListener('change', checkFormValidity);
+        });
+
+        // Validasi saat tombol diklik meskipun disabled (untuk keamanan tambahan)
+        btnKandung.addEventListener('click', function(event) {
+            if (this.disabled) {
+                event.preventDefault();
+                alert("Form tidak boleh kosong! Semua kolom wajib diisi sebelum melanjutkan ke Orang Tua Kandung.");
             }
         });
+
+        btnWali.addEventListener('click', function(event) {
+            if (this.disabled) {
+                event.preventDefault();
+                alert("Form tidak boleh kosong! Semua kolom wajib diisi sebelum melanjutkan ke Orang Tua Wali.");
+            }
+        });
+
+        // Validasi saat submit
+        form.addEventListener('submit', function(event) {
+            let valid = true;
+            let emptyFields = [];
+
+            requiredFields.forEach(fieldId => {
+                const input = document.getElementById(fieldId);
+                if (!input.value.trim() || (input.tagName === 'SELECT' && input.value === '')) {
+                    valid = false;
+                    emptyFields.push(input.previousElementSibling.textContent);
+                    input.style.borderColor = 'red';
+                } else {
+                    input.style.borderColor = '';
+                }
+            });
+
+            if (!valid) {
+                event.preventDefault();
+                alert(`Form tidak boleh kosong! Semua kolom wajib diisi. Kolom yang masih kosong: \n- ${emptyFields.join('\n- ')}`);
+            }
+        });
+
+        // Cek validitas form saat pertama kali dimuat
+        checkFormValidity();
     </script>
 </body>
 </html>

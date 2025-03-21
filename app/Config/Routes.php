@@ -16,9 +16,13 @@ use CodeIgniter\Router\RouteCollection;
 
 $routes->get('/', 'Auth::index');
 $routes->get('/auth', 'Auth::index');
-$routes->post('/auth/login', 'Auth::login');
+$routes->post('/auth/login', 'Auth::login ');
 $routes->get('/auth/logout', 'Auth::logout');
 $routes->get('/dashboard', 'Dashboard::index');
+$routes->get('/kepsek', 'Kepsek::index');
+$routes->get('/admin', 'Admin::index');
+$routes->post('/register', 'Siswa::index');
+$routes->get('/home', 'Home::index');
 
 $routes->get('/siswa', 'Siswa::index');
 $routes->post('/siswa/save_siswa', 'Siswa::save_siswa');

@@ -1,17 +1,15 @@
 <?php
-
 namespace App\Controllers;
 
-use CodeIgniter\Controller;
-
-class Kepsek extends Controller
+class Kepsek extends BaseController
 {
     public function index()
     {
-        $session = session();
-        if (!$session->get('loggedin') || $session->get('role') !== 'kepsek') {
-            return redirect()->to('login');
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/auth');
         }
-        return view('kepsek');
+        $data['role'] = session()->get('role');
+        $data['nama'] = session()->get('nama');
+        return view('kepsek/index', $data);
     }
 }

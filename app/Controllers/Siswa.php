@@ -13,12 +13,17 @@ class Siswa extends BaseController
         $this->siswaModel = new SiswaModel();
     }
 
+   
     public function index()
     {
-        return view('siswa');
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/auth');
+        }
+        $data = [
+            'nama' => session()->get('nama_lengkap')
+        ];
+        return view('siswa/index', $data);
     }
-
-
 
     public function orangtua_kandung()
     {
