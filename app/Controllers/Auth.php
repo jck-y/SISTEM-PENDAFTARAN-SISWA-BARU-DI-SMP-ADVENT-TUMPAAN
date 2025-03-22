@@ -66,15 +66,15 @@ class Auth extends BaseController
             } 
         }
 
-        // Cek di tabel operator (tanpa password)
+        // Cek di tabel operator 
         $user = $this->operatorModel->where('nama', $nama)->first();
-        if ($user) {
+        if ($user && $password === $user['password']) {
             session()->set([
                 'id' => $user['id'],
                 'nama' => $user['nama'],
                 'logged_in' => true
             ]);
-            return redirect()->to('/dashboard');
+            return redirect()->to('/operator');
         }
 
         // Jika tidak ditemukan di semua tabel

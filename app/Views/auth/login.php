@@ -76,10 +76,12 @@
         </form>
 
         <!-- Tombol Register di luar form login -->
-        <form action="<?= base_url('/register') ?>" method="post">
+        <!-- <form action="<?= base_url('/register') ?>" method="post">
             <?= csrf_field() ?>
             <button type="submit" class="btn btn-primary w-100 mt-2">Register</button>
-        </form>
+        </form> -->
+
+        <a href="<?= base_url('/siswa') ?>" class="btn btn-primary w-100 mt-2">Register</a>
 
     </div>
 

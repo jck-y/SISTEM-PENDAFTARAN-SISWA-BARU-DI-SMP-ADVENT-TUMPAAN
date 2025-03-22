@@ -14,30 +14,39 @@ class Siswa extends BaseController
     }
 
    
+    // public function index()
+    // {
+    //     if (!session()->get('logged_in')) {
+    //         return redirect()->to('/auth');
+    //     }
+    //     $data = [
+    //         'nama' => session()->get('nama_lengkap')
+    //     ];
+    //     return view('siswa/index', $data);
+    // }
+
     public function index()
     {
-        if (!session()->get('logged_in')) {
-            return redirect()->to('/auth');
-        }
+        // No login check needed for registration page
         $data = [
-            'nama' => session()->get('nama_lengkap')
+            'nama' => session()->get('nama_lengkap') ?? '' // Default to empty string if not logged in
         ];
         return view('siswa/index', $data);
     }
 
     public function orangtua_kandung()
     {
-        return view('orangtua_kandung');
+        return view('orangtua/orangtua_kandung');
     }
 
     public function orangtua_wali()
     {
-        return view('orangtua_wali');
+        return view('orangtua/orangtua_wali');
     }
 
     public function uploadimg()
     {
-        return view('uploadimg');
+        return view('orangtua/uploadimg');
     }
 
     public function save_siswa()
