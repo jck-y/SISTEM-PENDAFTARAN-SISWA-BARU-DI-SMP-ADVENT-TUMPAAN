@@ -7,4 +7,8 @@ class Dashboard extends BaseController
     {
         return view('dashboard/admin');
     }
+    public function siswa()
+    {
+        return view('dashboard/admin2');
+    }
 }

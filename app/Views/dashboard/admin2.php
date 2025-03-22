@@ -377,8 +377,8 @@
             <tbody>
                 <!-- Mapping data GET Email -->
                 <tr>
-                    <td>KEPALA SEKOLAH</td>
-                    <td>KEPALA SEKOLAH 1@GMAIL.COM</td>
+                    <td>SISWA 1</td>
+                    <td>SISWA 1@GMAIL.COM</td>
                     <td class="action-cell-changepass"><img class="changepass" src="<?= base_url('assets/changepass.png'); ?>" alt="Change Password" onclick="onChangePassword()"></td>
                     <td class="action-cell-delete"><img class="deletemail" src="<?= base_url('assets/deletemail.png'); ?>" alt="Delete Email" onclick="onDeleteEmail()"></td>
                 </tr>
