@@ -169,6 +169,15 @@
 <body>
     <div class="form-wrapper">
         <div class="form-header">
+<!--             <h2>FORMULIR PENDAFTARAN SISWA BARU</h2>
+        </div> -->
+        <!-- <div>
+            <h1>Selamat Datang, <?= $nama ?></h1>
+            <a href="/auth/logout" class="btn btn-danger">Logout</a>
+        </div> -->
+        
+<!--         <form action="<?= base_url('siswa/save_siswa'); ?>" method="post" id="siswaForm"> -->
+            <!-- Form fields tetap sama -->
             <img src="https://www.simivalleyelementary.org/build/image/3.png?h=200&fit=max&s=db9ab56df5b6520e116417b618007eff" alt="Logo" class="img-fluid mx-auto d-block" width="50">
             <h2>FORMULIR PENDAFTARAN SISWA BARU</h2>
         </div>
@@ -257,33 +266,109 @@
     </div>
 
     <script>
-        // Menambahkan validasi sebelum submit form
-        document.getElementById('siswaForm').addEventListener('submit', function(event) {
-            // Mengambil semua field wajib
-            let valid = true;
-            const requiredFields = [
-                'nama_lengkap', 'nama_panggilan', 'nomor_induk_asal', 'nisn', 
-                'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 
-                'anak_ke', 'status', 'alamat_siswa', 'nama_sekolah', 
-                'nama_tk_asal', 'telepon', 'alamat_sekolah'
-            ];
+        const form = document.getElementById('siswaForm');
+        const btnKandung = document.getElementById('btnKandung');
+        const btnWali = document.getElementById('btnWali');
+        
+        // Daftar semua field yang wajib diisi
+        const requiredFields = [
+            'nama_lengkap', 'nama_panggilan', 'nomor_induk_asal', 'nisn',
+            'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama',
+            'anak_ke', 'alamat_siswa', 'nama_sekolah', 'nama_tk_asal',
+            'telepon', 'alamat_sekolah'
+        ];
 
-            // Cek jika ada field yang kosong
-            for (let field of requiredFields) {
-                let input = document.getElementById(field);
-                if (!input || input.value.trim() === '') {
-                    valid = false;
-                    input.style.borderColor = 'red'; // Tandai dengan border merah
-                } else {
-                    input.style.borderColor = ''; // Reset border jika sudah terisi
+        // Fungsi untuk memeriksa apakah semua field sudah terisi
+        function checkFormValidity() {
+            let allFilled = true;
+            
+            requiredFields.forEach(fieldId => {
+                const input = document.getElementById(fieldId);
+                if (!input.value.trim() || (input.tagName === 'SELECT' && input.value === '')) {
+                    allFilled = false;
                 }
-            }
+            });
 
-            if (!valid) {
-                event.preventDefault(); // Hentikan form submission jika ada field kosong
-                alert("Harap mengisi semua kolom yang wajib!");
+            // Aktifkan atau nonaktifkan tombol berdasarkan status pengisian form
+            btnKandung.disabled = !allFilled;
+            btnWali.disabled = !allFilled;
+        }
+
+        // Event listener untuk setiap perubahan pada input
+        requiredFields.forEach(fieldId => {
+            const input = document.getElementById(fieldId);
+            input.addEventListener('input', checkFormValidity);
+            input.addEventListener('change', checkFormValidity);
+        });
+
+        // Validasi saat tombol diklik meskipun disabled (untuk keamanan tambahan)
+        btnKandung.addEventListener('click', function(event) {
+            if (this.disabled) {
+                event.preventDefault();
+                alert("Form tidak boleh kosong! Semua kolom wajib diisi sebelum melanjutkan ke Orang Tua Kandung.");
             }
         });
+
+        btnWali.addEventListener('click', function(event) {
+            if (this.disabled) {
+                event.preventDefault();
+                alert("Form tidak boleh kosong! Semua kolom wajib diisi sebelum melanjutkan ke Orang Tua Wali.");
+            }
+        });
+
+        // Validasi saat submit
+        form.addEventListener('submit', function(event) {
+            let valid = true;
+            let emptyFields = [];
+
+            requiredFields.forEach(fieldId => {
+                const input = document.getElementById(fieldId);
+                if (!input.value.trim() || (input.tagName === 'SELECT' && input.value === '')) {
+                    valid = false;
+                    emptyFields.push(input.previousElementSibling.textContent);
+                    input.style.borderColor = 'red';
+                } else {
+                    input.style.borderColor = '';
+                }
+            });
+
+            if (!valid) {
+                event.preventDefault();
+                alert(`Form tidak boleh kosong! Semua kolom wajib diisi. Kolom yang masih kosong: \n- ${emptyFields.join('\n- ')}`);
+            }
+        });
+
+        // Cek validitas form saat pertama kali dimuat
+        checkFormValidity();
+// =======
+//         // Menambahkan validasi sebelum submit form
+//         document.getElementById('siswaForm').addEventListener('submit', function(event) {
+//             // Mengambil semua field wajib
+//             let valid = true;
+//             const requiredFields = [
+//                 'nama_lengkap', 'nama_panggilan', 'nomor_induk_asal', 'nisn', 
+//                 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 
+//                 'anak_ke', 'status', 'alamat_siswa', 'nama_sekolah', 
+//                 'nama_tk_asal', 'telepon', 'alamat_sekolah'
+//             ];
+
+//             // Cek jika ada field yang kosong
+//             for (let field of requiredFields) {
+//                 let input = document.getElementById(field);
+//                 if (!input || input.value.trim() === '') {
+//                     valid = false;
+//                     input.style.borderColor = 'red'; // Tandai dengan border merah
+//                 } else {
+//                     input.style.borderColor = ''; // Reset border jika sudah terisi
+//                 }
+//             }
+
+//             if (!valid) {
+//                 event.preventDefault(); // Hentikan form submission jika ada field kosong
+//                 alert("Harap mengisi semua kolom yang wajib!");
+//             }
+//         });
+// >>>>>>> pagesSiswa
     </script>
 </body>
 </html>

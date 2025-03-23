@@ -73,7 +73,7 @@
         <?php endif; ?>
 
         <!-- Form Login -->
-        <form action="/auth/login" method="post">
+        <form action="<?= base_url('/auth/login') ?>" method="post">
             <?= csrf_field() ?>
             <div class="mb-3 input-group">
                 <span class="input-group-text bg-transparent border-white text-white"><i class="bi bi-person"></i></span>
@@ -84,8 +84,15 @@
                 <input type="password" class="form-control" name="password" placeholder="Password" required>
             </div>
             <button type="submit" class="btn btn-primary w-100">Login</button>
-            <button type="button" class="btn btn-primary w-100 mt-2">Register</button>
         </form>
+
+        <!-- Tombol Register di luar form login -->
+        <!-- <form action="<?= base_url('/register') ?>" method="post">
+            <?= csrf_field() ?>
+            <button type="submit" class="btn btn-primary w-100 mt-2">Register</button>
+        </form> -->
+
+        <a href="<?= base_url('/siswa') ?>" class="btn btn-primary w-100 mt-2">Register</a>
 
     </div>
 

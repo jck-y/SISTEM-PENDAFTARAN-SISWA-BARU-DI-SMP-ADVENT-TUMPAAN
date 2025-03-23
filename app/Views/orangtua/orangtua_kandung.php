@@ -1,3 +1,4 @@
+<!-- app/Views/orangtua_kandung.php -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -57,7 +58,6 @@
             font-weight: bold;
             text-transform: uppercase;
         }
-
         .header-section {
             text-align: center;
             color: white;
@@ -89,7 +89,6 @@
             background-color: #fff;
             color: #333;
         }
-
         .button-group {
             display: flex;
             justify-content: center;

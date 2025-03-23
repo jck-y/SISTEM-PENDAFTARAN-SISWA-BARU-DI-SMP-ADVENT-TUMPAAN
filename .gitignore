@@ -125,5 +125,10 @@ nb-configuration.xml
 /results/
 /phpunit*.xml
 
+#-------------------------
+# Database Configuration
+#-------------------------
 
+app/Config/Database.php
 Controllers
+

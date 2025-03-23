@@ -1,4 +1,6 @@
+
 <!-- app/Views/upload_gambar.php -->
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -54,7 +56,6 @@
             font-weight: bold;
             text-transform: uppercase;
         }
-
         .form-header h3 {
             font-size: 1rem;
             font-weight: bold;
@@ -143,7 +144,6 @@
             font-size: 1rem;
             cursor: pointer;
         }
-
         .button-group {
             display: flex;
             justify-content: center;
@@ -174,7 +174,6 @@
             cursor: not-allowed;
         }
 
-        /* Responsive Design for Desktop */
         @media (min-width: 768px) {
             .form-wrapper {
                 max-width: 600px;
@@ -193,7 +192,6 @@
                 font-size: 1rem;
                 padding: 30px;
             }
-
             .drop-area .icon {
                 font-size: 2.5rem;
             }
@@ -224,7 +222,7 @@
 </head>
 <body>
     <div class="form-wrapper">
-        <div class="form-header">
+        <div class="form-header">       
             <img src="https://www.simivalleyelementary.org/build/image/3.png?h=200&fit=max&s=db9ab56df5b6520e116417b618007eff" alt="Logo" width="50">
             <h2>FORMULIR PENDAFTARAN SISWA BARU</h2>
         </div>
@@ -263,7 +261,6 @@
         const removeBtn = document.getElementById('removeBtn');
         const submitButton = document.getElementById('submitButton');
         const uploadForm = document.getElementById('uploadForm');
-
         function toggleSubmitButton() {
             if (fileInput.files.length > 0) {
                 submitButton.disabled = false;
@@ -271,7 +268,6 @@
                 submitButton.disabled = true;
             }
         }
-
         uploadForm.addEventListener('submit', (e) => {
             if (fileInput.files.length === 0) {
                 e.preventDefault(); 

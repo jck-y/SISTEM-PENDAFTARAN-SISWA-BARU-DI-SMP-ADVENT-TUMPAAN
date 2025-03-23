@@ -1,3 +1,5 @@
+
+<!-- app/Views/orangtua_wali.php -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -89,7 +91,6 @@
             background-color: #fff;
             color: #333;
         }
-
         .button-group {
             display: flex;
             justify-content: center;
@@ -187,5 +188,20 @@
             </div>
         </form>
     </div>
+        <script>
+        // Client-side validation for form submission
+        function validateForm() {
+            // Check if all required fields are filled out
+            let inputs = document.querySelectorAll('input[required], select[required]');
+            for (let input of inputs) {
+                if (!input.value.trim()) {
+                    alert('Harap mengisi semua kolom yang wajib.');
+                    input.focus();
+                    return false; // Prevent form submission
+                }
+            }
+            return true; // Allow form submission
+        }
+    </script>
 </body>
 </html>

@@ -8,5 +8,6 @@
     <h1>Welcome, Kepala Sekolah <?= session()->get('username'); ?>!</h1>
     <p>This is the kepala sekolah dashboard.</p>
     <a href="<?= site_url('logout'); ?>">Logout</a>
+
 </body>
 </html>
