@@ -1,10 +1,12 @@
+
 <!-- app/Views/orangtua_wali.php -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulir Pendaftaran Siswa Baru - Orang Tua Wali</title>
+    <title>Formulir Pendaftaran Siswa Baru - Orang Tua Kandung</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -14,89 +16,81 @@
         }
 
         body {
-            background-color: #f0f0f0;
+            background: url('https://static.vecteezy.com/system/resources/previews/015/227/308/non_2x/abstract-blue-and-yellow-geometric-gradient-background-vector.jpg') no-repeat center center fixed;
+            background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 10px;
         }
-
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            background: inherit;
+            filter: blur(10px); 
+            z-index: -1; 
+        }
         .form-wrapper {
-            background-color: #004080; /* Blue background from Figma */
+            background-color: #2148C0;
             padding: 20px;
             border-radius: 10px;
-            width: 100%;
-            max-width: 390px; /* Matches iPhone 13 width */
+            width: 90%;
+            max-width: 500px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 50px;
         }
 
         .form-header {
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-bottom: 20px;
+            text-align: center;
+            gap: 10px;
+        }
+
+        .form-header h2 {
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .header-section {
             text-align: center;
             color: white;
             margin-bottom: 20px;
         }
 
-        .form-header h2 {
-            font-size: 1.2rem; /* Matches Figma */
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .form-header h3 {
-            font-size: 1rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-top: 5px;
-        }
-
         .form-group {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            align-items: center;
+            gap: 10px;
             margin-bottom: 15px;
         }
 
         .form-group label {
-            display: block;
             color: white;
-            font-size: 0.85rem; /* Matches Figma label size */
+            font-size: 0.85rem;
             font-weight: bold;
-            margin-bottom: 5px;
             text-transform: uppercase;
         }
 
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 12px; /* Matches Figma input height */
+            padding: 10px;
             border: none;
             border-radius: 5px;
             font-size: 0.9rem;
             background-color: #fff;
             color: #333;
         }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-        }
-
-        .form-group select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
-            background-color: #fff;
-        }
-
-        .sub-label {
-            color: white;
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-left: 10px;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-
         .button-group {
             display: flex;
             justify-content: center;
@@ -104,8 +98,7 @@
         }
 
         .button-group button {
-            padding: 12px;
-            width: 100%;
+            padding: 12px 20px;
             border: none;
             border-radius: 5px;
             background-color: #fff;
@@ -118,87 +111,47 @@
         }
 
         .button-group button:hover {
-            background-color: #e0e0e0;
-        }
-
-        /* Highlighted field (Penghasilan Ibu) */
-        .highlighted-field {
-            background-color: #e0f0ff; /* Light blue highlight as per Figma */
-        }
-
-        /* Responsive Design for Desktop */
-        @media (min-width: 768px) {
-            .form-wrapper {
-                max-width: 600px; /* Wider form for desktop */
-                padding: 30px;
-            }
-
-            .form-header h2 {
-                font-size: 1.5rem;
-            }
-
-            .form-header h3 {
-                font-size: 1.2rem;
-            }
-
-            .form-group label,
-            .sub-label {
-                font-size: 1rem;
-            }
-
-            .form-group input,
-            .form-group select {
-                font-size: 1rem;
-                padding: 14px;
-            }
-
-            .button-group button {
-                font-size: 1rem;
-                padding: 14px;
-            }
+            background-color: #FFC107;
         }
     </style>
 </head>
 <body>
     <div class="form-wrapper">
         <div class="form-header">
+            <img src="https://www.simivalleyelementary.org/build/image/3.png?h=200&fit=max&s=db9ab56df5b6520e116417b618007eff" alt="Logo" width="50">
             <h2>FORMULIR PENDAFTARAN SISWA BARU</h2>
-            <h3>ORANG TUA WALI</h3>
         </div>
-        <form action="<?= base_url('siswa/save_orangtua_wali'); ?>" method="post" onsubmit="return validateForm()">
+        <div class="header-section">
+            <h2>ORANG TUA WALI</h2>
+        </div>
+        <form action="<?= base_url('siswa/save_orangtua_kandung'); ?>" method="post">
             <div class="form-group">
-                <label for="nama_ayah_wali">Nama Ayah Wali</label>
-                <input type="text" id="nama_ayah_wali" name="nama_ayah_wali" required>
+                <label for="nama_lengkap_ayah">Nama Lengkap Ayah Wali</label>
+                <input type="text" id="nama_lengkap_ayah" name="nama_lengkap_ayah" required>
             </div>
             <div class="form-group">
-                <label for="nama_ibu_wali">Nama Ibu Wali</label>
-                <input type="text" id="nama_ibu_wali" name="nama_ibu_wali" required>
+                <label for="nama_lengkap_ibu">Nama Lengkap Ibu Wali</label>
+                <input type="text" id="nama_lengkap_ibu" name="nama_lengkap_ibu" required>
             </div>
             <div class="form-group">
-                <label for="alamat_ayah_wali">Alamat Ayah Wali</label>
-                <input type="text" id="alamat_ayah_wali" name="alamat_ayah_wali" required>
-            </div>
-            <div class="form-group">
-                <label for="alamat_ibu_wali">Alamat Ibu Wali</label>
-                <input type="text" id="alamat_ibu_wali" name="alamat_ibu_wali" required>
+                <label for="alamat">Alamat</label>
+                <input type="text" id="alamat" name="alamat" required>
             </div>
             <div class="form-group">
                 <label for="telepon">Telepon/No HP</label>
-                <input type="tel" id="telepon" name="telepon" required pattern="^[0-9]{10,15}$">
-                <small>Format: 10-15 digit angka</small>
+                <input type="tel" id="telepon" name="telepon" required>
             </div>
             <div class="form-group">
-                <label for="pekerjaan_ayah_wali">Pekerjaan Ayah Wali</label>
-                <input type="text" id="pekerjaan_ayah_wali" name="pekerjaan_ayah_wali" required>
+                <label for="pekerjaan_ayah">Pekerjaan Ayah</label>
+                <input type="text" id="pekerjaan_ayah" name="pekerjaan_ayah" required>
             </div>
             <div class="form-group">
-                <label for="pekerjaan_ibu_wali">Pekerjaan Ibu Wali</label>
-                <input type="text" id="pekerjaan_ibu_wali" name="pekerjaan_ibu_wali" required>
+                <label for="pekerjaan_ibu">Pekerjaan Ibu</label>
+                <input type="text" id="pekerjaan_ibu" name="pekerjaan_ibu" required>
             </div>
             <div class="form-group">
-                <label>Pendidikan Terakhir Orang Tua</label>
-                <div class="sub-label">Ayah</div>
-                <select id="pendidikan_ayah_wali" name="pendidikan_ayah_wali" required>
+                <label for="pendidikan_ayah">Pendidikan Ayah</label>
+                <select id="pendidikan_ayah" name="pendidikan_ayah" required>
                     <option value="">Pilih Pendidikan</option>
                     <option value="SD">SD</option>
                     <option value="SMP">SMP</option>
@@ -210,8 +163,8 @@
                 </select>
             </div>
             <div class="form-group">
-                <div class="sub-label">Ibu</div>
-                <select id="pendidikan_ibu_wali" name="pendidikan_ibu_wali" required>
+                <label for="pendidikan_ibu">Pendidikan Ibu</label>
+                <select id="pendidikan_ibu" name="pendidikan_ibu" required>
                     <option value="">Pilih Pendidikan</option>
                     <option value="SD">SD</option>
                     <option value="SMP">SMP</option>
@@ -223,12 +176,12 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="penghasilan_ayah_wali">Penghasilan Ayah</label>
-                <input type="text" id="penghasilan_ayah_wali" name="penghasilan_ayah_wali" required>
+                <label for="pekerjaan_ayah">Penghasilan Ayah</label>
+                <input type="text" id="penghasilan_ayah" name="penghasilan_ayah" required>
             </div>
             <div class="form-group">
-                <label for="penghasilan_ibu_wali">Penghasilan Ibu</label>
-                <input type="text" id="penghasilan_ibu_wali" name="penghasilan_ibu_wali" class="highlighted-field" required>
+                <label for="pekerjaan_ayah">Penghasilan Ibu</label>
+                <input type="text" id="penghasilan_ibu" name="penghasilan_ibu" required>
             </div>
             <div class="button-group">
                 <button type="submit">Berikutnya</button>

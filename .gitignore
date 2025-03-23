@@ -125,9 +125,11 @@ nb-configuration.xml
 /results/
 /phpunit*.xml
 
-#---------------------------------------
-# Database Configuration & Image Uploads
-#---------------------------------------
+#-----------------------------------------------------
+# Database Configuration & Image Uploads & Controllers
+#-----------------------------------------------------
 
 app/Config/Database.php
 public/uploads
+app/Controllers
+

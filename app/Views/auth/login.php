@@ -16,6 +16,17 @@
             align-items: center;
             height: 100vh;
         }
+        body::before{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 220%;
+            background: inherit;
+            filter: blur(10px); 
+            z-index: -1; 
+        }
         .login-container {
             background:#2148C0;
             color: white;
