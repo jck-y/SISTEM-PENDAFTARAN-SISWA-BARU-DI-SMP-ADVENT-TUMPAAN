@@ -14,7 +14,7 @@
         }
 
         body {
-            background: url('https://static.vecteezy.com/system/resources/previews/015/227/308/non_2x/abstract-blue-and-yellow-geometric-gradient-background-vector.jpg') no-repeat center center fixed;
+            background: url('https://static.vecteezy.com/system/resources/previews/009/006/369/non_2x/abstract-blue-and-yellow-geometric-gradient-background-vector.jpg') no-repeat center center fixed;
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -38,10 +38,11 @@
             background-color: #2148C0; 
             padding: 20px;
             border-radius: 10px;
-            width: 90%;
+            width: 80%;
             max-width: 350px; 
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             margin-top: 50px;
+            margin-bottom: 50px;
         }
 
         .form-header {
@@ -233,28 +234,41 @@
                 <label for="anak_ke">Anak ke</label>
                 <input type="number" id="anak_ke" name="anak_ke" class="highlighted-field">
             </div>
+            <div class="form-group">
+                <label for="status">Status Anak</label>
+                <select id="status" name="status">
+                    <option value="">Status Anak Dalam Keluarga</option>
+                    <option value="Anak Kandung">Anak Kandung</option>
+                    <option value="Anak Angkat">Anak Angkat</option>
+                    <option value="Lainnya">Lainnya</option>
+                </select>
+            </div>
             <!-- <div class="form-group">
                 <label for="status">Status</label>
                 <input type="text" id="status" name="status">
             </div> -->
+            <div class="header-section">
+            <h2>ALAMAT SISWA</h2>
+            </div>
+
             <div class="form-group">
                 <label for="alamat_siswa">Alamat Siswa :</label>
                 <input type="text" id="alamat_siswa" name="alamat_siswa">
             </div>
             <div class="form-group">
-                <label for="nama_sekolah">Nama Sekolah</label>
-                <input type="text" id="nama_sekolah" name="nama_sekolah">
+                <label for="telepon">Telepon/HP</label>
+                <input type="tel" id="telepon" name="telepon">
+            </div>
+            <div class="header-section">
+            <h2>NAMA TK ASAL</h2>
             </div>
             <div class="form-group">
                 <label for="nama_tk_asal">Nama TK Asal:</label>
                 <input type="text" id="nama_tk_asal" name="nama_tk_asal">
             </div>
+
             <div class="form-group">
-                <label for="telepon">Telepon/HP</label>
-                <input type="tel" id="telepon" name="telepon">
-            </div>
-            <div class="form-group">
-                <label for="alamat_sekolah">Alamat Sekolah</label>
+                <label for="alamat_sekolah">Alamat TK</label>
                 <input type="text" id="alamat_sekolah" name="alamat_sekolah">
             </div>
 

@@ -15,7 +15,7 @@
         }
 
         body {
-            background: url('https://static.vecteezy.com/system/resources/previews/015/227/308/non_2x/abstract-blue-and-yellow-geometric-gradient-background-vector.jpg') no-repeat center center fixed;
+            background: url('https://static.vecteezy.com/system/resources/previews/009/006/369/non_2x/abstract-blue-and-yellow-geometric-gradient-background-vector.jpg') no-repeat center center fixed;
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -132,8 +132,12 @@
                 <input type="text" id="nama_lengkap_ibu" name="nama_lengkap_ibu" required>
             </div>
             <div class="form-group">
-                <label for="alamat">Alamat</label>
-                <input type="text" id="alamat" name="alamat" required>
+                <label for="alamat_ayah">Alamat Ayah</label>
+                <input type="text" id="alamat_ayah" name="alamat_ayah" required>
+            </div>
+            <div class="form-group">
+                <label for="alamat_ibu">Alamat Ibu</label>
+                <input type="text" id="alamat_ibu" name="alamat_ibu" required>
             </div>
             <div class="form-group">
                 <label for="telepon">Telepon/No HP</label>
@@ -174,11 +178,11 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="pekerjaan_ayah">Penghasilan Ayah</label>
+                <label for="pekerjaan_ayah">Penghasilan Perbulan Ayah</label>
                 <input type="text" id="penghasilan_ayah" name="penghasilan_ayah" required>
             </div>
             <div class="form-group">
-                <label for="pekerjaan_ayah">Penghasilan Ibu</label>
+                <label for="pekerjaan_ayah">Penghasilan Perbulan Ibu</label>
                 <input type="text" id="penghasilan_ibu" name="penghasilan_ibu" required>
             </div>
             <div class="button-group">

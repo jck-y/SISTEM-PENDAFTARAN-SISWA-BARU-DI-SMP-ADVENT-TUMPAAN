@@ -16,7 +16,7 @@
         }
 
         body {
-            background: url('https://static.vecteezy.com/system/resources/previews/015/227/308/non_2x/abstract-blue-and-yellow-geometric-gradient-background-vector.jpg') no-repeat center center fixed;
+            background: url('https://static.vecteezy.com/system/resources/previews/009/006/369/non_2x/abstract-blue-and-yellow-geometric-gradient-background-vector.jpg') no-repeat center center fixed;
             background-size: cover;
             display: flex;
             justify-content: center;
