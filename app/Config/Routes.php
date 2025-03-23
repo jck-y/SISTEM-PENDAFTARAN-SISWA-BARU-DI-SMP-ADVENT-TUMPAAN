@@ -29,3 +29,7 @@ $routes->post('/siswa/save_orangtua_wali', 'Siswa::save_orangtua_wali');
 $routes->get('/siswa/uploadimg', 'Siswa::uploadimg');
 $routes->post('/siswa/upload', 'Siswa::upload');
 $routes->get('/siswa/done', 'Siswa::done');
+$routes->get('/siswa/detail/(:num)', 'Siswa::detail/$1');
+
+/** ROUTES FOR OPERATOR */
+$routes->post('/operator/update_status', 'Operator::update_status');

@@ -172,32 +172,55 @@ class Siswa extends BaseController
     }
 
     public function upload()
-    {
-        if (!session()->has('id_siswa')) {
-            return redirect()->to('/siswa')->with('error', 'Pendaftaran siswa harus dilakukan terlebih dahulu');
-        }
-
-        $file = $this->request->getFile('gambar');
-        if ($file->isValid() && !$file->hasMoved()) {
-            $newName = $file->getRandomName();
-            $file->move(ROOTPATH . 'public/uploads', $newName);
-
-            $data = [
-                'gambar' => $newName
-            ];
-
-            $id_siswa = session()->get('id_siswa');
-            if ($this->siswaModel->update($id_siswa, $data)) {
-                session()->remove('id_siswa'); // Bersihkan session setelah selesai
-                return redirect()->to('/siswa/done');
-            }
-        }
-        
-        return redirect()->back()->with('error', 'Gagal mengunggah gambar');
+{
+    if (!session()->has('id_siswa')) {
+        return redirect()->to('/siswa')->with('error', 'Pendaftaran siswa harus dilakukan terlebih dahulu');
     }
+
+    $file = $this->request->getFile('gambar');
+    if ($file->isValid() && !$file->hasMoved()) {
+        // Ambil data siswa untuk mendapatkan nama
+        $id_siswa = session()->get('id_siswa');
+        $siswa = $this->siswaModel->find($id_siswa);
+        
+        if (!$siswa) {
+            return redirect()->back()->with('error', 'Data siswa tidak ditemukan');
+        }
+
+        // Buat nama file berdasarkan nama lengkap siswa
+        $namaFile = str_replace(' ', '_', strtolower($siswa['nama_lengkap'])) . '.' . $file->getExtension();
+        $file->move(ROOTPATH . 'public/uploads', $namaFile);
+
+        $data = [
+            'gambar' => $namaFile
+        ];
+
+        if ($this->siswaModel->update($id_siswa, $data)) {
+            session()->remove('id_siswa'); // Bersihkan session setelah selesai
+            return redirect()->to('/siswa/done');
+        }
+    }
+    
+    return redirect()->back()->with('error', 'Gagal mengunggah gambar');
+}
 
     public function done()
     {
         return view('siswa/done');
     }
+
+    public function detail($id_siswa)
+{
+    $data = [
+        'siswa' => $this->siswaModel->find($id_siswa),
+        'orang_tua' => $this->siswaModel->db->table('orang_tua')->where('id_siswa', $id_siswa)->get()->getRowArray(),
+        'wali' => $this->siswaModel->db->table('wali')->where('id_siswa', $id_siswa)->get()->getRowArray()
+    ];
+    
+    if (!$data['siswa']) {
+        return redirect()->to('/operator')->with('error', 'Data siswa tidak ditemukan');
+    }
+    
+    return view('siswa/detail_siswa', $data);
+}
 }
