@@ -259,7 +259,7 @@
             </div>
 
             <div class="button-group">
-                <button type="submit" name="redirect_to" value="orangtua_kandung" id="btnKandung">Orang Tua Kandung</button>
+                <button type="submit" name="redirect_to" value="orangt" id="btnKandung">Orang Tua Kandung</button>
                 <button type="submit" name="redirect_to" value="orangtua_wali" id="btnWali">Orang Tua Wali</button>
             </div>
         </form>

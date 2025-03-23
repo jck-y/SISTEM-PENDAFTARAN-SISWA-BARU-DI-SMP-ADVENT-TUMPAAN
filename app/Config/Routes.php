@@ -28,3 +28,4 @@ $routes->get('/siswa/orangtua_wali', 'Siswa::orangtua_wali');
 $routes->post('/siswa/save_orangtua_wali', 'Siswa::save_orangtua_wali');
 $routes->get('/siswa/uploadimg', 'Siswa::uploadimg');
 $routes->post('/siswa/upload', 'Siswa::upload');
+$routes->get('/siswa/done', 'Siswa::done');
