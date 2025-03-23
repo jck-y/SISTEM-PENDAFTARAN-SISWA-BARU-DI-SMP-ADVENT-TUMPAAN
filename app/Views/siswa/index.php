@@ -28,7 +28,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 175%;
+            height: 145%;
             background: inherit;
             filter: blur(10px); 
             z-index: -1; 
@@ -36,7 +36,7 @@
 
         .form-wrapper {
             background-color: #2148C0; 
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
             width: 80%;
             max-width: 350px; 
@@ -73,14 +73,14 @@
             font-size: 0.85rem; 
             font-weight: bold;
             text-transform: uppercase;
-            margin-right: 10px; 
+            margin-right: 5px; 
         }
 
         .form-group input,
         .form-group select {
-            flex: 2; 
-            width: auto; 
-            padding: 12px; 
+            flex: 1; 
+            width: 55px; 
+            padding: 7px; 
             border: none;
             border-radius: 5px;
             font-size: 0.9rem;
@@ -125,10 +125,10 @@
         .header-section{
             text-align: center;
             color: white;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             gap: 10px;
             align-items: center;
-            margin-top: 50px;
+            margin-top: 25px;
         }
         .button-group button:hover {
             background-color: #FFC107;
@@ -213,7 +213,7 @@
             <div class="form-group">
                 <label for="jenis_kelamin">Jenis Kelamin</label>
                 <select id="jenis_kelamin" name="jenis_kelamin">
-                    <option value="">Pilih Jenis Kelamin</option>
+                    <option value=""></option>
                     <option value="Laki-laki">Laki-laki</option>
                     <option value="Perempuan">Perempuan</option>
                 </select>
@@ -221,7 +221,7 @@
             <div class="form-group">
                 <label for="agama">Agama</label>
                 <select id="agama" name="agama">
-                    <option value="">Pilih Agama</option>
+                    <option value=""></option>
                     <option value="Islam">Islam</option>
                     <option value="Kristen">Kristen</option>
                     <option value="Katolik">Katolik</option>
@@ -237,7 +237,7 @@
             <div class="form-group">
                 <label for="status">Status Anak</label>
                 <select id="status" name="status">
-                    <option value="">Status Anak Dalam Keluarga</option>
+                    <option value=""></option>
                     <option value="Anak Kandung">Anak Kandung</option>
                     <option value="Anak Angkat">Anak Angkat</option>
                     <option value="Lainnya">Lainnya</option>
@@ -252,18 +252,18 @@
             </div>
 
             <div class="form-group">
-                <label for="alamat_siswa">Alamat Siswa :</label>
+                <label for="alamat_siswa">Alamat</label>
                 <input type="text" id="alamat_siswa" name="alamat_siswa">
             </div>
             <div class="form-group">
-                <label for="telepon">Telepon/HP</label>
+                <label for="telepon">No. Telpon</label>
                 <input type="tel" id="telepon" name="telepon">
             </div>
             <div class="header-section">
-            <h2>NAMA TK ASAL</h2>
+            <h2>TK ASAL</h2>
             </div>
             <div class="form-group">
-                <label for="nama_tk_asal">Nama TK Asal:</label>
+                <label for="nama_tk_asal">Nama TK Asal</label>
                 <input type="text" id="nama_tk_asal" name="nama_tk_asal">
             </div>
 
