@@ -470,9 +470,9 @@
     </div>
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">KEPSEK & OPERATOR</a>
-        <a href="#">SISWA</a>
-        <a href="#">LOGOUT</a>
+        <a href = "<?= base_url('dashboard'); ?>">KEPSEK & OPERATOR</a>
+        <a href = "<?= base_url('dashboard/siswa'); ?>">SISWA</a>
+        <a href="<?= base_url('auth/logout'); ?>">LOGOUT</a>
     </div>
 
     <script>
