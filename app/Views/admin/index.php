@@ -1,3 +1,4 @@
+
 <!-- <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +20,7 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1>Selamat Datangerekkkrer, <?= $nama ?></h1>
+        <h1>Selamat Datang, <?= $nama ?></h1>
         <a href="/auth/logout" class="btn btn-danger">Logout</a>
     </div>
 </body>

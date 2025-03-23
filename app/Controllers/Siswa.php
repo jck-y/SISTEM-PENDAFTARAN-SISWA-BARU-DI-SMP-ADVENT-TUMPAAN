@@ -69,24 +69,24 @@ class Siswa extends BaseController
             'status' => 'Diproses' // Default status
         ];
 
-        if ($this->siswaModel->saveSiswa($data)) {
-            $id_siswa = $this->siswaModel->getLastSiswaId();
-            session()->set('id_siswa', $id_siswa);
+        // if ($this->siswaModel->saveSiswa($data)) {
+        //     $id_siswa = $this->siswaModel->getLastSiswaId();
+        //     session()->set('id_siswa', $id_siswa);
 
-            // Mengecek tombol yang diklik
-            $redirectTo = $this->request->getPost('redirect_to');
+        //     // Mengecek tombol yang diklik
+        //     $redirectTo = $this->request->getPost('redirect_to');
             
-            if ($redirectTo == 'orangtua_kandung') {
-                return redirect()->to('/siswa/orangtua_kandung');
-            } elseif ($redirectTo == 'orangtua_wali') {
-                return redirect()->to('/siswa/orangtua_wali');
-            } else {
-                // Default, redirect ke halaman lain jika tidak ada yang dipilih
-                return redirect()->to('/siswa');
-            }
-        } else {
-            return redirect()->back()->with('error', 'Gagal menyimpan data siswa');
-        }
+        //     if ($redirectTo == 'orangtua_kandung') {
+        //         return redirect()->to('/siswa/orangtua_kandung');
+        //     } elseif ($redirectTo == 'orangtua_wali') {
+        //         return redirect()->to('/siswa/orangtua_wali');
+        //     } else {
+        //         // Default, redirect ke halaman lain jika tidak ada yang dipilih
+        //         return redirect()->to('/siswa');
+        //     }
+        // } else {
+        //     return redirect()->back()->with('error', 'Gagal menyimpan data siswa');
+        // }
     }
 
 

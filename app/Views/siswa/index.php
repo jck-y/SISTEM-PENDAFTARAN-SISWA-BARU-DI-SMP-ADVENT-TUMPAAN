@@ -14,52 +14,72 @@
         }
 
         body {
-            background-color: #f0f0f0;
+            background: url('https://static.vecteezy.com/system/resources/previews/015/227/308/non_2x/abstract-blue-and-yellow-geometric-gradient-background-vector.jpg') no-repeat center center fixed;
+            background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 10px;
         }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 175%;
+            background: inherit;
+            filter: blur(10px); 
+            z-index: -1; 
+        }
 
         .form-wrapper {
-            background-color: #004080; /* Blue background from Figma */
+            background-color: #2148C0; 
             padding: 20px;
             border-radius: 10px;
-            width: 100%;
-            max-width: 390px; /* Matches iPhone 13 width */
+            width: 90%;
+            max-width: 350px; 
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 50px;
         }
 
         .form-header {
+            display: flex;
             text-align: center;
             color: white;
             margin-bottom: 20px;
+            gap: 10px;
+            align-items: center;
         }
 
         .form-header h2 {
-            font-size: 1.2rem; /* Adjusted to match Figma */
+            font-size: 1.2rem; 
             font-weight: bold;
             text-transform: uppercase;
         }
 
         .form-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             margin-bottom: 15px;
         }
 
         .form-group label {
-            display: block;
+            flex: 1; 
             color: white;
-            font-size: 0.85rem; /* Matches Figma label size */
+            font-size: 0.85rem; 
             font-weight: bold;
-            margin-bottom: 5px;
             text-transform: uppercase;
+            margin-right: 10px; 
         }
 
         .form-group input,
         .form-group select {
-            width: 100%;
-            padding: 12px; /* Matches Figma input height */
+            flex: 2; 
+            width: auto; 
+            padding: 12px; 
             border: none;
             border-radius: 5px;
             font-size: 0.9rem;
@@ -70,7 +90,7 @@
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 5px #FFC107;
         }
 
         .form-group select {
@@ -101,16 +121,16 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-
-        .button-group button:hover {
-            background-color: #e0e0e0;
+        .header-section{
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+            gap: 10px;
+            align-items: center;
+            margin-top: 50px;
         }
-
-        .button-group button:disabled {
-            background-color: #cccccc;
-            color: #666666;
-            cursor: not-allowed;
-            opacity: 0.6;
+        .button-group button:hover {
+            background-color: #FFC107;
         }
 
         /* Highlighted fields (ANAK KE) */
@@ -149,15 +169,22 @@
 <body>
     <div class="form-wrapper">
         <div class="form-header">
-            <h2>FORMULIR PENDAFTARAN SISWA BARU</h2>
-        </div>
+<!--             <h2>FORMULIR PENDAFTARAN SISWA BARU</h2>
+        </div> -->
         <!-- <div>
             <h1>Selamat Datang, <?= $nama ?></h1>
             <a href="/auth/logout" class="btn btn-danger">Logout</a>
         </div> -->
         
-        <form action="<?= base_url('siswa/save_siswa'); ?>" method="post" id="siswaForm">
+<!--         <form action="<?= base_url('siswa/save_siswa'); ?>" method="post" id="siswaForm"> -->
             <!-- Form fields tetap sama -->
+            <img src="https://www.simivalleyelementary.org/build/image/3.png?h=200&fit=max&s=db9ab56df5b6520e116417b618007eff" alt="Logo" class="img-fluid mx-auto d-block" width="50">
+            <h2>FORMULIR PENDAFTARAN SISWA BARU</h2>
+        </div>
+        <div class="header-section">
+        <h2>SISWA</h2>
+        </div>
+        <form action="<?= base_url('siswa/save_siswa'); ?>" method="post" id="siswaForm">
             <div class="form-group">
                 <label for="nama_lengkap">Nama Lengkap</label>
                 <input type="text" id="nama_lengkap" name="nama_lengkap">
@@ -206,6 +233,10 @@
                 <label for="anak_ke">Anak ke</label>
                 <input type="number" id="anak_ke" name="anak_ke" class="highlighted-field">
             </div>
+            <!-- <div class="form-group">
+                <label for="status">Status</label>
+                <input type="text" id="status" name="status">
+            </div> -->
             <div class="form-group">
                 <label for="alamat_siswa">Alamat Siswa :</label>
                 <input type="text" id="alamat_siswa" name="alamat_siswa">
@@ -228,8 +259,8 @@
             </div>
 
             <div class="button-group">
-                <button type="submit" name="redirect_to" value="orangtua_kandung" id="btnKandung" disabled>Orang Tua Kandung</button>
-                <button type="submit" name="redirect_to" value="orangtua_wali" id="btnWali" disabled>Orang Tua Wali</button>
+                <button type="submit" name="redirect_to" value="orangtua_kandung" id="btnKandung">Orang Tua Kandung</button>
+                <button type="submit" name="redirect_to" value="orangtua_wali" id="btnWali">Orang Tua Wali</button>
             </div>
         </form>
     </div>
@@ -309,6 +340,35 @@
 
         // Cek validitas form saat pertama kali dimuat
         checkFormValidity();
+// =======
+//         // Menambahkan validasi sebelum submit form
+//         document.getElementById('siswaForm').addEventListener('submit', function(event) {
+//             // Mengambil semua field wajib
+//             let valid = true;
+//             const requiredFields = [
+//                 'nama_lengkap', 'nama_panggilan', 'nomor_induk_asal', 'nisn', 
+//                 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 
+//                 'anak_ke', 'status', 'alamat_siswa', 'nama_sekolah', 
+//                 'nama_tk_asal', 'telepon', 'alamat_sekolah'
+//             ];
+
+//             // Cek jika ada field yang kosong
+//             for (let field of requiredFields) {
+//                 let input = document.getElementById(field);
+//                 if (!input || input.value.trim() === '') {
+//                     valid = false;
+//                     input.style.borderColor = 'red'; // Tandai dengan border merah
+//                 } else {
+//                     input.style.borderColor = ''; // Reset border jika sudah terisi
+//                 }
+//             }
+
+//             if (!valid) {
+//                 event.preventDefault(); // Hentikan form submission jika ada field kosong
+//                 alert("Harap mengisi semua kolom yang wajib!");
+//             }
+//         });
+// >>>>>>> pagesSiswa
     </script>
 </body>
 </html>
