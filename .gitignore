@@ -2,6 +2,8 @@
 # Operating Specific Junk Files
 #-------------------------
 
+.gitignore
+
 # OS X
 .DS_Store
 .AppleDouble
@@ -131,7 +133,7 @@ nb-configuration.xml
 
 app/Config/Database.php
 public/uploads
-app/Controllers
+# app/Controllers
 
 #======= ignore migration ===
 

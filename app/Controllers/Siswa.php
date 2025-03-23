@@ -16,7 +16,8 @@ class Siswa extends BaseController
     public function index()
     {
         $data = [
-            'nama' => session()->get('nama_lengkap') ?? ''
+            'nama' => session()->get('nama_lengkap') ?? '',
+            'error' => session()->getFlashdata('error')
         ];
         return view('siswa/index', $data);
     }
