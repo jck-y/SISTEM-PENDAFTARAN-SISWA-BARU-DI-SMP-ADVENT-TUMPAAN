@@ -1,17 +1,15 @@
 <?php
-
 namespace App\Controllers;
 
-use CodeIgniter\Controller;
-
-class Admin extends Controller
+class Admin extends BaseController
 {
     public function index()
     {
-        $session = session();
-        if (!$session->get('loggedin')) {
-            return redirect()->to('login');
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/auth');
         }
-        return view('admin');
+        $data['role'] = session()->get('role');
+        $data['nama'] = session()->get('nama');
+        return view('admin/index', $data);
     }
 }

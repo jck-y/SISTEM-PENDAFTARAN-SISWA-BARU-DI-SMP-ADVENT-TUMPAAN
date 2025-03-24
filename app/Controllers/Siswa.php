@@ -15,72 +15,114 @@ class Siswa extends BaseController
 
     public function index()
     {
-        return view('siswa');
+        $data = [
+            'nama' => session()->get('nama_lengkap') ?? '',
+            'error' => session()->getFlashdata('error')
+        ];
+        return view('siswa/index', $data);
     }
-
-
 
     public function orangtua_kandung()
     {
-        return view('orangtua_kandung');
+        if (!session()->has('id_siswa')) {
+            return redirect()->to('/siswa')->with('error', 'Pendaftaran siswa harus dilakukan terlebih dahulu');
+        }
+        
+        $data = [
+            'id_siswa' => session()->get('id_siswa')
+        ];
+        return view('orangtua/orangtua_kandung', $data);
     }
 
     public function orangtua_wali()
     {
-        return view('orangtua_wali');
+        if (!session()->has('id_siswa')) {
+            return redirect()->to('/siswa')->with('error', 'Pendaftaran siswa harus dilakukan terlebih dahulu');
+        }
+        
+        $data = [
+            'id_siswa' => session()->get('id_siswa')
+        ];
+        return view('orangtua/orangtua_wali', $data);
     }
 
     public function uploadimg()
     {
-        return view('uploadimg');
+        if (!session()->has('id_siswa')) {
+            return redirect()->to('/siswa')->with('error', 'Pendaftaran siswa harus dilakukan terlebih dahulu');
+        }
+        
+        $data = [
+            'id_siswa' => session()->get('id_siswa')
+        ];
+        return view('orangtua/uploadimg', $data);
     }
 
     public function save_siswa()
     {
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'nama_lengkap' => 'required',
+            'nama_panggilan' => 'required',
+            'nomor_induk_asal' => 'required|is_unique[siswa.nomor_induk]',
+            'nisn' => 'required|is_unique[siswa.nisn]',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'jenis_kelamin' => 'required',
+            'agama' => 'required',
+            'anak_ke' => 'required|numeric',
+            'alamat_siswa' => 'required',
+            'nama_sekolah' => 'required',
+            'nama_tk_asal' => 'required',
+            'telepon' => 'required',
+            'alamat_sekolah' => 'required'
+        ]);
+    
+        if (!$validation->withRequest($this->request)->run()) {
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+        }
+    
         $data = [
             'nama_lengkap' => $this->request->getPost('nama_lengkap'),
             'nama_panggilan' => $this->request->getPost('nama_panggilan'),
             'nomor_induk' => $this->request->getPost('nomor_induk_asal'),
             'nisn' => $this->request->getPost('nisn'),
-            'tempat_lahir' => $this->request->getPost('tempat_tanggal_lahir'), // Perlu dipisah jika ingin terpisah
-            'tanggal_lahir' => date('Y-m-d', strtotime($this->request->getPost('tempat_tanggal_lahir'))),
+            'tempat_lahir' => $this->request->getPost('tempat_lahir'),
+            'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
             'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
             'agama' => $this->request->getPost('agama'),
             'anak_ke' => $this->request->getPost('anak_ke'),
-            'status_anak' => $this->request->getPost('status'),
             'alamat_siswa' => $this->request->getPost('alamat_siswa'),
             'telepon_siswa' => $this->request->getPost('telepon'),
             'nama_tk_asal' => $this->request->getPost('nama_tk_asal'),
             'alamat_tk_asal' => $this->request->getPost('alamat_sekolah'),
-            'status' => 'Diproses' // Default status
+            'status' => 'Diproses'
         ];
-
-        // if ($this->siswaModel->saveSiswa($data)) {
-        //     $id_siswa = $this->siswaModel->getLastSiswaId();
-        //     session()->set('id_siswa', $id_siswa);
-
-        //     // Mengecek tombol yang diklik
-        //     $redirectTo = $this->request->getPost('redirect_to');
-            
-        //     if ($redirectTo == 'orangtua_kandung') {
-        //         return redirect()->to('/siswa/orangtua_kandung');
-        //     } elseif ($redirectTo == 'orangtua_wali') {
-        //         return redirect()->to('/siswa/orangtua_wali');
-        //     } else {
-        //         // Default, redirect ke halaman lain jika tidak ada yang dipilih
-        //         return redirect()->to('/siswa');
-        //     }
-        // } else {
-        //     return redirect()->back()->with('error', 'Gagal menyimpan data siswa');
-        // }
+        // $data = $this->request->getPost();
+        // var_dump($data); // Debug data yang dikirim dari form
+        // die(); // Hentikan eksekusi untuk melihat output
+    
+        if ($this->siswaModel->saveSiswa($data)) {
+            $id_siswa = $this->siswaModel->insertID();
+            session()->set('id_siswa', $id_siswa);
+    
+            $redirectTo = $this->request->getPost('redirect_to');
+            return redirect()->to($redirectTo === 'orangt' ? 
+                '/siswa/orangtua_kandung' : 
+                '/siswa/orangtua_wali');
+        }
+        
+        return redirect()->back()->with('error', 'Gagal menyimpan data siswa');
     }
-
 
     public function save_orangtua_kandung()
     {
-        $id_siswa = session()->get('id_siswa');
+        if (!session()->has('id_siswa')) {
+            return redirect()->to('/siswa')->with('error', 'Pendaftaran siswa harus dilakukan terlebih dahulu');
+        }
+
         $data = [
-            'id_siswa' => $id_siswa,
+            'id_siswa' => session()->get('id_siswa'),
             'nama_ayah' => $this->request->getPost('nama_lengkap_ayah'),
             'nama_ibu' => $this->request->getPost('nama_lengkap_ibu'),
             'alamat_ayah' => $this->request->getPost('alamat_ayah'),
@@ -96,16 +138,19 @@ class Siswa extends BaseController
 
         if ($this->siswaModel->saveOrangTua($data)) {
             return redirect()->to('/siswa/uploadimg');
-        } else {
-            return redirect()->back()->with('error', 'Gagal menyimpan data orang tua');
         }
+        
+        return redirect()->back()->with('error', 'Gagal menyimpan data orang tua');
     }
 
     public function save_orangtua_wali()
     {
-        $id_siswa = session()->get('id_siswa');
+        if (!session()->has('id_siswa')) {
+            return redirect()->to('/siswa')->with('error', 'Pendaftaran siswa harus dilakukan terlebih dahulu');
+        }
+
         $data = [
-            'id_siswa' => $id_siswa,
+            'id_siswa' => session()->get('id_siswa'),
             'nama_ayah_wali' => $this->request->getPost('nama_ayah_wali'),
             'nama_ibu_wali' => $this->request->getPost('nama_ibu_wali'),
             'alamat_ayah_wali' => $this->request->getPost('alamat_ayah_wali'),
@@ -121,29 +166,61 @@ class Siswa extends BaseController
 
         if ($this->siswaModel->saveWali($data)) {
             return redirect()->to('/siswa/uploadimg');
-        } else {
-            return redirect()->back()->with('error', 'Gagal menyimpan data wali');
         }
+        
+        return redirect()->back()->with('error', 'Gagal menyimpan data wali');
     }
 
     public function upload()
-    {
+{
+    if (!session()->has('id_siswa')) {
+        return redirect()->to('/siswa')->with('error', 'Pendaftaran siswa harus dilakukan terlebih dahulu');
+    }
+
+    $file = $this->request->getFile('gambar');
+    if ($file->isValid() && !$file->hasMoved()) {
+        // Ambil data siswa untuk mendapatkan nama
         $id_siswa = session()->get('id_siswa');
-        $file = $this->request->getFile('gambar');
-
-        if ($file->isValid() && !$file->hasMoved()) {
-            $newName = $file->getRandomName();
-            $file->move(ROOTPATH . 'public/uploads', $newName);
-
-            $data = [
-                'gambar' => $newName
-            ];
-
-            $this->siswaModel->update($id_siswa, $data);
-            return redirect()->to('/siswa')->with('success', 'Pendaftaran selesai!');
-        } else {
-            return redirect()->back()->with('error', 'Gagal mengunggah gambar');
+        $siswa = $this->siswaModel->find($id_siswa);
+        
+        if (!$siswa) {
+            return redirect()->back()->with('error', 'Data siswa tidak ditemukan');
         }
 
+        // Buat nama file berdasarkan nama lengkap siswa
+        $namaFile = str_replace(' ', '_', strtolower($siswa['nama_lengkap'])) . '.' . $file->getExtension();
+        $file->move(ROOTPATH . 'public/uploads', $namaFile);
+
+        $data = [
+            'gambar' => $namaFile
+        ];
+
+        if ($this->siswaModel->update($id_siswa, $data)) {
+            session()->remove('id_siswa'); // Bersihkan session setelah selesai
+            return redirect()->to('/siswa/done');
+        }
     }
+    
+    return redirect()->back()->with('error', 'Gagal mengunggah gambar');
+}
+
+    public function done()
+    {
+        return view('siswa/done');
+    }
+
+    public function detail($id_siswa)
+{
+    $data = [
+        'siswa' => $this->siswaModel->find($id_siswa),
+        'orang_tua' => $this->siswaModel->db->table('orang_tua')->where('id_siswa', $id_siswa)->get()->getRowArray(),
+        'wali' => $this->siswaModel->db->table('wali')->where('id_siswa', $id_siswa)->get()->getRowArray()
+    ];
+    
+    if (!$data['siswa']) {
+        return redirect()->to('/operator')->with('error', 'Data siswa tidak ditemukan');
+    }
+    
+    return view('siswa/detail_siswa', $data);
+}
 }

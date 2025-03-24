@@ -1,17 +1,65 @@
 <?php
 
+// namespace App\Controllers;
+
+// use CodeIgniter\Controller;
+
+// class Operator extends Controller
+// {
+//     public function index()
+//     {
+//         $session = session();
+//         if (!$session->get('loggedin') || $session->get('role') !== 'operator') {
+//             return redirect()->to('login');
+//         }
+//         return view('operator');
+//     }
+// }
+
 namespace App\Controllers;
+use App\Models\SiswaModel;
 
-use CodeIgniter\Controller;
-
-class Operator extends Controller
+class Operator extends BaseController
 {
+
+    protected $siswaModel;
+
+    public function __construct()
+    {
+        $this->siswaModel = new SiswaModel();
+    }
     public function index()
     {
-        $session = session();
-        if (!$session->get('loggedin') || $session->get('role') !== 'operator') {
-            return redirect()->to('login');
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/auth');
         }
-        return view('operator');
+
+        $data = [
+            'nama' => session()->get('nama'),
+            'role' => session()->get('role'),
+            'siswa' => $this->siswaModel->findAll() // Mengambil semua data siswa
+        ];
+
+        return view('operator/operator', $data);
+    }
+
+    public function update_status()
+    {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/auth');
+        }
+
+        $id_siswa = $this->request->getPost('id_siswa');
+        $status = $this->request->getPost('status');
+
+        $data = [
+            'status' => $status
+        ];
+
+        if ($this->siswaModel->update($id_siswa, $data)) {
+            return redirect()->to('/operator')->with('success', 'Status siswa berhasil diperbarui');
+        } else {
+            return redirect()->to('/operator')->with('error', 'Gagal memperbarui status siswa');
+        }
     }
 }
