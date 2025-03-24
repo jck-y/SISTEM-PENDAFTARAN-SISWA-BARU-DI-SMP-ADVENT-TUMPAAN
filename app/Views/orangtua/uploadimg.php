@@ -239,8 +239,8 @@
             <div class="file-preview" id="filePreview">
                 <img id="previewImg" src="#" alt="Pratinjau Gambar">
                 <div class="file-info">
-                    <p id="fileName">woman_portrait.jpg</p>
-                    <p class="file-size" id="fileSize">500kb</p>
+                    <p id="fileName"></p>
+                    <p class="file-size" id="fileSize"></p>
                 </div>
                 <button type="button" class="remove-btn" id="removeBtn">✖</button>
             </div>

@@ -2,6 +2,8 @@
 # Operating Specific Junk Files
 #-------------------------
 
+.gitignore
+
 # OS X
 .DS_Store
 .AppleDouble
@@ -125,10 +127,17 @@ nb-configuration.xml
 /results/
 /phpunit*.xml
 
-#-------------------------
-# Database Configuration
-#-------------------------
+#-----------------------------------------------------
+# Database Configuration & Image Uploads & Controllers
+#-----------------------------------------------------
 
 app/Config/Database.php
-Controllers
+public/uploads
+app/Controllers
 
+#======= ignore migration ===
+
+# app/Database/Migrations/2025-03-23-111321_Admin.php
+# app/Database/Migrations/2025-03-23-112931_KepalaSekolah.php        
+# app/Database/Migrations/2025-03-23-113142_Operator.php
+# app/Database/Migrations/2025-03-23-113246_OrangTua.php
