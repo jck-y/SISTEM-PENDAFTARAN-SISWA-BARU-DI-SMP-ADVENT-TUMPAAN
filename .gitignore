@@ -133,11 +133,11 @@ nb-configuration.xml
 
 app/Config/Database.php
 public/uploads
-# app/Controllers
+app/Controllers
 
 #======= ignore migration ===
 
-app/Database/Migrations/2025-03-23-111321_Admin.php
-app/Database/Migrations/2025-03-23-112931_KepalaSekolah.php        
-app/Database/Migrations/2025-03-23-113142_Operator.php
-app/Database/Migrations/2025-03-23-113246_OrangTua.php
+# app/Database/Migrations/2025-03-23-111321_Admin.php
+# app/Database/Migrations/2025-03-23-112931_KepalaSekolah.php        
+# app/Database/Migrations/2025-03-23-113142_Operator.php
+# app/Database/Migrations/2025-03-23-113246_OrangTua.php
