@@ -72,7 +72,7 @@ class Siswa extends BaseController
             'agama' => 'required',
             'anak_ke' => 'required|numeric',
             'alamat_siswa' => 'required',
-            'nama_sekolah' => 'required',
+            // 'nama_sekolah' => 'required',
             'nama_tk_asal' => 'required',
             'telepon' => 'required',
             'alamat_sekolah' => 'required'
