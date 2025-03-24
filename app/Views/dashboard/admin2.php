@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<<<<<<< HEAD:app/Views/dashboard/admin.php
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
@@ -100,11 +99,11 @@
         }
 
         .action-cell-changepass {
-            padding-left: 4%;
+            padding-left: 60px;
         }
 
         .action-cell-delete {
-            padding-left: 2%;
+            padding-left: 60px;
         }
 
 
@@ -409,17 +408,15 @@
         <table>
             <thead>
                 <tr>
-                    <th>NAME</th>
-                    <th>EMAIL</th>
+                    <th>USERNAME</th>
                     <th>CHANGE PASSWORD</th>
-                    <th>DELETE EMAIL</th>
+                    <th>DELETE USERNAME</th>
                 </tr>
             </thead>
             <tbody>
                 <!-- Mapping data GET Email -->
                 <tr>
-                    <td>KEPALA SEKOLAH</td>
-                    <td>KEPALA SEKOLAH 1@GMAIL.COM</td>
+                    <td>SISWA</td>
                     <td class="action-cell-changepass"><img class="changepass" src="<?= base_url('assets/changepass.png'); ?>" alt="Change Password" onclick="onChangePassword()"></td>
                     <td class="action-cell-delete"><img class="deletemail" src="<?= base_url('assets/deletemail.png'); ?>" alt="Delete Email" onclick="onDeleteEmail()"></td>
                 </tr>
@@ -430,15 +427,6 @@
         <div class="floating-button">
             <img src="<?= base_url('assets/addemail.png'); ?>" alt="Add Email" onclick="onAddEmail()">
         </div>
-=======
-    <title>Selamat Datang</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
-        <h1>Selamat Datang Siswa, <?= $nama ?></h1>
-        <a href="/auth/logout" class="btn btn-danger">Logout</a>
->>>>>>> e61af0fd77bd78850e9a95fa31223e874e591e39:app/Views/home/index.php
     </div>
 
     <div id="overlayChangePass">
