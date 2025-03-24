@@ -21,6 +21,8 @@ $routes->get('/auth/logout', 'Auth::logout');
 $routes->get('/dashboard', 'Dashboard::index');
 $routes->get('/dashboard/siswa', 'Dashboard::siswa');
 
+$routes->get('/kepsek', 'Kepsek::index');
+
 
 $routes->get('/siswa', 'Siswa::index');
 $routes->post('/siswa/save_siswa', 'Siswa::save_siswa');

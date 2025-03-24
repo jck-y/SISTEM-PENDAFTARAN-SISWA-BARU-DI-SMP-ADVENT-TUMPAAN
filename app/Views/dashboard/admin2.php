@@ -99,11 +99,11 @@
         }
 
         .action-cell-changepass {
-            padding-left: 4%;
+            padding-left: 60px;
         }
 
         .action-cell-delete {
-            padding-left: 2%;
+            padding-left: 60px;
         }
 
 
@@ -408,17 +408,15 @@
         <table>
             <thead>
                 <tr>
-                    <th>NAME</th>
-                    <th>EMAIL</th>
+                    <th>USERNAME</th>
                     <th>CHANGE PASSWORD</th>
-                    <th>DELETE EMAIL</th>
+                    <th>DELETE USERNAME</th>
                 </tr>
             </thead>
             <tbody>
                 <!-- Mapping data GET Email -->
                 <tr>
                     <td>SISWA</td>
-                    <td>SISWA 1@GMAIL.COM</td>
                     <td class="action-cell-changepass"><img class="changepass" src="<?= base_url('assets/changepass.png'); ?>" alt="Change Password" onclick="onChangePassword()"></td>
                     <td class="action-cell-delete"><img class="deletemail" src="<?= base_url('assets/deletemail.png'); ?>" alt="Delete Email" onclick="onDeleteEmail()"></td>
                 </tr>
