@@ -1,4 +1,15 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Operator Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, Operator <?= session()->get('username'); ?>!</h1>
+    <p>This is the operator dashboard.</p>
+    <a href="<?= site_url('logout'); ?>">Logout</a>
+=======
 <html>
 <head>
     <title>Dashboard Operator</title>
@@ -54,5 +65,6 @@
             </div>
         </div>
     </div>
+>>>>>>> e61af0fd77bd78850e9a95fa31223e874e591e39
 </body>
 </html>
