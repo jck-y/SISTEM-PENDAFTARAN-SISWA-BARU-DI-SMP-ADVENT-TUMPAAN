@@ -10,6 +10,6 @@ class Admin extends BaseController
         }
         $data['role'] = session()->get('role');
         $data['nama'] = session()->get('nama');
-        return view('admin/index', $data);
+        return view('admin/admin', $data);
     }
 }

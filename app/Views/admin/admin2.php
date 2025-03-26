@@ -102,7 +102,7 @@
             padding-left: 60px;
         }
 
-        .action-cell-delete {
+        .action-cell-delete { 
             padding-left: 60px;
         }
 

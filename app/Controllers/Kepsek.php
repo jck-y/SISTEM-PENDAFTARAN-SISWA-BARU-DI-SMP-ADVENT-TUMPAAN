@@ -10,6 +10,6 @@ class Kepsek extends BaseController
         }
         $data['role'] = session()->get('role');
         $data['nama'] = session()->get('nama');
-        return view('kepsek/index', $data);
+        return view('kepsek/kepsek', $data);
     }
 }

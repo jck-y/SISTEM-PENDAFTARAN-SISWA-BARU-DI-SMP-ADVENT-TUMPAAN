@@ -1,70 +1,191 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Operator Dashboard</title>
-</head>
-<body>
-    <h1>Welcome, Operator <?= session()->get('username'); ?>!</h1>
-    <p>This is the operator dashboard.</p>
-    <a href="<?= site_url('logout'); ?>">Logout</a>
-=======
-<html>
-<head>
-    <title>Dashboard Operator</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
-        <h1>Selamat Datang Operator, <?= $nama ?></h1>
-        <a href="/auth/logout" class="btn btn-danger mb-3">Logout</a>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
 
-        <div class="card">
-            <div class="card-header">
-                <h4>Daftar Siswa</h4>
-            </div>
-            <div class="card-body">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama Lengkap</th>
-                            <th>Nomor Induk</th>
-                            <th>NISN</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if(!empty($siswa)): ?>
-                            <?php $no = 1; foreach($siswa as $s): ?>
-                            <tr>
-                                <td><?= $no++ ?></td>
-                                <td><a href="/siswa/detail/<?= $s['id_siswa'] ?>"><?= esc($s['nama_lengkap']) ?></a></td>
-                                <td><?= $s['nomor_induk'] ?></td>
-                                <td><?= $s['nisn'] ?></td>
-                                <td>
-                                    <form action="/operator/update_status" method="post" class="d-inline">
-                                        <input type="hidden" name="id_siswa" value="<?= $s['id_siswa'] ?>">
-                                        <select name="status" class="form-select d-inline w-auto" onchange="this.form.submit()">
-                                            <option value="Diproses" <?= $s['status'] == 'Diproses' ? 'selected' : '' ?> class="bg-warning text-dark">Diproses</option>
-                                            <option value="Diterima" <?= $s['status'] == 'Diterima' ? 'selected' : '' ?> class="bg-success text-white">Diterima</option>
-                                            <option value="Ditolak" <?= $s['status'] == 'Ditolak' ? 'selected' : '' ?> class="bg-danger text-white">Ditolak</option>
-                                        </select>
-                                    </form>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="5" class="text-center">Belum ada data siswa</td>
-                            </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
-            </div>
+        .container {
+            margin: auto;
+            padding: 20px;
+        }
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #1a49d4;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .menu {
+            cursor: pointer;
+            height: 60px;
+            width: 60px;
+        }
+
+        /* Search Bar */
+        .search-container {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+        }
+
+        .search-container input:focus {
+            outline: none;
+        }
+
+        .icsearch {
+            cursor: pointer;
+        }
+        
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            color: #1a49d4;
+            font-weight: bold;
+        }
+
+         /* Style untuk sidenav */
+         .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            }
+
+            .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+            }
+
+            .sidenav a:hover {
+            color: #f1f1f1;
+            }
+
+            .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            }
+
+            @media screen and (max-height: 450px) {
+            .sidenav {padding-top: 15px;}
+            .sidenav a {font-size: 18px;}
+            }
+
+        .status-dropdown {
+            width: 120px;
+            font-weight: bold;
+            border: none;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            padding: 8px;
+        }
+        .status-dropdown.green {
+            background-color: #28a745;
+        }
+        .status-dropdown.red {
+            background-color: #dc3545;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>OPERATOR</h1>
+            <img class="menu" src="<?= base_url('assets/menu.png'); ?>" onclick="openNav()"/>
+        </header>
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" placeholder="Search...">
+            <img class="icsearch" src="<?= base_url('assets/search.png'); ?>" alt="search">
         </div>
+        <!-- Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>NAME</th>
+                    <th>STATUS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Mapping data GET Email -->
+                <tr>
+                    <td>JACKY KARONGKONG</td>
+                    <td>
+                        <select class="status-dropdown green" onchange="changeStatus(this)">
+                            <option value="TERIMA" selected>TERIMA</option>
+                            <option value="TOLAK">TOLAK</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
->>>>>>> e61af0fd77bd78850e9a95fa31223e874e591e39
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="<?= base_url('auth/logout'); ?>">LOGOUT</a>
+    </div>
+
+    <script>
+        function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        }
+        function changeStatus(select) {
+            if (select.value === "TERIMA") {
+                select.className = "status-dropdown green";
+            } else {
+                select.className = "status-dropdown red";
+            }
+        }
+    </script>
 </body>
 </html>

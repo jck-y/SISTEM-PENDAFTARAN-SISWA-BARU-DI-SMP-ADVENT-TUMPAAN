@@ -4,95 +4,188 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kepsek Dashboard</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
         }
-        .header {
-            font-size: 24px;
-            font-weight: bold;
-            color: #1d4ed8;
+
+        .container {
+            margin: auto;
             padding: 20px;
         }
-        .search-bar {
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            padding: 8px 12px;
-            width: 100%;
-        }
-        .search-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-        }
-        .search-container i {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #1d4ed8;
-            cursor: pointer;
-        }
-        .status-btn {
-            border-radius: 20px;
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #1a49d4;
+            font-size: 24px;
             font-weight: bold;
-            padding: 5px 15px;
+        }
+        
+        .menu {
+            cursor: pointer;
+            height: 60px;
+            width: 60px;
+        }
+
+        /* Search Bar */
+        .search-container {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
             border: none;
         }
-        .btn-accept {
-            background-color: #22c55e;
-            color: white;
+
+        .search-container input:focus {
+            outline: none;
         }
-        .btn-reject {
-            background-color: #ef4444;
-            color: white;
-        }
-        .menu-icon {
-            font-size: 24px;
+
+        .icsearch {
             cursor: pointer;
         }
+        
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            color: #1a49d4;
+            font-weight: bold;
+        }
+
+         /* Style untuk sidenav */
+         .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            }
+
+            .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+            }
+
+            .sidenav a:hover {
+            color: #f1f1f1;
+            }
+
+            .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            }
+
+            @media screen and (max-height: 450px) {
+            .sidenav {padding-top: 15px;}
+            .sidenav a {font-size: 18px;}
+            }
+
+        .status-dropdown {
+            width: 120px;
+            font-weight: bold;
+            border: none;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            padding: 8px;
+        }
+        .status-dropdown.green {
+            background-color: #28a745;
+        }
+        .status-dropdown.red {
+            background-color: #dc3545;
+        }
+
+
     </style>
 </head>
 <body>
-    <div class="container mt-4">
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="header">KEPSEK</div>
-            <div class="menu-icon">
-                <i class="fas fa-bars"></i>
-            </div>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>KEPSEK</h1>
+            <img class="menu" src="<?= base_url('assets/menu.png'); ?>" onclick="openNav()"/>
+        </header>
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" placeholder="Search...">
+            <img class="icsearch" src="<?= base_url('assets/search.png'); ?>" alt="search">
         </div>
-        
-        <div class="search-container mt-3">
-            <input type="text" class="search-bar" placeholder="Search">
-            <i class="fas fa-search"></i>
-        </div>
-        
-        <table class="table mt-4">
+        <!-- Table -->
+        <table>
             <thead>
                 <tr>
-                    <th scope="col">NAME</th>
-                    <th scope="col">STATUS</th>
+                    <th>NAME</th>
+                    <th>STATUS</th>
                 </tr>
             </thead>
             <tbody>
+                <!-- Mapping data GET Email -->
                 <tr>
                     <td>JACKY KARONGKONG</td>
                     <td>
-                        <button class="status-btn btn-accept">TERIMA <i class="fas fa-chevron-down"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>RICHARD JONG</td>
-                    <td>
-                        <button class="status-btn btn-reject">TOLAK <i class="fas fa-chevron-down"></i></button>
+                        <select class="status-dropdown green" onchange="changeStatus(this)">
+                            <option value="TERIMA" selected>TERIMA</option>
+                            <option value="TOLAK">TOLAK</option>
+                        </select>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="<?= base_url('auth/logout'); ?>">LOGOUT</a>
+    </div>
+
+    <script>
+        function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        }
+        function changeStatus(select) {
+            if (select.value === "TERIMA") {
+                select.className = "status-dropdown green";
+            } else {
+                select.className = "status-dropdown red";
+            }
+        }
+    </script>
 </body>
 </html>
