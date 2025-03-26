@@ -7,5 +7,5 @@ class OperatorModel extends Model
 {
     protected $table = 'operator';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['nama', 'operator'];
+    protected $allowedFields = ['nama', 'password'];
 }

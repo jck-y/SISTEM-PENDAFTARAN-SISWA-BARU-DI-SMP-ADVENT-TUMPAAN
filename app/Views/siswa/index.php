@@ -235,8 +235,8 @@
                 <input type="number" id="anak_ke" name="anak_ke" class="highlighted-field">
             </div>
             <div class="form-group">
-                <label for="status">Status Anak</label>
-                <select id="status" name="status">
+                <label for="status_anak">Status Anak</label>
+                <select id="status_anak" name="status_anak">
                     <option value=""></option>
                     <option value="Anak Kandung">Anak Kandung</option>
                     <option value="Anak Angkat">Anak Angkat</option>
