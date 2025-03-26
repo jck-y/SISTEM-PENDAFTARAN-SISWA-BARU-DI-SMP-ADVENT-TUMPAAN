@@ -13,7 +13,6 @@ $routes->post('/auth/login', 'Auth::login');
 $routes->get('/auth/logout', 'Auth::logout');
 
 /** MAIN ROUTES */
-$routes->get('/dashboard', 'Dashboard::index');
 $routes->get('/kepsek', 'Kepsek::index');
 $routes->get('/admin', 'Admin::index');
 $routes->get('/home', 'Home::index');
@@ -33,3 +32,13 @@ $routes->get('/siswa/detail/(:num)', 'Siswa::detail/$1');
 
 /** ROUTES FOR OPERATOR */
 $routes->post('/operator/update_status', 'Operator::update_status');
+
+/** ROUTES FOR ADMIN */
+$routes->post('/admin/set_password_siswa/(:num)', 'Admin::set_password_siswa/$1');
+$routes->post('/admin/set_password_kepsek/(:num)', 'Admin::set_password_kepsek/$1');
+$routes->post('/admin/set_password_operator/(:num)', 'Admin::set_password_operator/$1');
+$routes->post('/admin/add_kepsek', 'Admin::add_kepsek');
+$routes->post('/admin/add_operator', 'Admin::add_operator');
+$routes->post('/admin/delete_siswa/(:num)', 'Admin::delete_siswa/$1');
+$routes->post('/admin/delete_kepsek/(:num)', 'Admin::delete_kepsek/$1');
+$routes->post('/admin/delete_operator/(:num)', 'Admin::delete_operator/$1');
