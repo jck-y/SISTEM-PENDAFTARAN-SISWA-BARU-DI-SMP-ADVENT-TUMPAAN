@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Admin3</title>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         /* Import Google Font */
@@ -99,16 +99,16 @@
         }
 
         .action-cell-changepass {
-            padding-left: 60px;
+            padding-left: 4%;
         }
 
-        .action-cell-delete { 
-            padding-left: 60px;
+        .action-cell-delete {
+            padding-left: 2%;
         }
 
 
         /* Floating Add Button */
-        .floating-button {
+        /* .floating-button {
             position: fixed;
             bottom: 80px;
             right: 80px;
@@ -122,7 +122,7 @@
         .floating-button i {
             color: white;
             font-size: 24px;
-        }
+        } */
 
         /* Popup Change Password */
         #overlayChangePass {
@@ -394,7 +394,7 @@
     <div class="container">
         <!-- Header -->
         <header class="header">
-            <h1>ADMIN</h1>
+            <h1>ADMIN || DAFTAR SISWA</h1>
             <img class="menu" src="<?= base_url('assets/menu.png'); ?>" onclick="openNav()"/>
         </header>
 
@@ -408,68 +408,72 @@
         <table>
             <thead>
                 <tr>
-                    <th>USERNAME</th>
+                    <th>NAME</th>
                     <th>CHANGE PASSWORD</th>
-                    <th>DELETE USERNAME</th>
+                    <th>DELETE EMAIL</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Mapping data GET Email -->
+            <?php foreach ($siswa as $s): ?>
                 <tr>
-                    <td>SISWA</td>
+                    <td><?= $s['nama'] ?></td>
                     <td class="action-cell-changepass"><img class="changepass" src="<?= base_url('assets/changepass.png'); ?>" alt="Change Password" onclick="onChangePassword()"></td>
-                    <td class="action-cell-delete"><img class="deletemail" src="<?= base_url('assets/deletemail.png'); ?>" alt="Delete Email" onclick="onDeleteEmail()"></td>
+                    <td class="action-cell-delete"><img class="deletemail" src="<?= base_url('assets/deletemail.png'); ?>" alt="Delete Email" onclick="onDeleteEmail(<?= $s['id'] ?>)"></td>
                 </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
 
         <!-- Floating Add Button -->
-        <div class="floating-button">
+        <!-- <div class="floating-button">
             <img src="<?= base_url('assets/addemail.png'); ?>" alt="Add Email" onclick="onAddEmail()">
-        </div>
+        </div> -->
     </div>
 
     <div id="overlayChangePass">
+    <form action="/admin/set_password_siswa/<?= $s['id'] ?>" method="post">
         <img src="<?= base_url('assets/close.png'); ?>" alt="close" onClick="offChangePassword()">    
         <h1 class="textchangepass">MASUKAN PASSWORD YANG BARU!</h1>
         <div class = "inputchangepass">
-            <input type="password" id="password" placeholder="Masukkan password baru...">
-            <img src="<?= base_url('assets/send.png'); ?>" alt="send">
+            <input name="password" type="text" id="password" value="<?= $s['password'] ?>" placeholder="Masukkan password baru...">
+            <button type="submit"><img src="<?= base_url('assets/send.png'); ?>" alt="send"></button>
         </div>
+        </form>
     </div>
 
     <div id="overlayDeleteEmail">
-        <h1 class="">INGIN MENGHAPUS EMAIL INI</h1>
+        <h1 class="">INGIN MENGHAPUS EMAIL INI?</h1>
         <div class="optionDelete">
-            <button class="hapus">HAPUS</button>
-            <button class="tidak" onclick="offDeleteEmail()">TIDAK</button>
+            <form id="deleteForm" action="" method="post">
+                <button type="submit" class="hapus">HAPUS</button>
+                <button type="button" class="tidak" onclick="offDeleteEmail()">TIDAK</button>
+            </form>
         </div>
     </div>
 
-    <div id="overlayAddEmail">
+    <!-- <div id="overlayAddEmail">
+        <form action="/admin/add_siswa" method="post">
         <img src="<?= base_url('assets/close.png'); ?>" alt="close" onClick="offAddEmail()">
-        <h1>MASUKKAN PASSWORD YANG BARU!</h1>
+        <h1>MASUKKAN AKUN BARU!</h1>
         <div>
-            <text>EMAIL</text>
-            <input type="text" class="addemail" placeholder="Masukkan email...">
+            <text>NAME</text>
+            <input type="text" name="nama" class="addemail" placeholder="Masukkan email..." required>
         </div>
         <div>
             <text>PASSWORD</text>
-            <input type="password" class="addpassword" placeholder="Masukkan password...">
+            <input type="text" name="password" sclass="addpassword" placeholder="Masukkan password..." required>
         </div>
-        <select class="userRole">
-            <option value="Siswa">Siswa</option>
-            <option value="Operator">Operator</option>
-            <option value="Kepala Sekolah">Kepala Sekolah</option>
-        </select>
-        <button class="submit-btn">
+        <button type="submit" class="submit-btn">
             <img src="<?= base_url('assets/send.png'); ?>" alt="submit">
         </button>
-    </div>
+        </form>
+    </div> -->
+
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href = "<?= base_url('dashboard'); ?>">KEPSEK & OPERATOR</a>
-        <a href = "<?= base_url('dashboard/siswa'); ?>">SISWA</a>
+        <a href = "<?= base_url('admin'); ?>">KEPSEK</a>
+        <a href = "<?= base_url('admin_operator'); ?>">OPERATOR</a>
+        <a href = "<?= base_url('admin_siswa'); ?>">SISWA</a>
         <a href="<?= base_url('auth/logout'); ?>">LOGOUT</a>
     </div>
 
@@ -481,6 +485,7 @@
             document.getElementById('overlayChangePass').style.display = 'none';
         }
         function onDeleteEmail() {
+            document.getElementById('deleteForm').action = "/admin/delete_siswa/" + id;
             document.getElementById('overlayDeleteEmail').style.display = 'block';
             };
         function offDeleteEmail() {

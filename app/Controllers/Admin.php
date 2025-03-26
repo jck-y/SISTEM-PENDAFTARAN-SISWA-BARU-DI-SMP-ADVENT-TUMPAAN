@@ -23,11 +23,6 @@ class Admin extends BaseController
         if (!session()->get('logged_in')) {
             return redirect()->to('/auth');
         }
-<<<<<<< HEAD
-        $data['role'] = session()->get('role');
-        $data['nama'] = session()->get('nama');
-        return view('admin/admin', $data);
-=======
         
         $data = [
             'nama' => session()->get('nama'),
@@ -36,8 +31,7 @@ class Admin extends BaseController
             'operator' => $this->operatorModel->findAll()
         ];
         
-        return view('admin/index', $data);
->>>>>>> 1306cf0fc4e19b18791b748090733b60b177e80a
+        return view('admin/admin_kepsek', $data);
     }
 
     public function set_password_siswa($id)
@@ -97,5 +91,23 @@ class Admin extends BaseController
     {
         $this->operatorModel->delete($id);
         return redirect()->to('/admin')->with('success', 'Data operator berhasil dihapus');
+    }
+    public function index2()
+    {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/auth');
+        }
+        
+        $data = [
+            'nama' => session()->get('nama'),
+            'siswa' => $this->siswaModel->findAll(),
+            'kepsek' => $this->kepsekModel->findAll(),
+            'operator' => $this->operatorModel->findAll()
+        ];
+        return view('admin/admin_operator');
+    }
+    public function index3()
+    {
+        return view('admin/admin_siswa');
     }
 }

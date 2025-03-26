@@ -42,3 +42,6 @@ $routes->post('/admin/add_operator', 'Admin::add_operator');
 $routes->post('/admin/delete_siswa/(:num)', 'Admin::delete_siswa/$1');
 $routes->post('/admin/delete_kepsek/(:num)', 'Admin::delete_kepsek/$1');
 $routes->post('/admin/delete_operator/(:num)', 'Admin::delete_operator/$1');
+
+$routes->get('/admin/operator', 'Admin::index2');
+$routes->get('/admin/siswa', 'Admin::index3');
