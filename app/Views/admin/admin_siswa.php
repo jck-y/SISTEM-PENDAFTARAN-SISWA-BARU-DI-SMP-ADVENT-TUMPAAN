@@ -417,10 +417,10 @@
             <?php foreach ($siswa as $s): ?>
                 <tr>
                     <td><?= $s['nama'] ?></td>
-                    <td class="action-cell-changepass"><img class="changepass" src="<?= base_url('assets/changepass.png'); ?>" alt="Change Password" onclick="onChangePassword()"></td>
+                    <td class="action-cell-changepass"><img class="changepass" src="<?= base_url('assets/changepass.png'); ?>" alt="Change Password" onclick="onChangePassword(<?= $s['id'] ?>)"></td>
                     <td class="action-cell-delete"><img class="deletemail" src="<?= base_url('assets/deletemail.png'); ?>" alt="Delete Email" onclick="onDeleteEmail(<?= $s['id'] ?>)"></td>
                 </tr>
-                <?php endforeach; ?>
+            <?php endforeach; ?>
             </tbody>
         </table>
 
@@ -431,13 +431,13 @@
     </div>
 
     <div id="overlayChangePass">
-    <form action="/admin/set_password_siswa/<?= $s['id'] ?>" method="post">
-        <img src="<?= base_url('assets/close.png'); ?>" alt="close" onClick="offChangePassword()">    
-        <h1 class="textchangepass">MASUKAN PASSWORD YANG BARU!</h1>
-        <div class = "inputchangepass">
-            <input name="password" type="text" id="password" value="<?= $s['password'] ?>" placeholder="Masukkan password baru...">
-            <button type="submit"><img src="<?= base_url('assets/send.png'); ?>" alt="send"></button>
-        </div>
+        <form id="changePassForm" action="" method="post">
+            <img src="<?= base_url('assets/close.png'); ?>" alt="close" onClick="offChangePassword()">    
+            <h1 class="textchangepass">MASUKAN PASSWORD YANG BARU!</h1>
+            <div class="inputchangepass">
+                <input name="password" type="text" id="password" placeholder="Masukkan password baru...">
+                <button type="submit"><img src="<?= base_url('assets/send.png'); ?>" alt="send"></button>
+            </div>
         </form>
     </div>
 
@@ -472,37 +472,31 @@
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href = "<?= base_url('admin'); ?>">KEPSEK</a>
-        <a href = "<?= base_url('admin_operator'); ?>">OPERATOR</a>
-        <a href = "<?= base_url('admin_siswa'); ?>">SISWA</a>
+        <a href = "<?= base_url('admin/operator'); ?>">OPERATOR</a>
+        <a href = "<?= base_url('admin/siswa'); ?>">SISWA</a>
         <a href="<?= base_url('auth/logout'); ?>">LOGOUT</a>
     </div>
 
     <script>
-        function onChangePassword() {
+        function onChangePassword(id) {
+            document.getElementById('changePassForm').action = "/admin/set_password_siswa/" + id;
             document.getElementById('overlayChangePass').style.display = 'block';
-            };
+        }
         function offChangePassword() {
             document.getElementById('overlayChangePass').style.display = 'none';
         }
-        function onDeleteEmail() {
+        function onDeleteEmail(id) {
             document.getElementById('deleteForm').action = "/admin/delete_siswa/" + id;
             document.getElementById('overlayDeleteEmail').style.display = 'block';
-            };
+        }
         function offDeleteEmail() {
             document.getElementById('overlayDeleteEmail').style.display = 'none';
         }
-        function onAddEmail() {
-            document.getElementById('overlayAddEmail').style.display = 'block';
-            };
-        function offAddEmail() {
-        document.getElementById('overlayAddEmail').style.display = 'none';
-        }
         function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("mySidenav").style.width = "250px";
         }
-
         function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("mySidenav").style.width = "0";
         }
     </script>
 

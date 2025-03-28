@@ -471,7 +471,7 @@
 
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href = "<?= base_url('admin/kepsek'); ?>">KEPSEK</a>
+        <a href = "<?= base_url('admin'); ?>">KEPSEK</a>
         <a href = "<?= base_url('admin/operator'); ?>">OPERATOR</a>
         <a href = "<?= base_url('admin/siswa'); ?>">SISWA</a>
         <a href="<?= base_url('auth/logout'); ?>">LOGOUT</a>
