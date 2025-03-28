@@ -348,7 +348,7 @@
 
             if (!valid) {
                 event.preventDefault();
-                alert(Form tidak boleh kosong! Semua kolom wajib diisi. Kolom yang masih kosong: \n- ${emptyFields.join('\n- ')});
+                alert("Form tidak boleh kosong! Semua kolom wajib diisi. Kolom yang masih kosong: \n- " + emptyFields.join('\n- '));
             }
         });
 
