@@ -83,7 +83,7 @@
                 <span class="input-group-text bg-transparent border-white text-white"><i class="bi bi-lock"></i></span>
                 <input type="password" class="form-control" name="password" placeholder="Password" required>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Login</button>
+            <button type="submit" class="btn btn-primary w-100">Logins</button>
         </form>
 
         <!-- Tombol Register di luar form login -->
