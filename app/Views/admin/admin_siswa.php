@@ -419,7 +419,7 @@
                 <?php else: ?>
                     <?php foreach ($siswa as $s): ?>
                         <tr>
-                            <td><a href="/admin/admin_detail_siswa/<?= $s['id_siswa'] ?>"><?= esc($s['nama_lengkap']) ?></a></td>
+                            <td><?= esc($s['nama_lengkap']) ?></a></td>
                             <td class="action-cell-changepass"><img class="changepass" src="<?= base_url('assets/changepass.png'); ?>" alt="Change Password" onclick="onChangePassword(<?= $s['id_siswa'] ?>)"></td>
                             <td class="action-cell-delete"><img class="deletemail" src="<?= base_url('assets/deletemail.png'); ?>" alt="Delete Email" onclick="onDeleteEmail(<?= $s['id_siswa'] ?>)"></td>
                         </tr>
