@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
@@ -16,19 +15,19 @@
             align-items: center;
             height: 100vh;
         }
-        body::before{
+        body::before {
             content: "";
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 220%;
+            height: 180%;
             background: inherit;
             filter: blur(10px); 
             z-index: -1; 
         }
         .login-container {
-            background:#2148C0;
+            background: #2148C0;
             color: white;
             padding: 40px;
             border-radius: 10px;
@@ -72,12 +71,11 @@
             </div>
         <?php endif; ?>
 
-        <!-- Form Login -->
         <form action="<?= base_url('/auth/login') ?>" method="post">
             <?= csrf_field() ?>
             <div class="mb-3 input-group">
                 <span class="input-group-text bg-transparent border-white text-white"><i class="bi bi-person"></i></span>
-                <input type="text" class="form-control" name="nama" placeholder="Username" required>
+                <input type="text" class="form-control" name="nama" placeholder="Username/Nama Lengkap" required>
             </div>
             <div class="mb-3 input-group">
                 <span class="input-group-text bg-transparent border-white text-white"><i class="bi bi-lock"></i></span>
@@ -86,17 +84,9 @@
             <button type="submit" class="btn btn-primary w-100">Login</button>
         </form>
 
-        <!-- Tombol Register di luar form login -->
-        <!-- <form action="<?= base_url('/register') ?>" method="post">
-            <?= csrf_field() ?>
-            <button type="submit" class="btn btn-primary w-100 mt-2">Register</button>
-        </form> -->
-
         <a href="<?= base_url('/siswa') ?>" class="btn btn-primary w-100 mt-2">Register</a>
-
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
