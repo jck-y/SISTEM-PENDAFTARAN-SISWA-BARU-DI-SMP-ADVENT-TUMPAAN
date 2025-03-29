@@ -414,13 +414,17 @@
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($siswa as $s): ?>
-                <tr>
-                    <td><?= $s['nama'] ?></td>
-                    <td class="action-cell-changepass"><img class="changepass" src="<?= base_url('assets/changepass.png'); ?>" alt="Change Password" onclick="onChangePassword(<?= $s['id'] ?>)"></td>
-                    <td class="action-cell-delete"><img class="deletemail" src="<?= base_url('assets/deletemail.png'); ?>" alt="Delete Email" onclick="onDeleteEmail(<?= $s['id'] ?>)"></td>
-                </tr>
-            <?php endforeach; ?>
+                <?php if (empty($siswa)): ?>
+                    <tr><td colspan="3">Tidak ada data siswa</td></tr>
+                <?php else: ?>
+                    <?php foreach ($siswa as $s): ?>
+                        <tr>
+                            <td><?= $s['nama_lengkap'] ?></td>
+                            <td class="action-cell-changepass"><img class="changepass" src="<?= base_url('assets/changepass.png'); ?>" alt="Change Password" onclick="onChangePassword(<?= $s['id_siswa'] ?>)"></td>
+                            <td class="action-cell-delete"><img class="deletemail" src="<?= base_url('assets/deletemail.png'); ?>" alt="Delete Email" onclick="onDeleteEmail(<?= $s['id_siswa'] ?>)"></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </tbody>
         </table>
 

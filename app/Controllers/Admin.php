@@ -113,13 +113,13 @@ class Admin extends BaseController
         if (!session()->get('logged_in')) {
             return redirect()->to('/auth');
         }
-        
+        $siswa = $this->siswaModel->findAll();
         $data = [
             'nama' => session()->get('nama'),
-            'siswa' => $this->siswaModel->findAll(),
+            'siswa' => $siswa,
             'kepsek' => $this->kepsekModel->findAll(),
             'operator' => $this->operatorModel->findAll()
         ];
-        return view('admin/admin_siswa', $data); // Kirim $data
+        return view('admin/admin_siswa', $data);
     }
 }
