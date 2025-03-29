@@ -236,7 +236,7 @@ td {
                             </tr>
                             <tr>
                                 <th>Penghasilan</th>
-                                <td><?= esc($orang_tua['penghasilan_ayah'] ?? '-') ?></td>
+                                <td>Rp. <?= isset($orang_tua['penghasilan_ayah']) ? number_format($orang_tua['penghasilan_ayah'], 0, ',', '.') : '-' ?></td>
                             </tr>
                         </table>
                     </div>
@@ -261,7 +261,7 @@ td {
                             </tr>
                             <tr>
                                 <th>Penghasilan</th>
-                                <td><?= esc($orang_tua['penghasilan_ibu'] ?? '-') ?></td>
+                                <td>Rp. <?= isset($orang_tua['penghasilan_ibu']) ? number_format($orang_tua['penghasilan_ibu'], 0, ',', '.') : '-' ?></td>
                             </tr>
                         </table>
                     </div>
@@ -306,7 +306,7 @@ td {
                             </tr>
                             <tr>
                                 <th>Penghasilan</th>
-                                <td><?= esc($wali['penghasilan_ayah_wali'] ?? '-') ?></td>
+                                <td>Rp. <?= isset($orang_tua['penghasilan_ayah_wali']) ? number_format($orang_tua['penghasilan_ayah_wali'], 0, ',', '.') : '-' ?></td>
                             </tr>
                         </table>
                     </div>
@@ -331,7 +331,7 @@ td {
                             </tr>
                             <tr>
                                 <th>Penghasilan</th>
-                                <td><?= esc($wali['penghasilan_ibu_wali'] ?? '-') ?></td>
+                                <td>Rp. <?= isset($orang_tua['penghasilan_ibu_wali']) ? number_format($orang_tua['penghasilan_ibu_wali'], 0, ',', '.') : '-' ?></td>
                             </tr>
                         </table>
                     </div>

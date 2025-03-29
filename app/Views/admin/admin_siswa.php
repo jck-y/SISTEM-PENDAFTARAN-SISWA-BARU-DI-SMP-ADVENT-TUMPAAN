@@ -400,8 +400,12 @@
 
         <!-- Search Bar -->
         <div class="search-container">
-            <input type="text" placeholder="Search...">
-            <img class="icsearch" src="<?= base_url('assets/search.png'); ?>" alt="search">
+            <form action="<?= base_url('admin/siswa'); ?>" method="get" style="width: 100%; display: flex; align-items: center;">
+                <input type="text" name="keyword" placeholder="Cari berdasarkan nama lengkap..." value="<?= esc($keyword ?? ''); ?>">
+                <button type="submit" style="background: none; border: none; padding: 0;">
+                    <img class="icsearch" src="<?= base_url('assets/search.png'); ?>" alt="search">
+                </button>
+            </form>
         </div>
 
         <!-- Table -->
@@ -415,7 +419,7 @@
             </thead>
             <tbody>
                 <?php if (empty($siswa)): ?>
-                    <tr><td colspan="3">Tidak ada data siswa</td></tr>
+                    <tr><td colspan="3"><?= $keyword ? "Tidak ada siswa dengan nama '$keyword'" : "Tidak ada data siswa"; ?></td></tr>
                 <?php else: ?>
                     <?php foreach ($siswa as $s): ?>
                         <tr>
@@ -475,7 +479,7 @@
 
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href = "<?= base_url('admin'); ?>">KEPSEK</a>
+        <a href = "<?= base_url('admin/'); ?>">KEPSEK</a>
         <a href = "<?= base_url('admin/operator'); ?>">OPERATOR</a>
         <a href = "<?= base_url('admin/siswa'); ?>">SISWA</a>
         <a href="<?= base_url('auth/logout'); ?>">LOGOUT</a>
