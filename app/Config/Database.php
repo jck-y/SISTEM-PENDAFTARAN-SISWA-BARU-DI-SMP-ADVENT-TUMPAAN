@@ -28,7 +28,7 @@ class Database extends Config
         'DSN'          => '',
         'hostname'     => 'localhost',
         'username'     => 'root',
-        'password'     => 'rootjeno',
+        'password'     => '',
         'database'     => 'sekolah',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
