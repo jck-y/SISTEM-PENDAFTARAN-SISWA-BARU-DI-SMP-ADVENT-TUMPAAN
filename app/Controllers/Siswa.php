@@ -31,6 +31,7 @@ class Siswa extends BaseController
         $data = [
             'id_siswa' => session()->get('id_siswa')
         ];
+
         return view('orangtua/orangtua_kandung', $data);
     }
 
@@ -85,7 +86,7 @@ class Siswa extends BaseController
         $data = [
             'nama_lengkap' => $this->request->getPost('nama_lengkap'),
             'nama_panggilan' => $this->request->getPost('nama_panggilan'),
-            'nomor_induk' => $this->request->getPost('nomor_induk_asal'), // Sesuaikan nama field
+            'nomor_induk' => $this->request->getPost('nomor_induk_asal'),
             'nisn' => $this->request->getPost('nisn'),
             'tempat_lahir' => $this->request->getPost('tempat_lahir'),
             'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
@@ -98,7 +99,7 @@ class Siswa extends BaseController
             'nama_tk_asal' => $this->request->getPost('nama_tk_asal'),
             'alamat_tk_asal' => $this->request->getPost('alamat_sekolah'),
             'status' => 'Diproses',
-            'password' => '12345' // Default password without hashing
+            'password' => '12345'
         ];
 
         if ($this->siswaModel->saveSiswa($data)) {

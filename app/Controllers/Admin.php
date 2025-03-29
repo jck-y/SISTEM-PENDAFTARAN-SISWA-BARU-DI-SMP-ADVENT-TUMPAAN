@@ -23,10 +23,19 @@ class Admin extends BaseController
         if (!session()->get('logged_in')) {
             return redirect()->to('/auth');
         }
+
+        $keyword = $this->request->getGet('keyword');
+
+        if ($keyword) {
+            $kepsek = $this->kepsekModel->like('nama', $keyword)->findAll();
+        } else {
+            $kepsek = $this->kepsekModel->findAll();
+        }
         
         $data = [
             'nama' => session()->get('nama'),
-            'kepsek' => $this->kepsekModel->findAll(),
+            'kepsek' => $kepsek, 
+            'keyword' => $keyword,
         ];
         
         return view('admin/admin_kepsek', $data);
@@ -90,58 +99,79 @@ class Admin extends BaseController
         $this->operatorModel->delete($id);
         return redirect()->to('/admin')->with('success', 'Data operator berhasil dihapus');
     }
+
     public function index2()
     {
         if (!session()->get('logged_in')) {
             return redirect()->to('/auth');
         }
+
+        $keyword = $this->request->getGet('keyword');
+
+        if ($keyword) {
+            $operator = $this->operatorModel->like('nama', $keyword)->findAll();
+        } else {
+            $operator = $this->operatorModel->findAll();
+        }
         
         $data = [
             'nama' => session()->get('nama'),
-            'operator' => $this->operatorModel->findAll()
+            'operator' => $operator, 
+            'keyword' => $keyword, 
         ];
 
         return view('admin/admin_operator', $data);
     }
+
     public function index3()
     {
         if (!session()->get('logged_in')) {
             return redirect()->to('/auth');
         }
-        $siswa = $this->siswaModel->findAll();
+
+        $keyword = $this->request->getGet('keyword');
+
+        if ($keyword) {
+            $siswa = $this->siswaModel->like('nama_lengkap', $keyword)->findAll();
+        } else {
+            $siswa = $this->siswaModel->findAll();
+        }
+
         $data = [
             'nama' => session()->get('nama'),
             'siswa' => $siswa,
-            'kepsek' => $this->kepsekModel->findAll(),
-            'operator' => $this->operatorModel->findAll()
+            // 'kepsek' => $this->kepsekModel->findAll(),
+            // 'operator' => $this->operatorModel->findAll(),
+            'keyword' => $keyword,
         ];
         return view('admin/admin_siswa', $data);
     }
+
     public function detailSiswa($id)
-{
-    if (!session()->get('logged_in')) {
-        return redirect()->to('/auth');
+        {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/auth');
+        }
+
+        // Ambil data siswa
+        $siswa = $this->siswaModel->find($id);
+        if (!$siswa) {
+            return redirect()->to('/admin/siswa')->with('error', 'Siswa tidak ditemukan');
+        }
+
+        // Ambil data orang tua dan wali (asumsi ada model dan tabel terpisah)
+        $orangTuaModel = new \App\Models\OrangTuaModel(); // Sesuaikan nama model
+        $waliModel = new \App\Models\WaliModel(); // Sesuaikan nama model
+        $orang_tua = $orangTuaModel->where('id_siswa', $id)->first();
+        $wali = $waliModel->where('id_siswa', $id)->first();
+
+        $data = [
+            'siswa' => $siswa,
+            'orang_tua' => $orang_tua,
+            'wali' => $wali,
+            'nama' => session()->get('nama')
+        ];
+
+        return view('admin/admin_detail_siswa', $data);
     }
-
-    // Ambil data siswa
-    $siswa = $this->siswaModel->find($id);
-    if (!$siswa) {
-        return redirect()->to('/admin/siswa')->with('error', 'Siswa tidak ditemukan');
-    }
-
-    // Ambil data orang tua dan wali (asumsi ada model dan tabel terpisah)
-    $orangTuaModel = new \App\Models\OrangTuaModel(); // Sesuaikan nama model
-    $waliModel = new \App\Models\WaliModel(); // Sesuaikan nama model
-    $orang_tua = $orangTuaModel->where('id_siswa', $id)->first();
-    $wali = $waliModel->where('id_siswa', $id)->first();
-
-    $data = [
-        'siswa' => $siswa,
-        'orang_tua' => $orang_tua,
-        'wali' => $wali,
-        'nama' => session()->get('nama')
-    ];
-
-    return view('admin/admin_detail_siswa', $data);
-}
 }

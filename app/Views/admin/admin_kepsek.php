@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Admin Kepala Sekolah</title>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         /* Import Google Font */
@@ -400,8 +400,12 @@
 
         <!-- Search Bar -->
         <div class="search-container">
-            <input type="text" placeholder="Search...">
-            <img class="icsearch" src="<?= base_url('assets/search.png'); ?>" alt="search">
+            <form action="<?= base_url('admin'); ?>" method="get" style="width: 100%; display: flex; align-items: center;">
+                <input type="text" name="keyword" placeholder="Cari berdasarkan nama lengkap..." value="<?= esc($keyword ?? ''); ?>">
+                <button type="submit" style="background: none; border: none; padding: 0;">
+                    <img class="icsearch" src="<?= base_url('assets/search.png'); ?>" alt="search">
+                </button>
+            </form>
         </div>
 
         <!-- Table -->
@@ -414,13 +418,17 @@
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($kepsek as $k): ?>
-                <tr>
-                    <td><?= $k['nama'] ?></td>
-                    <td class="action-cell-changepass"><img class="changepass" src="<?= base_url('assets/changepass.png'); ?>" alt="Change Password" onclick="onChangePassword()"></td>
-                    <td class="action-cell-delete"><img class="deletemail" src="<?= base_url('assets/deletemail.png'); ?>" alt="Delete Email" onclick="onDeleteEmail(<?= $k['id'] ?>)"></td>
-                </tr>
-                <?php endforeach; ?>
+                <?php if (empty($kepsek)): ?>
+                    <tr><td colspan="3"><?= $keyword ? "Tidak ada kepsek dengan nama '$keyword'" : "Tidak ada data kepsek"; ?></td></tr>
+                <?php else: ?>
+                    <?php foreach ($kepsek as $k): ?>
+                        <tr>
+                            <td><?= esc($k['nama']) ?></a></td>
+                            <td class="action-cell-changepass"><img class="changepass" src="<?= base_url('assets/changepass.png'); ?>" alt="Change Password" onclick="onChangePassword(<?= $k['id'] ?>)"></td>
+                            <td class="action-cell-delete"><img class="deletemail" src="<?= base_url('assets/deletemail.png'); ?>" alt="Delete Email" onclick="onDeleteEmail(<?= $k['id'] ?>)"></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </tbody>
         </table>
 

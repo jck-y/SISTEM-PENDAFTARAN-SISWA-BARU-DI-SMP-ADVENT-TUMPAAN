@@ -400,8 +400,12 @@
 
         <!-- Search Bar -->
         <div class="search-container">
-            <input type="text" placeholder="Search...">
-            <img class="icsearch" src="<?= base_url('assets/search.png'); ?>" alt="search">
+            <form action="<?= base_url('admin/operator'); ?>" method="get" style="width: 100%; display: flex; align-items: center;">
+                <input type="text" name="keyword" placeholder="Cari berdasarkan nama..." value="<?= esc($keyword ?? ''); ?>">
+                <button type="submit" style="background: none; border: none; padding: 0;">
+                    <img class="icsearch" src="<?= base_url('assets/search.png'); ?>" alt="search">
+                </button>
+            </form>
         </div>
 
         <!-- Table -->
@@ -414,13 +418,21 @@
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($operator as $o): ?>
-                <tr>
-                    <td><?= $o['nama'] ?></td>
-                    <td class="action-cell-changepass"><img class="changepass" src="<?= base_url('assets/changepass.png'); ?>" alt="Change Password" onclick="onChangePassword()"></td>
-                    <td class="action-cell-delete"><img class="deletemail" src="<?= base_url('assets/deletemail.png'); ?>" alt="Delete Email" onclick="onDeleteEmail(<?= $o['id'] ?>)"></td>
-                </tr>
-                <?php endforeach; ?>
+                <?php if (empty($operator)): ?>
+                    <tr><td colspan="3"><?= $keyword ? "Tidak ada operator dengan nama '$keyword'" : "Tidak ada data operator"; ?></td></tr>
+                <?php else: ?>
+                    <?php foreach ($operator as $o): ?>
+                        <tr>
+                            <td><?= esc($o['nama']) ?></td>
+                            <td class="action-cell-changepass">
+                                <img class="changepass" src="<?= base_url('assets/changepass.png'); ?>" alt="Change Password" onclick="onChangePassword(<?= $o['id'] ?>)">
+                            </td>
+                            <td class="action-cell-delete">
+                                <img class="deletemail" src="<?= base_url('assets/deletemail.png'); ?>" alt="Delete Email" onclick="onDeleteEmail(<?= $o['id'] ?>)">
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </tbody>
         </table>
 
@@ -471,16 +483,18 @@
 
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href = "<?= base_url('admin'); ?>">KEPSEK</a>
+        <a href = "<?= base_url('admin/kepsek'); ?>">KEPSEK</a>
         <a href = "<?= base_url('admin/operator'); ?>">OPERATOR</a>
         <a href = "<?= base_url('admin/siswa'); ?>">SISWA</a>
         <a href="<?= base_url('auth/logout'); ?>">LOGOUT</a>
     </div>
 
     <script>
-        function onChangePassword() {
-            document.getElementById('overlayChangePass').style.display = 'block';
-            };
+       function onChangePassword(id) {
+        // Atur action form dengan ID operator yang dipilih
+        document.getElementById('changePassForm').action = "/admin/set_password_operator/" + id;
+        document.getElementById('overlayChangePass').style.display = 'block';
+    }
         function offChangePassword() {
             document.getElementById('overlayChangePass').style.display = 'none';
         }
