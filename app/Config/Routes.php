@@ -45,3 +45,5 @@ $routes->post('/admin/delete_operator/(:num)', 'Admin::delete_operator/$1');
 
 $routes->get('/admin/operator', 'Admin::index2');
 $routes->get('/admin/siswa', 'Admin::index3');
+
+$routes->get('/admin/admin_detail_siswa/(:num)', 'Admin::detailSiswa/$1');

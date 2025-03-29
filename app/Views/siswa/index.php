@@ -14,7 +14,7 @@
         }
 
         body {
-            background: url('https://static.vecteezy.com/system/resources/previews/009/006/369/non_2x/abstract-blue-and-yellow-geometric-gradient-background-vector.jpg') no-repeat center center fixed;
+            background: url('https://static.vecteezy.com/system/resources/previews/015/227/308/non_2x/abstract-blue-and-yellow-geometric-gradient-background-vector.jpg') no-repeat center center fixed;
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -28,7 +28,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 145%;
+            height: 175%;
             background: inherit;
             filter: blur(10px); 
             z-index: -1; 
@@ -36,13 +36,12 @@
 
         .form-wrapper {
             background-color: #2148C0; 
-            padding: 30px;
+            padding: 20px;
             border-radius: 10px;
-            width: 80%;
+            width: 90%;
             max-width: 350px; 
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             margin-top: 50px;
-            margin-bottom: 50px;
         }
 
         .form-header {
@@ -73,14 +72,14 @@
             font-size: 0.85rem; 
             font-weight: bold;
             text-transform: uppercase;
-            margin-right: 5px; 
+            margin-right: 10px; 
         }
 
         .form-group input,
         .form-group select {
-            flex: 1; 
-            width: 55px; 
-            padding: 7px; 
+            flex: 2; 
+            width: auto; 
+            padding: 12px; 
             border: none;
             border-radius: 5px;
             font-size: 0.9rem;
@@ -125,10 +124,10 @@
         .header-section{
             text-align: center;
             color: white;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             gap: 10px;
             align-items: center;
-            margin-top: 25px;
+            margin-top: 50px;
         }
         .button-group button:hover {
             background-color: #FFC107;
@@ -213,7 +212,7 @@
             <div class="form-group">
                 <label for="jenis_kelamin">Jenis Kelamin</label>
                 <select id="jenis_kelamin" name="jenis_kelamin">
-                    <option value=""></option>
+                    <option value="">Pilih Jenis Kelamin</option>
                     <option value="Laki-laki">Laki-laki</option>
                     <option value="Perempuan">Perempuan</option>
                 </select>
@@ -221,7 +220,7 @@
             <div class="form-group">
                 <label for="agama">Agama</label>
                 <select id="agama" name="agama">
-                    <option value=""></option>
+                    <option value="">Pilih Agama</option>
                     <option value="Islam">Islam</option>
                     <option value="Kristen">Kristen</option>
                     <option value="Katolik">Katolik</option>
@@ -234,41 +233,28 @@
                 <label for="anak_ke">Anak ke</label>
                 <input type="number" id="anak_ke" name="anak_ke" class="highlighted-field">
             </div>
-            <div class="form-group">
-                <label for="status_anak">Status Anak</label>
-                <select id="status_anak" name="status_anak">
-                    <option value=""></option>
-                    <option value="Anak Kandung">Anak Kandung</option>
-                    <option value="Anak Angkat">Anak Angkat</option>
-                    <option value="Lainnya">Lainnya</option>
-                </select>
-            </div>
             <!-- <div class="form-group">
                 <label for="status">Status</label>
                 <input type="text" id="status" name="status">
             </div> -->
-            <div class="header-section">
-            <h2>ALAMAT SISWA</h2>
-            </div>
-
             <div class="form-group">
-                <label for="alamat_siswa">Alamat</label>
+                <label for="alamat_siswa">Alamat Siswa :</label>
                 <input type="text" id="alamat_siswa" name="alamat_siswa">
             </div>
             <div class="form-group">
-                <label for="telepon">No. Telpon</label>
-                <input type="tel" id="telepon" name="telepon">
-            </div>
-            <div class="header-section">
-            <h2>TK ASAL</h2>
+                <label for="nama_sekolah">Nama Sekolah</label>
+                <input type="text" id="nama_sekolah" name="nama_sekolah">
             </div>
             <div class="form-group">
-                <label for="nama_tk_asal">Nama TK Asal</label>
+                <label for="nama_tk_asal">Nama TK Asal:</label>
                 <input type="text" id="nama_tk_asal" name="nama_tk_asal">
             </div>
-
             <div class="form-group">
-                <label for="alamat_sekolah">Alamat TK</label>
+                <label for="telepon">Telepon/HP</label>
+                <input type="tel" id="telepon" name="telepon">
+            </div>
+            <div class="form-group">
+                <label for="alamat_sekolah">Alamat Sekolah</label>
                 <input type="text" id="alamat_sekolah" name="alamat_sekolah">
             </div>
 
@@ -348,7 +334,7 @@
 
             if (!valid) {
                 event.preventDefault();
-                alert("Form tidak boleh kosong! Semua kolom wajib diisi. Kolom yang masih kosong: \n- " + emptyFields.join('\n- '));
+                alert(`Form tidak boleh kosong! Semua kolom wajib diisi. Kolom yang masih kosong: \n- ${emptyFields.join('\n- ')}`);
             }
         });
 

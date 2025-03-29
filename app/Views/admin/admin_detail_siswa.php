@@ -7,7 +7,7 @@
 <body>
     <div class="container mt-5">
         <h1>Detail Siswa</h1>
-        <a href="/operator" class="btn btn-primary mb-3">Kembali ke Daftar Siswa</a>
+        <a href="/admin/siswa" class="btn btn-primary mb-3">Kembali ke Daftar Siswa</a>
 
         <!-- Informasi Siswa -->
         <div class="card mb-4">
@@ -76,7 +76,6 @@
                             </tr>
                         </table>
                     </div>
-                    <!-- Di bagian Informasi Siswa, ubah bagian gambar menjadi: -->
                     <div class="col-md-4">
                         <?php if ($siswa['gambar'] && file_exists(ROOTPATH . 'public/uploads/' . $siswa['gambar'])): ?>
                             <img src="/uploads/<?= esc($siswa['gambar']) ?>" alt="Foto Siswa" class="img-fluid rounded" style="max-height: 300px;">
@@ -142,7 +141,7 @@
                             </tr>
                             <tr>
                                 <th>Penghasilan</th>
-                                <td><?= esc($orang_tua['penghasilen_ibu']) ?></td>
+                                <td><?= esc($orang_tua['penghasilan_ibu']) ?></td> <!-- Perbaiki typo 'penghasilen_ibu' -->
                             </tr>
                         </table>
                     </div>
