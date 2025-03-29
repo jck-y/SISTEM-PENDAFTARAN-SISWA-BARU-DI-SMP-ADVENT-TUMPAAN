@@ -131,9 +131,7 @@ nb-configuration.xml
 # Database Configuration & Image Uploads & Controllers
 #-----------------------------------------------------
 
-# app/Config/Database.php
 public/uploads
-# app/Controllers
 
 #======= ignore migration ===
 

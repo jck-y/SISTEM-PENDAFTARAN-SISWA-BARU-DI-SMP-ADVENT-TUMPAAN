@@ -13,7 +13,7 @@ $routes->get('/auth/logout', 'Auth::logout');
 
 /** MAIN ROUTES */
 $routes->get('/kepsek', 'Kepsek::index');
-// $routes->get('/admin', 'Admin::index');
+$routes->get('/admin', 'Admin::index');
 $routes->get('/home', 'Home::index');
 $routes->get('/operator', 'Operator::index');
 

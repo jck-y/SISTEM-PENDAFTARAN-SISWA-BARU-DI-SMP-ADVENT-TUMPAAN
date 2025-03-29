@@ -23,10 +23,19 @@ class Admin extends BaseController
         if (!session()->get('logged_in')) {
             return redirect()->to('/auth');
         }
+
+        $keyword = $this->request->getGet('keyword');
+
+        if ($keyword) {
+            $kepsek = $this->kepsekModel->like('nama', $keyword)->findAll();
+        } else {
+            $kepsek = $this->kepsekModel->findAll();
+        }
         
         $data = [
             'nama' => session()->get('nama'),
-            'kepsek' => $this->kepsekModel->findAll(),
+            'kepsek' => $kepsek, 
+            'keyword' => $keyword,
         ];
         
         return view('admin/admin_kepsek', $data);
@@ -90,19 +99,30 @@ class Admin extends BaseController
         $this->operatorModel->delete($id);
         return redirect()->to('/admin')->with('success', 'Data operator berhasil dihapus');
     }
+
     public function index2()
     {
         if (!session()->get('logged_in')) {
             return redirect()->to('/auth');
         }
+
+        $keyword = $this->request->getGet('keyword');
+
+        if ($keyword) {
+            $operator = $this->operatorModel->like('nama', $keyword)->findAll();
+        } else {
+            $operator = $this->operatorModel->findAll();
+        }
         
         $data = [
             'nama' => session()->get('nama'),
-            'operator' => $this->operatorModel->findAll()
+            'operator' => $operator, 
+            'keyword' => $keyword, 
         ];
 
         return view('admin/admin_operator', $data);
     }
+
     public function index3()
     {
         if (!session()->get('logged_in')) {
@@ -120,8 +140,8 @@ class Admin extends BaseController
         $data = [
             'nama' => session()->get('nama'),
             'siswa' => $siswa,
-            'kepsek' => $this->kepsekModel->findAll(),
-            'operator' => $this->operatorModel->findAll(),
+            // 'kepsek' => $this->kepsekModel->findAll(),
+            // 'operator' => $this->operatorModel->findAll(),
             'keyword' => $keyword,
         ];
         return view('admin/admin_siswa', $data);
