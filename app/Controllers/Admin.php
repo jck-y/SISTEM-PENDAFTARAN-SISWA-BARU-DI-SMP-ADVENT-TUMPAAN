@@ -108,12 +108,40 @@ class Admin extends BaseController
         if (!session()->get('logged_in')) {
             return redirect()->to('/auth');
         }
-        
+        $siswa = $this->siswaModel->findAll();
         $data = [
             'nama' => session()->get('nama'),
-            'siswa' => $this->siswaModel->findAll(),
+            'siswa' => $siswa,
+            'kepsek' => $this->kepsekModel->findAll(),
+            'operator' => $this->operatorModel->findAll()
         ];
-
         return view('admin/admin_siswa', $data);
     }
+    public function detailSiswa($id)
+{
+    if (!session()->get('logged_in')) {
+        return redirect()->to('/auth');
+    }
+
+    // Ambil data siswa
+    $siswa = $this->siswaModel->find($id);
+    if (!$siswa) {
+        return redirect()->to('/admin/siswa')->with('error', 'Siswa tidak ditemukan');
+    }
+
+    // Ambil data orang tua dan wali (asumsi ada model dan tabel terpisah)
+    $orangTuaModel = new \App\Models\OrangTuaModel(); // Sesuaikan nama model
+    $waliModel = new \App\Models\WaliModel(); // Sesuaikan nama model
+    $orang_tua = $orangTuaModel->where('id_siswa', $id)->first();
+    $wali = $waliModel->where('id_siswa', $id)->first();
+
+    $data = [
+        'siswa' => $siswa,
+        'orang_tua' => $orang_tua,
+        'wali' => $wali,
+        'nama' => session()->get('nama')
+    ];
+
+    return view('admin/admin_detail_siswa', $data);
+}
 }
