@@ -108,7 +108,7 @@
 
 
         /* Floating Add Button */
-        /* .floating-button {
+        .floating-button {
             position: fixed;
             bottom: 80px;
             right: 80px;
@@ -122,7 +122,7 @@
         .floating-button i {
             color: white;
             font-size: 24px;
-        } */
+        } 
 
         /* Popup Change Password */
         #overlayChangePass {
