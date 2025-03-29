@@ -82,12 +82,30 @@ class Admin extends BaseController
         return redirect()->to('/admin/operator')->with('success', 'Operator berhasil ditambahkan');
     }
 
+    // public function delete_siswa($id)
+    // {
+    //     $this->siswaModel->delete($id);
+    //     return redirect()->to('/admin/siswa')->with('success', 'Data siswa berhasil dihapus');
+    // }
     public function delete_siswa($id)
     {
+        $siswa = $this->siswaModel->find($id);
+    
+        if (!$siswa) {
+            return redirect()->to('/admin/siswa')->with('error', 'Siswa tidak ditemukan');
+        }
+    
+        // Hapus data orang tua dan wali sebelum hapus siswa
+        $db = \Config\Database::connect();
+        $db->table('orang_tua')->where('id_siswa', $id)->delete();
+        $db->table('wali')->where('id_siswa', $id)->delete();
+    
+        // Hapus data siswa
         $this->siswaModel->delete($id);
-        return redirect()->to('/admin/siswa')->with('success', 'Data siswa berhasil dihapus');
+    
+        return redirect()->to('/admin/siswa')->with('success', 'Data siswa dan data terkait berhasil dihapus');
     }
-
+    
     public function delete_kepsek($id)
     {
         $this->kepsekModel->delete($id);
