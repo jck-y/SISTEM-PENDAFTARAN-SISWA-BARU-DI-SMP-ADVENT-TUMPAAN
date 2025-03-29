@@ -156,7 +156,7 @@
                 <?php if(!empty($siswa)): ?>
                     <?php $no = 1; foreach($siswa as $s): ?>
                 <tr>
-                <td><a href="/admin/admin_detail_siswa/<?= $s['id_siswa'] ?>"><?= esc($s['nama_lengkap']) ?></a></td>
+                <td><a href="/operator/detail_siswa/<?= $s['id_siswa'] ?>"><?= esc($s['nama_lengkap']) ?></a></td>
                     <td>
                     <form action="/operator/update_status" method="post">
                         <input type="hidden" name="id_siswa" value="<?= $s['id_siswa'] ?>">

@@ -60,62 +60,56 @@ class Siswa extends BaseController
     }
 
     public function save_siswa()
-    {
-        $validation = \Config\Services::validation();
-        $validation->setRules([
-            'nama_lengkap' => 'required',
-            'nama_panggilan' => 'required',
-            'nomor_induk_asal' => 'required|is_unique[siswa.nomor_induk]',
-            'nisn' => 'required|is_unique[siswa.nisn]',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
-            'jenis_kelamin' => 'required',
-            'agama' => 'required',
-            'anak_ke' => 'required|numeric',
-            'status_anak' => 'required',
-            'alamat_siswa' => 'required',
-            // 'nama_sekolah' => 'required',
-            'nama_tk_asal' => 'required',
-            'telepon' => 'required',
-            'alamat_sekolah' => 'required'
-        ]);
-    
-        if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
-        }
-    
-        $data = [
-            'nama_lengkap' => $this->request->getPost('nama_lengkap'),
-            'nama_panggilan' => $this->request->getPost('nama_panggilan'),
-            'nomor_induk' => $this->request->getPost('nomor_induk_asal'),
-            'nisn' => $this->request->getPost('nisn'),
-            'tempat_lahir' => $this->request->getPost('tempat_lahir'),
-            'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
-            'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
-            'agama' => $this->request->getPost('agama'),
-            'anak_ke' => $this->request->getPost('anak_ke'),
-            'status_anak' => $this->request->getPost('status_anak'),
-            'alamat_siswa' => $this->request->getPost('alamat_siswa'),
-            'telepon_siswa' => $this->request->getPost('telepon'),
-            'nama_tk_asal' => $this->request->getPost('nama_tk_asal'),
-            'alamat_tk_asal' => $this->request->getPost('alamat_sekolah'),
-            'status' => 'Diproses'
-        ];
-        // $data = $this->request->getPost();
-        // var_dump($data); // Debug data yang dikirim dari form
-        // die(); // Hentikan eksekusi untuk melihat output
-    
-        if ($this->siswaModel->saveSiswa($data)) {
-            $id_siswa = $this->siswaModel->insertID();
-            session()->set('id_siswa', $id_siswa);
-    
-            $redirectTo = $this->request->getPost('redirect_to');
-            return redirect()->to($redirectTo === 'orangt' ? 
-                '/siswa/orangtua_kandung' : 
-                '/siswa/orangtua_wali');
-        }
-        
-        return redirect()->back()->with('error', 'Gagal menyimpan data siswa');
+        {
+            $validation = \Config\Services::validation();
+            $validation->setRules([
+                'nama_lengkap' => 'required',
+                'nama_panggilan' => 'required',
+                'nomor_induk_asal' => 'required|is_unique[siswa.nomor_induk]', // Sesuaikan dengan nama di form
+                'nisn' => 'required|is_unique[siswa.nisn]',
+                'tempat_lahir' => 'required',
+                'tanggal_lahir' => 'required',
+                'jenis_kelamin' => 'required',
+                'agama' => 'required',
+                'anak_ke' => 'required|numeric',
+                'status_anak' => 'required', // Pastikan ada di form
+                'alamat_siswa' => 'required',
+                'nama_tk_asal' => 'required',
+                'telepon' => 'required',
+                'alamat_sekolah' => 'required'
+            ]);
+
+            if (!$validation->withRequest($this->request)->run()) {
+                return redirect()->back()->withInput()->with('validation', $validation->getErrors());
+            }
+
+            $data = [
+                'nama_lengkap' => $this->request->getPost('nama_lengkap'),
+                'nama_panggilan' => $this->request->getPost('nama_panggilan'),
+                'nomor_induk' => $this->request->getPost('nomor_induk_asal'), // Sesuaikan nama field
+                'nisn' => $this->request->getPost('nisn'),
+                'tempat_lahir' => $this->request->getPost('tempat_lahir'),
+                'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
+                'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+                'agama' => $this->request->getPost('agama'),
+                'anak_ke' => $this->request->getPost('anak_ke'),
+                'status_anak' => $this->request->getPost('status_anak'),
+                'alamat_siswa' => $this->request->getPost('alamat_siswa'),
+                'telepon_siswa' => $this->request->getPost('telepon'),
+                'nama_tk_asal' => $this->request->getPost('nama_tk_asal'),
+                'alamat_tk_asal' => $this->request->getPost('alamat_sekolah'),
+                'status' => 'Diproses'
+            ];
+
+            if ($this->siswaModel->saveSiswa($data)) {
+                $id_siswa = $this->siswaModel->insertID();
+                session()->set('id_siswa', $id_siswa);
+
+                $redirectTo = $this->request->getPost('redirect_to');
+                return redirect()->to($redirectTo === 'orangt' ? '/siswa/orangtua_kandung' : '/siswa/orangtua_wali');
+            }
+
+            return redirect()->back()->with('error', 'Gagal menyimpan data siswa');
     }
 
     public function save_orangtua_kandung()

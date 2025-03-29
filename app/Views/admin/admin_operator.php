@@ -438,7 +438,7 @@
             <input name="password" type="text" id="password" value="<?= $o['password'] ?>" placeholder="Masukkan password baru...">
             <button type="submit"><img src="<?= base_url('assets/send.png'); ?>" alt="send"></button>
         </div>
-        </form>
+    </form>
     </div>
 
     <div id="overlayDeleteEmail">
