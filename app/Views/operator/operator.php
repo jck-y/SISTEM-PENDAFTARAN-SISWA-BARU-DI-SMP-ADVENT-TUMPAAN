@@ -153,15 +153,27 @@
             </thead>
             <tbody>
                 <!-- Mapping data GET Email -->
+                <?php if(!empty($siswa)): ?>
+                    <?php $no = 1; foreach($siswa as $s): ?>
                 <tr>
-                    <td>JACKY KARONGKONG</td>
+                <td><a href="/siswa/detail/<?= $s['id_siswa'] ?>"><?= esc($s['nama_lengkap']) ?></a></td>
                     <td>
-                        <select class="status-dropdown green" onchange="changeStatus(this)">
-                            <option value="TERIMA" selected>TERIMA</option>
-                            <option value="TOLAK">TOLAK</option>
+                    <form action="/operator/update_status" method="post">
+                        <input type="hidden" name="id_siswa" value="<?= $s['id_siswa'] ?>">
+                        <select name="status" class="status-dropdown <?= ($s['status'] == 'Diterima') ? 'green' : 'red' ?>" 
+                                onchange="changeStatus(this); this.form.submit();">
+                            <option value="Diterima" <?= $s['status'] == 'Diterima' ? 'selected' : '' ?>>DITERIMA</option>
+                            <option value="Ditolak" <?= $s['status'] == 'Ditolak' ? 'selected' : '' ?>>DITOLAK</option>
                         </select>
+                    </form>
                     </td>
                 </tr>
+                <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="5" class="text-center">Belum ada data siswa</td>
+                    </tr>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
@@ -180,10 +192,13 @@
         document.getElementById("mySidenav").style.width = "0";
         }
         function changeStatus(select) {
-            if (select.value === "TERIMA") {
-                select.className = "status-dropdown green";
+            // Hapus semua class status-dropdown sebelum menambahkan yang baru
+            select.classList.remove("green", "red");
+
+            if (select.value === "Diterima") {
+                select.classList.add("green");
             } else {
-                select.className = "status-dropdown red";
+                select.classList.add("red");
             }
         }
     </script>
