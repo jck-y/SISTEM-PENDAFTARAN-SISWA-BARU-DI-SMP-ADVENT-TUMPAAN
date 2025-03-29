@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Detail Siswa - Operator</title>
+    <title>Detail Siswa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container mt-5">
         <h1>Detail Siswa</h1>
-        <a href="/operator" class="btn btn-primary mb-3">Kembali ke Daftar Siswa</a>
+        <a href="<?= $role == 'kepsek' ? '/kepsek' : '/operator' ?>" class="btn btn-primary mb-3">Kembali ke Daftar Siswa</a>
 
         <!-- Informasi Siswa -->
         <?php if ($siswa): ?>

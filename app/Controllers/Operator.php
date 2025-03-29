@@ -20,7 +20,7 @@ class Operator extends BaseController
         $data = [
             'nama' => session()->get('nama'),
             'role' => session()->get('role'),
-            'siswa' => $this->siswaModel->findAll() // Mengambil semua data siswa
+            'siswa' => $this->siswaModel->findAll()
         ];
 
         return view('operator/operator', $data);
@@ -52,13 +52,11 @@ class Operator extends BaseController
             return redirect()->to('/auth');
         }
 
-        // Ambil data siswa
         $siswa = $this->siswaModel->find($id);
         if (!$siswa) {
             return redirect()->to('/operator')->with('error', 'Siswa tidak ditemukan');
         }
 
-        // Ambil data orang tua dan wali (asumsi ada model dan tabel terpisah)
         $orangTuaModel = new \App\Models\OrangTuaModel();
         $waliModel = new \App\Models\WaliModel();
         $orang_tua = $orangTuaModel->where('id_siswa', $id)->first();
@@ -68,10 +66,10 @@ class Operator extends BaseController
             'siswa' => $siswa,
             'orang_tua' => $orang_tua,
             'wali' => $wali,
-            'nama' => session()->get('nama')
+            'nama' => session()->get('nama'),
+            'role' => 'operator' // Pastikan role dikirim sebagai 'operator'
         ];
 
-        // Ubah view ke folder operator
         return view('detail_siswa/detail_siswa', $data);
     }
 }
