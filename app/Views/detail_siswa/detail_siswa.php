@@ -1,13 +1,129 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Detail Siswa - Operator</title>
+    <title>Detail Siswa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+body {
+    background-color: #f4f6f9;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+
+h1 {
+    color: #1a49d4;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Card Styles */
+.card {
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    background-color: #fff;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+.card-header {
+    background-color: #1a49d4;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 12px 12px 0 0;
+    padding: 15px;
+    text-align: center;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Table Styles */
+.table {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+th {
+    background-color: #e8f0fe;
+    font-weight: bold;
+    color: #1a49d4;
+    padding: 10px;
+}
+
+td {
+    color: #555;
+    padding: 10px;
+}
+
+/* Badge Status */
+.badge {
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 20px;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #1a49d4;
+    border: none;
+    padding: 10px 15px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #1a49d4;
+}
+
+/* Image Styling */
+.img-fluid {
+    border-radius: 10px;
+    border: 4px solid #1a49d4;
+    max-width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .table {
+        font-size: 14px;
+    }
+
+    img {
+        width: 100%;
+        max-height: 250px;
+    }
+}
+    </style>
 </head>
 <body>
     <div class="container mt-5">
         <h1>Detail Siswa</h1>
-        <a href="/operator" class="btn btn-primary mb-3">Kembali ke Daftar Siswa</a>
+        <a href="<?= $role == 'kepsek' ? '/kepsek' : '/operator' ?>" class="btn btn-primary mb-3">Kembali ke Daftar Siswa</a>
 
         <!-- Informasi Siswa -->
         <?php if ($siswa): ?>

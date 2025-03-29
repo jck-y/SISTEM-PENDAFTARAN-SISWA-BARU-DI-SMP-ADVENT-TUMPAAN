@@ -127,6 +127,9 @@
         .status-dropdown.red {
             background-color: #dc3545;
         }
+        .status-dropdown.yellow {
+        background-color: #ffc107;
+    }
 
 
     </style>
@@ -160,11 +163,12 @@
                     <td>
                     <form action="/operator/update_status" method="post">
                         <input type="hidden" name="id_siswa" value="<?= $s['id_siswa'] ?>">
-                        <select name="status" class="status-dropdown <?= ($s['status'] == 'Diterima') ? 'green' : 'red' ?>" 
-                                onchange="changeStatus(this); this.form.submit();">
-                            <option value="Diterima" <?= $s['status'] == 'Diterima' ? 'selected' : '' ?>>DITERIMA</option>
-                            <option value="Ditolak" <?= $s['status'] == 'Ditolak' ? 'selected' : '' ?>>DITOLAK</option>
-                        </select>
+                        <select name="status" class="status-dropdown <?= ($s['status'] == 'Diterima') ? 'green' : ($s['status'] == 'Ditolak' ? 'red' : 'yellow') ?>" 
+                            onchange="changeStatus(this); this.form.submit();">
+                        <option value="Diproses" <?= $s['status'] == 'Diproses' ? 'selected' : '' ?>>DIPROSES</option>
+                        <option value="Diterima" <?= $s['status'] == 'Diterima' ? 'selected' : '' ?>>DITERIMA</option>
+                        <option value="Ditolak" <?= $s['status'] == 'Ditolak' ? 'selected' : '' ?>>DITOLAK</option>
+                    </select>
                     </form>
                     </td>
                 </tr>
@@ -193,12 +197,14 @@
         }
         function changeStatus(select) {
             // Hapus semua class status-dropdown sebelum menambahkan yang baru
-            select.classList.remove("green", "red");
+            select.classList.remove("green", "red", "yellow");
 
             if (select.value === "Diterima") {
                 select.classList.add("green");
-            } else {
-                select.classList.add("red");
+            } else if (select.value === "Ditolak") {
+            select.classList.add("red");
+            } else if (select.value === "Diproses") {
+                select.classList.add("yellow");
             }
         }
     </script>

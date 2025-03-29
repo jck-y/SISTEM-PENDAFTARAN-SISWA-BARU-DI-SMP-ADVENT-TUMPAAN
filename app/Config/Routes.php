@@ -1,5 +1,4 @@
 <?php
-
 use CodeIgniter\Router\RouteCollection;
 
 /**
@@ -32,6 +31,7 @@ $routes->get('/siswa/detail/(:num)', 'Siswa::detail/$1');
 
 /** ROUTES FOR OPERATOR */
 $routes->post('/operator/update_status', 'Operator::update_status');
+$routes->get('/operator/detail_siswa/(:num)', 'Operator::detailSiswa/$1');
 
 /** ROUTES FOR ADMIN */
 $routes->post('/admin/set_password_siswa/(:num)', 'Admin::set_password_siswa/$1');
@@ -42,8 +42,8 @@ $routes->post('/admin/add_operator', 'Admin::add_operator');
 $routes->post('/admin/delete_siswa/(:num)', 'Admin::delete_siswa/$1');
 $routes->post('/admin/delete_kepsek/(:num)', 'Admin::delete_kepsek/$1');
 $routes->post('/admin/delete_operator/(:num)', 'Admin::delete_operator/$1');
-
 $routes->get('/admin/operator', 'Admin::index2');
 $routes->get('/admin/siswa', 'Admin::index3');
 
-$routes->get('/operator/detail_siswa/(:num)', 'Operator::detailSiswa/$1');
+/** ROUTES FOR KEPSEK */
+$routes->get('/kepsek/detail_siswa/(:num)', 'Kepsek::detailSiswa/$1');

@@ -112,20 +112,25 @@
             .sidenav a {font-size: 18px;}
             }
 
-        .status-dropdown {
-            width: 120px;
-            font-weight: bold;
-            border: none;
-            color: white;
-            text-align: center;
-            border-radius: 5px;
-            padding: 8px;
+            .status-label {
+                display: inline-block;
+                padding: 8px 12px;
+                font-weight: bold;
+                border-radius: 5px;
+                color: white;
+                text-align: center;
+                min-width: 100px;
+            }
+        .status-diproses {
+            background-color: #ffc107; /* Kuning */
         }
-        .status-dropdown.green {
-            background-color: #28a745;
+
+        .status-diterima {
+            background-color: #28a745; /* Hijau */
         }
-        .status-dropdown.red {
-            background-color: #dc3545;
+
+        .status-ditolak {
+            background-color: #dc3545; /* Merah */
         }
 
 
@@ -156,16 +161,13 @@
                 <?php if(!empty($siswa)): ?>
                     <?php $no = 1; foreach($siswa as $s): ?>
                 <tr>
-                <td><a href="/siswa/detail/<?= $s['id_siswa'] ?>"><?= esc($s['nama_lengkap']) ?></a></td>
+                <td><a href="/kepsek/detail_siswa/<?= $s['id_siswa'] ?>"><?= esc($s['nama_lengkap']) ?></a></td>
                     <td>
-                    <form action="/operator/update_status" method="post">
-                        <input type="hidden" name="id_siswa" value="<?= $s['id_siswa'] ?>">
-                        <select name="status" class="status-dropdown <?= ($s['status'] == 'Diterima') ? 'green' : 'red' ?>" 
-                                onchange="changeStatus(this); this.form.submit();">
-                            <option value="Diterima" <?= $s['status'] == 'Diterima' ? 'selected' : '' ?>>DITERIMA</option>
-                            <option value="Ditolak" <?= $s['status'] == 'Ditolak' ? 'selected' : '' ?>>DITOLAK</option>
-                        </select>
-                    </form>
+                    <span class="status-label 
+                    <?= ($s['status'] == 'Diterima') ? 'status-diterima' : 
+                        ($s['status'] == 'Ditolak' ? 'status-ditolak' : 'status-diproses') ?>">
+                    <?= strtoupper($s['status']) ?>
+                </span>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -193,12 +195,13 @@
         }
         function changeStatus(select) {
             // Hapus semua class status-dropdown sebelum menambahkan yang baru
-            select.classList.remove("green", "red");
-
+            select.classList.remove("green", "red", "yellow");
             if (select.value === "Diterima") {
                 select.classList.add("green");
-            } else {
-                select.classList.add("red");
+            } else if (select.value === "Ditolak") {
+            select.classList.add("red");
+            } else if (select.value === "Diproses") {
+                select.classList.add("yellow");
             }
         }
     </script>
