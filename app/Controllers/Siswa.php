@@ -208,17 +208,17 @@ class Siswa extends BaseController
     }
 
     public function detail($id_siswa)
-{
-    $data = [
-        'siswa' => $this->siswaModel->find($id_siswa),
-        'orang_tua' => $this->siswaModel->db->table('orang_tua')->where('id_siswa', $id_siswa)->get()->getRowArray(),
-        'wali' => $this->siswaModel->db->table('wali')->where('id_siswa', $id_siswa)->get()->getRowArray()
-    ];
-    
-    if (!$data['siswa']) {
-        return redirect()->to('/operator')->with('error', 'Data siswa tidak ditemukan');
+    {
+        $data = [
+            'siswa' => $this->siswaModel->find($id_siswa),
+            'orang_tua' => $this->siswaModel->db->table('orang_tua')->where('id_siswa', $id_siswa)->get()->getRowArray(),
+            'wali' => $this->siswaModel->db->table('wali')->where('id_siswa', $id_siswa)->get()->getRowArray()
+        ];
+        
+        if (!$data['siswa']) {
+            return redirect()->to('/operator')->with('error', 'Data siswa tidak ditemukan');
+        }
+        
+        return view('siswa/detail_siswa', $data);
     }
-    
-    return view('siswa/detail_siswa', $data);
-}
 }

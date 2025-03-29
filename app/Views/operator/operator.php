@@ -141,11 +141,18 @@
             <h1>OPERATOR</h1>
             <img class="menu" src="<?= base_url('assets/menu.png'); ?>" onclick="openNav()"/>
         </header>
+
         <!-- Search Bar -->
-        <div class="search-container">
-            <input type="text" placeholder="Search...">
-            <img class="icsearch" src="<?= base_url('assets/search.png'); ?>" alt="search">
-        </div>
+        <form action="<?= base_url('operator'); ?>" method="get">
+            <div class="search-container">
+                <input type="text" name="search" placeholder="Cari nama siswa..." 
+                       value="<?= esc($search ?? ''); ?>">
+                <button type="submit" style="background:none;border:none;padding:0;">
+                    <img class="icsearch" src="<?= base_url('assets/search.png'); ?>" alt="search">
+                </button>
+            </div>
+        </form>
+
         <!-- Table -->
         <table>
             <thead>
@@ -175,7 +182,13 @@
                 <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="5" class="text-center">Belum ada data siswa</td>
+                        <td colspan="2" class="text-center">
+                            <?php if($search): ?>
+                                Data siswa dengan nama "<?= esc($search) ?>" tidak ditemukan
+                            <?php else: ?>
+                                Belum ada data siswa
+                            <?php endif; ?>
+                        </td>
                     </tr>
                 <?php endif; ?>
             </tbody>

@@ -17,10 +17,22 @@ class Operator extends BaseController
             return redirect()->to('/auth');
         }
 
+        // Ambil parameter pencarian dari query string
+        $search = $this->request->getGet('search');
+
+        if ($search) {
+            // Jika ada pencarian, cari siswa berdasarkan nama_lengkap
+            $siswa = $this->siswaModel->like('nama_lengkap', $search)->findAll();
+        } else {
+            // Jika tidak ada pencarian, ambil semua data siswa
+            $siswa = $this->siswaModel->findAll();
+        }
+
         $data = [
-            'nama' => session()->get('nama'),
             'role' => session()->get('role'),
-            'siswa' => $this->siswaModel->findAll()
+            'nama' => session()->get('nama'),
+            'siswa' => $siswa,
+            'search' => $search // Tambahkan ini untuk mempertahankan nilai pencarian di form
         ];
 
         return view('operator/operator', $data);

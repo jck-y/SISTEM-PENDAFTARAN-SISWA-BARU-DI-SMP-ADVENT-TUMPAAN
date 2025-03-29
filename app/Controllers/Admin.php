@@ -52,7 +52,7 @@ class Admin extends BaseController
     {
         $password = $this->request->getPost('password'); // Tanpa hash
         $this->kepsekModel->update($id, ['password' => $password]);
-        return redirect()->to('/kepsek')->with('success', 'Password kepsek berhasil diatur');
+        return redirect()->to('/admin')->with('success', 'Password kepsek berhasil diatur');
     }
 
     public function set_password_operator($id)
@@ -79,13 +79,13 @@ class Admin extends BaseController
             'password' => $this->request->getPost('password') // Tanpa hash
         ];
         $this->operatorModel->save($data);
-        return redirect()->to('/admin')->with('success', 'Operator berhasil ditambahkan');
+        return redirect()->to('/admin/operator')->with('success', 'Operator berhasil ditambahkan');
     }
 
     public function delete_siswa($id)
     {
         $this->siswaModel->delete($id);
-        return redirect()->to('/admin')->with('success', 'Data siswa berhasil dihapus');
+        return redirect()->to('/admin/siswa')->with('success', 'Data siswa berhasil dihapus');
     }
 
     public function delete_kepsek($id)
@@ -97,7 +97,7 @@ class Admin extends BaseController
     public function delete_operator($id)
     {
         $this->operatorModel->delete($id);
-        return redirect()->to('/admin')->with('success', 'Data operator berhasil dihapus');
+        return redirect()->to('/admin/operator')->with('success', 'Data operator berhasil dihapus');
     }
 
     public function index2()

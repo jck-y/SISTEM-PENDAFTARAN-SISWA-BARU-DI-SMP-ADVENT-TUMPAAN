@@ -17,10 +17,22 @@ class Kepsek extends BaseController
             return redirect()->to('/auth');
         }
 
+        // Ambil parameter pencarian dari query string
+        $search = $this->request->getGet('search');
+
+        if ($search) {
+            // Jika ada pencarian, cari siswa berdasarkan nama_lengkap
+            $siswa = $this->siswaModel->like('nama_lengkap', $search)->findAll();
+        } else {
+            // Jika tidak ada pencarian, ambil semua data siswa
+            $siswa = $this->siswaModel->findAll();
+        }
+
         $data = [
             'role' => session()->get('role'),
             'nama' => session()->get('nama'),
-            'siswa' => $this->siswaModel->findAll() // Mengambil semua data siswa
+            'siswa' => $siswa,
+            'search' => $search // Tambahkan ini untuk mempertahankan nilai pencarian di form
         ];
 
         return view('kepsek/kepsek', $data);
