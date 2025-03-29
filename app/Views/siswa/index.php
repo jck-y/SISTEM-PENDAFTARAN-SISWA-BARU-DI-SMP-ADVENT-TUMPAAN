@@ -34,6 +34,16 @@
             z-index: -1; 
         }
 
+        .back {
+            margin-bottom: 20px;
+        }
+        .back:hover {
+            cursor: pointer;
+        }
+        .back:active {
+            transform: scale(0.95);
+        }
+
         .form-wrapper {
             background-color: #2148C0; 
             padding: 30px;
@@ -169,6 +179,7 @@
 </head>
 <body>
     <div class="form-wrapper">
+    <img class="back" src="<?= base_url('assets/back.png'); ?>" alt="close" class="img-fluid mx-auto d-block" width="32" onclick="window.history.back();">
         <div class="form-header">
             <img src="https://www.simivalleyelementary.org/build/image/3.png?h=200&fit=max&s=db9ab56df5b6520e116417b618007eff" alt="Logo" class="img-fluid mx-auto d-block" width="50">
             <h2>FORMULIR PENDAFTARAN SISWA BARU</h2>
