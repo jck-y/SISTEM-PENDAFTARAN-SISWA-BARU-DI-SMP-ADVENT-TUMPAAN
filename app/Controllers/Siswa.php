@@ -76,7 +76,7 @@ class Siswa extends BaseController
                 'alamat_siswa' => 'required',
                 'nama_tk_asal' => 'required',
                 'telepon' => 'required',
-                'alamat_sekolah' => 'required'
+                'alamat_sekolah' => 'required',
             ]);
 
             if (!$validation->withRequest($this->request)->run()) {
