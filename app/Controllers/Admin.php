@@ -36,21 +36,21 @@ class Admin extends BaseController
     {
         $password = $this->request->getPost('password'); // Tanpa hash
         $this->siswaModel->update($id, ['password' => $password]);
-        return redirect()->to('/admin')->with('success', 'Password siswa berhasil diatur');
+        return redirect()->to('/admin/siswa')->with('success', 'Password siswa berhasil diatur');
     }
 
     public function set_password_kepsek($id)
     {
         $password = $this->request->getPost('password'); // Tanpa hash
         $this->kepsekModel->update($id, ['password' => $password]);
-        return redirect()->to('/admin')->with('success', 'Password kepsek berhasil diatur');
+        return redirect()->to('/kepsek')->with('success', 'Password kepsek berhasil diatur');
     }
 
     public function set_password_operator($id)
     {
         $password = $this->request->getPost('password'); // Tanpa hash
         $this->operatorModel->update($id, ['password' => $password]);
-        return redirect()->to('/admin')->with('success', 'Password operator berhasil diatur');
+        return redirect()->to('/admin/operator')->with('success', 'Password operator berhasil diatur');
     }
 
     public function add_kepsek()

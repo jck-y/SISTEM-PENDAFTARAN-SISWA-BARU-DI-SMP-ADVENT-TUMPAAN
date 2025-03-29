@@ -47,3 +47,4 @@ $routes->get('/admin/siswa', 'Admin::index3');
 
 /** ROUTES FOR KEPSEK */
 $routes->get('/kepsek/detail_siswa/(:num)', 'Kepsek::detailSiswa/$1');
+$routes->post('/kepsek/update_status', 'Kepsek::update_status');

@@ -158,7 +158,7 @@
                 <tr>
                 <td><a href="/kepsek/detail_siswa/<?= $s['id_siswa'] ?>"><?= esc($s['nama_lengkap']) ?></a></td>
                     <td>
-                    <form action="/operator/update_status" method="post">
+                    <form action="/kepsek/update_status" method="post">
                         <input type="hidden" name="id_siswa" value="<?= $s['id_siswa'] ?>">
                         <select name="status" class="status-dropdown <?= ($s['status'] == 'Diterima') ? 'green' : 'red' ?>" 
                                 onchange="changeStatus(this); this.form.submit();">
