@@ -26,9 +26,7 @@ class Admin extends BaseController
         
         $data = [
             'nama' => session()->get('nama'),
-            'siswa' => $this->siswaModel->findAll(),
             'kepsek' => $this->kepsekModel->findAll(),
-            'operator' => $this->operatorModel->findAll()
         ];
         
         return view('admin/admin_kepsek', $data);
@@ -92,7 +90,6 @@ class Admin extends BaseController
         $this->operatorModel->delete($id);
         return redirect()->to('/admin')->with('success', 'Data operator berhasil dihapus');
     }
-
     public function index2()
     {
         if (!session()->get('logged_in')) {
@@ -101,13 +98,11 @@ class Admin extends BaseController
         
         $data = [
             'nama' => session()->get('nama'),
-            'siswa' => $this->siswaModel->findAll(),
-            'kepsek' => $this->kepsekModel->findAll(),
             'operator' => $this->operatorModel->findAll()
         ];
-        return view('admin/admin_operator', $data); // Kirim $data
-    }
 
+        return view('admin/admin_operator', $data);
+    }
     public function index3()
     {
         if (!session()->get('logged_in')) {
@@ -117,9 +112,8 @@ class Admin extends BaseController
         $data = [
             'nama' => session()->get('nama'),
             'siswa' => $this->siswaModel->findAll(),
-            'kepsek' => $this->kepsekModel->findAll(),
-            'operator' => $this->operatorModel->findAll()
         ];
-        return view('admin/admin_siswa', $data); // Kirim $data
+
+        return view('admin/admin_siswa', $data);
     }
 }
