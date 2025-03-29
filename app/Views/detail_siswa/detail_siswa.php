@@ -198,7 +198,7 @@ td {
                     </div>
                     <div class="col-md-4">
                         <?php if (!empty($siswa['gambar']) && file_exists(ROOTPATH . 'public/uploads/' . $siswa['gambar'])): ?>
-                            <img src="/uploads/<?= esc($siswa['gambar']) ?>" alt="Foto Siswa" class="img-fluid rounded" style="max-height: 300px;">
+                            <img src="/uploads/<?= esc($siswa['gambar']) ?>" alt="Foto Siswa" class="img-fluid rounded" style="height: 300px;">
                         <?php else: ?>
                             <div class="alert alert-info">Foto siswa tidak tersedia</div>
                         <?php endif; ?>
