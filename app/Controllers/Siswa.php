@@ -31,6 +31,7 @@ class Siswa extends BaseController
         $data = [
             'id_siswa' => session()->get('id_siswa')
         ];
+
         return view('orangtua/orangtua_kandung', $data);
     }
 
