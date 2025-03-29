@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Siswa</title>
+    <title>Home</title>
     <style>
         body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -27,8 +31,29 @@
             filter: blur(10px);
             z-index: -1;
         }
+
         .container {
-            background: #2148C0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .siswa-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .status-label {
+            padding: 8px 16px;
+            font-weight: bold;
+            border-radius: 5px;
             color: white;
             padding: 30px;
             border-radius: 10px;
@@ -55,9 +80,16 @@
             background-color: #FFC107; /* Kuning */
             color: #002F87;
         }
+
         .status-diterima {
-            background-color: #28a745; /* Hijau */
+            background-color: #28a745; 
         }
+
+        .status-diproses {
+            background-color: #ffc107; 
+            color: black;
+        }
+
         .status-ditolak {
             background-color: #dc3545; /* Merah */
         }

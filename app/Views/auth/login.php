@@ -42,6 +42,7 @@
         }
         .form-control::placeholder {
             color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
         }
         .form-control:focus {
             background: transparent;
