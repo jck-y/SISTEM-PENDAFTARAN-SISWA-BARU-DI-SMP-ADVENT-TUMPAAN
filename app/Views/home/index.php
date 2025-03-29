@@ -1,78 +1,72 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Siswa</title>
+    <title>Home</title>
     <style>
         body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            background: url('https://static.vecteezy.com/system/resources/previews/009/006/369/non_2x/abstract-blue-and-yellow-geometric-gradient-background-vector.jpg') no-repeat center center fixed;
-            background-size: cover;
+            margin: auto;
         }
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: inherit;
-            filter: blur(10px);
-            z-index: -1;
-        }
+
         .container {
-            background: #2148C0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .siswa-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .status-label {
+            padding: 8px 16px;
+            font-weight: bold;
+            border-radius: 5px;
             color: white;
-            padding: 30px;
-            border-radius: 10px;
-            display: inline-block;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            min-width: 100px;
         }
-        .status {
-            margin-top: 20px;
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            display: inline-block;
-        }
-        .status-diproses {
-            background-color: #FFC107; /* Kuning */
-            color: #002F87;
-        }
+
         .status-diterima {
-            background-color: #28a745; /* Hijau */
+            background-color: #28a745; 
         }
+
+        .status-diproses {
+            background-color: #ffc107; 
+            color: black;
+        }
+
         .status-ditolak {
-            background-color: #dc3545; /* Merah */
-        }
-        .logout-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #fff;
-            color: #002F87;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
-            font-weight: bold;
-        }
-        .logout-btn:hover {
-            background-color: #FFC107;
-            color: #002F87;
+            background-color: #dc3545;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Selamat Datang, <?= esc($nama_lengkap) ?>!</h1>
-        <p>Ini adalah halaman home untuk siswa.</p>
-        <div class="status <?= 'status-' . strtolower($status) ?>">
-            Status: <?= esc($status) ?>
+        <?php foreach ($siswa as $s): ?>
+        <div class="siswa-row">
+            <h1><?= $s['nama'] ?></h1>
+            <span class="status-label 
+                <?= ($s['status'] == 'Diterima') ? 'status-diterima' : 
+                    ($s['status'] == 'Ditolak' ? 'status-ditolak' : 'status-diproses') ?>">
+                <?= strtoupper($s['status']) ?>
+            </span>
         </div>
-        <br>
-        <a href="<?= base_url('/auth/logout') ?>" class="logout-btn">Logout</a>
+        <?php endforeach; ?>
     </div>
 </body>
 </html>
