@@ -132,7 +132,4 @@ nb-configuration.xml
 #-----------------------------------------------------
 
 public/uploads
-
-#======= ignore migration ===
-
-app/Config/Database.php
+app/Controllers

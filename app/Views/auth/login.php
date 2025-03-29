@@ -9,7 +9,7 @@
     <style>
         body {
             background: url('https://static.vecteezy.com/system/resources/previews/009/006/369/non_2x/abstract-blue-and-yellow-geometric-gradient-background-vector.jpg') no-repeat center center fixed;
-            background-size: cover;
+            background-size: fit;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,7 +21,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 180%;
+            height: 100%;
             background: inherit;
             filter: blur(10px); 
             z-index: -1; 
@@ -42,6 +42,7 @@
         }
         .form-control::placeholder {
             color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
         }
         .form-control:focus {
             background: transparent;
