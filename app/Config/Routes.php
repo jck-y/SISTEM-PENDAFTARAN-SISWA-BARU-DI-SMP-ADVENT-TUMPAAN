@@ -14,7 +14,7 @@ $routes->get('/auth/logout', 'Auth::logout');
 
 /** MAIN ROUTES */
 $routes->get('/kepsek', 'Kepsek::index');
-$routes->get('/admin', 'Admin::index');
+// $routes->get('/admin', 'Admin::index');
 $routes->get('/home', 'Home::index');
 $routes->get('/operator', 'Operator::index');
 
@@ -43,6 +43,7 @@ $routes->post('/admin/delete_siswa/(:num)', 'Admin::delete_siswa/$1');
 $routes->post('/admin/delete_kepsek/(:num)', 'Admin::delete_kepsek/$1');
 $routes->post('/admin/delete_operator/(:num)', 'Admin::delete_operator/$1');
 
+$routes->get('/admin/kepsek', 'Admin::index');
 $routes->get('/admin/operator', 'Admin::index2');
 $routes->get('/admin/siswa', 'Admin::index3');
 
