@@ -2,6 +2,8 @@
 # Operating Specific Junk Files
 #-------------------------
 
+.gitignore
+
 # OS X
 .DS_Store
 .AppleDouble
@@ -124,3 +126,10 @@ nb-configuration.xml
 
 /results/
 /phpunit*.xml
+
+#-----------------------------------------------------
+# Database Configuration & Image Uploads & Controllers
+#-----------------------------------------------------
+
+public/uploads
+app/Controllers
