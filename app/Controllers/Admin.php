@@ -179,7 +179,7 @@ class Admin extends BaseController
 
         // Ambil data orang tua dan wali (asumsi ada model dan tabel terpisah)
         $orangTuaModel = new \App\Models\OrangTuaModel(); // Sesuaikan nama model
-        $waliModel = new \App\Models\WaliModel(); // Sesuaikan nama model
+        $waliModel = new \App\Models\WaliModel(); // Sesuaikan nama model   
         $orang_tua = $orangTuaModel->where('id_siswa', $id)->first();
         $wali = $waliModel->where('id_siswa', $id)->first();
 
