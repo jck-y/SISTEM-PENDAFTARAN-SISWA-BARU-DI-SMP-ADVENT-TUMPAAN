@@ -13,7 +13,7 @@ class SiswaModel extends Model
         'nama_lengkap', 'nama_panggilan', 'nomor_induk', 'nisn', 'tempat_lahir', 
         'tanggal_lahir', 'jenis_kelamin', 'agama', 'anak_ke', 'status_anak', 
         'alamat_siswa', 'telepon_siswa', 'nama_tk_asal', 'alamat_tk_asal', 
-        'status', 'password', 'gambar'
+        'status', 'password', 'gambar', 'kk', 'raport', 'akta' , 'skl',  
     ];
 
     protected $tableOrangTua = 'orang_tua';

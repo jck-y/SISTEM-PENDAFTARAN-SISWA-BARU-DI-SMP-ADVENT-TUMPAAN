@@ -79,6 +79,18 @@ class Siswa extends Migration
             'gambar' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
+            ],'kk' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+            ],'raport' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+            ],'akta' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+            ],'skl' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
             ],
         ]);
         $this->forge->addKey('id_siswa', true);

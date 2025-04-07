@@ -175,31 +175,40 @@ class Siswa extends BaseController
         return redirect()->to('/siswa')->with('error', 'Pendaftaran siswa harus dilakukan terlebih dahulu');
     }
 
-    $file = $this->request->getFile('gambar');
-    if ($file->isValid() && !$file->hasMoved()) {
-        // Ambil data siswa untuk mendapatkan nama
-        $id_siswa = session()->get('id_siswa');
-        $siswa = $this->siswaModel->find($id_siswa);
-        
-        if (!$siswa) {
-            return redirect()->back()->with('error', 'Data siswa tidak ditemukan');
-        }
+    $id_siswa = session()->get('id_siswa');
+    $siswa = $this->siswaModel->find($id_siswa);
 
-        // Buat nama file berdasarkan nama lengkap siswa
-        $namaFile = str_replace(' ', '_', strtolower($siswa['nama_lengkap'])) . '.' . $file->getExtension();
-        $file->move(ROOTPATH . 'public/uploads', $namaFile);
+    if (!$siswa) {
+        return redirect()->back()->with('error', 'Data siswa tidak ditemukan');
+    }
 
-        $data = [
-            'gambar' => $namaFile
-        ];
+    $uploadsPath = ROOTPATH . 'public/uploads/';
+    $nama_siswa = str_replace(' ', '_', strtolower($siswa['nama_lengkap']));
+    $data = [];
 
-        if ($this->siswaModel->update($id_siswa, $data)) {
-            session()->remove('id_siswa'); // Bersihkan session setelah selesai
-            return redirect()->to('/siswa/done');
+    $fields = [
+        'gambar' => 'foto',
+        'kk' => 'kk',
+        'raport' => 'raport',
+        'akta' => 'akta',
+        'skl' => 'skl'
+    ];
+
+    foreach ($fields as $inputName => $prefix) {
+        $file = $this->request->getFile($inputName);
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            $newFileName = "{$prefix}_{$nama_siswa}." . $file->getExtension();
+            $file->move($uploadsPath, $newFileName);
+            $data[$inputName] = $newFileName;
         }
     }
-    
-    return redirect()->back()->with('error', 'Gagal mengunggah gambar');
+
+    if (!empty($data) && $this->siswaModel->update($id_siswa, $data)) {
+        session()->remove('id_siswa'); // Hapus session setelah sukses upload
+        return redirect()->to('/siswa/done')->with('success', 'Berkas berhasil diunggah');
+    }
+
+    return redirect()->back()->with('error', 'Gagal mengunggah berkas');
 }
 
     public function done()
