@@ -56,12 +56,14 @@ class Wali extends Migration
                 'constraint' => 100,
             ],
             'penghasilan_ayah_wali' => [
-                'type' => 'DECIMAL',
-                'constraint' => '10,2',
+                'type' => 'VARCHAR',
+                'constraint' => 50,
+                'null' => true,
             ],
             'penghasilan_ibu_wali' => [
-                'type' => 'DECIMAL',
-                'constraint' => '10,2',
+                'type' => 'VARCHAR',
+                'constraint' => 50,
+                'null' => true,
             ],
         ]);
         $this->forge->addKey('id_wali', true);
@@ -70,6 +72,17 @@ class Wali extends Migration
 
     public function down()
     {
+        $fields = [
+            'penghasilan_ayah_wali' => [
+                'type' => 'INT',
+                'null' => true,
+            ],
+            'penghasilan_ibu_wali' => [
+                'type' => 'INT',
+                'null' => true,
+            ],
+        ];
+        $this->forge->modifyColumn('wali', $fields);
         $this->forge->dropTable('wali');
     }
 }

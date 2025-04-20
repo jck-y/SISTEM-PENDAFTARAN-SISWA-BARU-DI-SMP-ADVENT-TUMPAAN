@@ -226,8 +226,8 @@
                         </table>
                     </div>
                     <div class="col-md-4">
-                        <?php if (!empty($siswa['gambar']) && file_exists(ROOTPATH . 'public/uploads/' . $siswa['gambar'])): ?>
-                            <img src="<?= base_url('uploads/' . $siswa['gambar']) ?>" alt="Foto Siswa" class="img-fluid rounded">
+                        <?php if (!empty($documents['gambar'])): ?>
+                            <img src="<?= $documents['gambar'] ?>" alt="Foto Siswa" class="img-fluid rounded">
                         <?php else: ?>
                             <div class="alert alert-info">Foto siswa tidak tersedia</div>
                         <?php endif; ?>
@@ -236,6 +236,7 @@
             </div>
         </div>
 
+        <div class="container mt-4">
         <!-- Informasi Orang Tua -->
         <?php if (!empty($orang_tua)): ?>
         <div class="card mb-4">
@@ -265,7 +266,22 @@
                             </tr>
                             <tr>
                                 <th>Penghasilan</th>
-                                <td>Rp. <?= isset($orang_tua['penghasilan_ayah']) ? number_format($orang_tua['penghasilan_ayah'], 0, ',', '.') : '-' ?></td>
+                                <td>
+                                    <?php
+                                    $penghasilan_ayah = $orang_tua['penghasilan_ayah'] ?? '0';
+                                    if ($penghasilan_ayah == '0-2.500.000') {
+                                        echo 'Rp. 0 - Rp. 2.500.000';
+                                    } elseif ($penghasilan_ayah == '2.500.000-5.000.000') {
+                                        echo 'Rp. 2.500.000 - Rp. 5.000.000';
+                                    } elseif ($penghasilan_ayah == 'lebih dari 5.000.000') {
+                                        echo 'Lebih dari Rp. 5.000.000';
+                                    } elseif ($penghasilan_ayah == '2.50') {
+                                        echo 'Rp. 0 - Rp. 2.500.000'; // Untuk data lama
+                                    } else {
+                                        echo 'Rp. ' . number_format(floatval($penghasilan_ayah) * 1000000, 0, ',', '.');
+                                    }
+                                    ?>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -290,7 +306,22 @@
                             </tr>
                             <tr>
                                 <th>Penghasilan</th>
-                                <td>Rp. <?= isset($orang_tua['penghasilan_ibu']) ? number_format($orang_tua['penghasilan_ibu'], 0, ',', '.') : '-' ?></td>
+                                <td>
+                                    <?php
+                                    $penghasilan_ibu = $orang_tua['penghasilan_ibu'] ?? '0';
+                                    if ($penghasilan_ibu == '0-2.500.000') {
+                                        echo 'Rp. 0 - Rp. 2.500.000';
+                                    } elseif ($penghasilan_ibu == '2.500.000-5.000.000') {
+                                        echo 'Rp. 2.500.000 - Rp. 5.000.000';
+                                    } elseif ($penghasilan_ibu == 'lebih dari 5.000.000') {
+                                        echo 'Lebih dari Rp. 5.000.000';
+                                    } elseif ($penghasilan_ibu == '0.00') {
+                                        echo 'Rp. 0'; // Untuk data lama
+                                    } else {
+                                        echo 'Rp. ' . number_format(floatval($penghasilan_ibu) * 1000000, 0, ',', '.');
+                                    }
+                                    ?>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -335,7 +366,22 @@
                             </tr>
                             <tr>
                                 <th>Penghasilan</th>
-                                <td>Rp. <?= isset($wali['penghasilan_ayah_wali']) ? number_format($wali['penghasilan_ayah_wali'], 0, ',', '.') : '-' ?></td>
+                                <td>
+                                    <?php
+                                    $penghasilan_ayah_wali = $wali['penghasilan_ayah_wali'] ?? '0';
+                                    if ($penghasilan_ayah_wali == '0-2.500.000') {
+                                        echo 'Rp. 0 - Rp. 2.500.000';
+                                    } elseif ($penghasilan_ayah_wali == '2.500.000-5.000.000') {
+                                        echo 'Rp. 2.500.000 - Rp. 5.000.000';
+                                    } elseif ($penghasilan_ayah_wali == 'lebih dari 5.000.000') {
+                                        echo 'Lebih dari Rp. 5.000.000';
+                                    } elseif ($penghasilan_ayah_wali == '2.50') {
+                                        echo 'Rp. 0 - Rp. 2.500.000'; // Untuk data lama
+                                    } else {
+                                        echo 'Rp. ' . number_format(floatval($penghasilan_ayah_wali) * 1000000, 0, ',', '.');
+                                    }
+                                    ?>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -360,7 +406,22 @@
                             </tr>
                             <tr>
                                 <th>Penghasilan</th>
-                                <td>Rp. <?= isset($wali['penghasilan_ibu_wali']) ? number_format($wali['penghasilan_ibu_wali'], 0, ',', '.') : '-' ?></td>
+                                <td>
+                                    <?php
+                                    $penghasilan_ibu_wali = $wali['penghasilan_ibu_wali'] ?? '0';
+                                    if ($penghasilan_ibu_wali == '0-2.500.000') {
+                                        echo 'Rp. 0 - Rp. 2.500.000';
+                                    } elseif ($penghasilan_ibu_wali == '2.500.000-5.000.000') {
+                                        echo 'Rp. 2.500.000 - Rp. 5.000.000';
+                                    } elseif ($penghasilan_ibu_wali == 'lebih dari 5.000.000') {
+                                        echo 'Lebih dari Rp. 5.000.000';
+                                    } elseif ($penghasilan_ibu_wali == '0.00') {
+                                        echo 'Rp. 0'; // Untuk data lama
+                                    } else {
+                                        echo 'Rp. ' . number_format(floatval($penghasilan_ibu_wali) * 1000000, 0, ',', '.');
+                                    }
+                                    ?>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -375,32 +436,35 @@
         <?php else: ?>
             <div class="alert alert-warning">Data wali tidak tersedia</div>
         <?php endif; ?>
+    </div>
 
         <!-- Dokumen Siswa -->
         <div class="card mb-4">
             <div class="card-header">
-                <h4>Dokumen Siswa</h4>
+                <h4>DOKUMEN SISWA</h4>
             </div>
             <div class="card-body">
                 <div class="row">
                     <?php 
-                    $documents = [
-                        ['key' => 'gambar', 'label' => 'Foto Siswa'],
-                        ['key' => 'kk', 'label' => 'Kartu Keluarga'],
-                        ['key' => 'akta', 'label' => 'Akta Kelahiran'],
-                        ['key' => 'raport', 'label' => 'Raport'],
-                        ['key' => 'skl', 'label' => 'Surat Keterangan Lulus']
+                    $documentsLabels = [
+                        'gambar' => 'Foto Siswa',
+                        'kk' => 'Kartu Keluarga',
+                        'akta' => 'Akta Kelahiran',
+                        'raport' => 'Raport',
+                        'skl' => 'Surat Keterangan Lulus'
                     ];
-                    foreach ($documents as $doc): ?>
+                    foreach ($documentsLabels as $key => $label): ?>
                         <div class="col-md-4 col-sm-6 mb-3 document-card">
-                            <h5><?= $doc['label'] ?></h5>
-                            <?php if (!empty($siswa[$doc['key']]) && file_exists(ROOTPATH . 'public/uploads/' . $siswa[$doc['key']])): ?>
-                                <?php if (in_array(pathinfo($siswa[$doc['key']], PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png'])): ?>
-                                    <img src="<?= base_url('uploads/' . $siswa[$doc['key']]) ?>" alt="<?= $doc['label'] ?>" class="document-img img-fluid">
+                            <h5><?= $label ?></h5>
+                            <?php if (!empty($documents[$key])): ?>
+                                <?php 
+                                $extension = pathinfo($documents[$key], PATHINFO_EXTENSION);
+                                if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png'])): ?>
+                                    <img src="<?= $documents[$key] ?>" alt="<?= $label ?>" class="document-img img-fluid">
                                 <?php else: ?>
                                     <div class="pdf-icon">📄</div>
                                 <?php endif; ?>
-                                <p><a href="<?= base_url('uploads/' . $siswa[$doc['key']]) ?>" target="_blank">Lihat File</a></p>
+                                <p><a href="<?= $documents[$key] ?>" target="_blank">Lihat File</a></p>
                             <?php else: ?>
                                 <div class="alert alert-info">Dokumen tidak tersedia</div>
                             <?php endif; ?>

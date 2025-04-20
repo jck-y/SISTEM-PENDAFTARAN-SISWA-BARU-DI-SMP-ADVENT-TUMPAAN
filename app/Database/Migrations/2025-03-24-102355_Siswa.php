@@ -99,6 +99,7 @@ class Siswa extends Migration
 
     public function down()
     {
+        $this->forge->dropColumn('siswa', 'status');
         $this->forge->dropTable('siswa');
     }
 }

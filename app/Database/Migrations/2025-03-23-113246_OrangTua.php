@@ -56,12 +56,14 @@ class OrangTua extends Migration
                 'constraint' => 100,
             ],
             'penghasilan_ayah' => [
-                'type' => 'DECIMAL',
-                'constraint' => '10,2',
+                'type' => 'VARCHAR',
+                'constraint' => 50,
+                'null' => true,
             ],
             'penghasilan_ibu' => [
-                'type' => 'DECIMAL',
-                'constraint' => '10,2',
+                'type' => 'VARCHAR',
+                'constraint' => 50,
+                'null' => true,
             ],
         ]);
         $this->forge->addKey('id_orangtua', true);
@@ -70,6 +72,17 @@ class OrangTua extends Migration
 
     public function down()
     {
+        $fields = [
+            'penghasilan_ayah' => [
+                'type' => 'INT',
+                'null' => true,
+            ],
+            'penghasilan_ibu' => [
+                'type' => 'INT',
+                'null' => true,
+            ],
+        ];
+        $this->forge->modifyColumn('orang_tua', $fields);
         $this->forge->dropTable('orang_tua');
     }
 }

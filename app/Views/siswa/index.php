@@ -1,4 +1,3 @@
-<!-- app/Views/siswa/index.php -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -146,13 +145,13 @@
 
         /* Highlighted fields (ANAK KE) */
         .highlighted-field {
-            background-color: #e0f0ff; /* Light blue highlight as per Figma */
+            background-color: #e0f0ff;
         }
 
         /* Responsive Design for Desktop */
         @media (min-width: 768px) {
             .form-wrapper {
-                max-width: 600px; /* Wider form for desktop */
+                max-width: 600px;
                 padding: 30px;
             }
 
@@ -225,7 +224,7 @@
             </div>
             <div class="form-group">
                 <label for="tanggal_lahir">Tanggal Lahir</label>
-                <input type="date" id="tanggal_lahir" name="tanggal_lahir" value="<?= old('tanggal_lahir') ?>">
+                <input type="date" id="tanggal_lahir" name="tanggal_lahir" value="<?= old('tanggal_lahir') ?>" min="2013-01-01" max="<?= date('Y-m-d') ?>">
             </div>
             <div class="form-group">
                 <label for="jenis_kelamin">Jenis Kelamin</label>
@@ -268,38 +267,39 @@
                 <input type="text" id="alamat_siswa" name="alamat_siswa" value="<?= old('alamat_siswa') ?>">
             </div>
             <div class="form-group">
-                <label for="telepon">No. Telpon</label>
-                <input type="tel" id="telepon" name="telepon" value="<?= old('telepon') ?>">
+                <label for="telepon_siswa">No. Telpon</label>
+                <input type="tel" id="telepon_siswa" name="telepon_siswa" value="<?= old('telepon_siswa') ?>">
             </div>
             <div class="header-section">
-                <h2>TK ASAL</h2>
+                <h2>SD ASAL</h2>
             </div>
             <div class="form-group">
-                <label for="nama_tk_asal">Nama TK Asal</label>
+                <label for="nama_tk_asal">Nama SD Asal</label>
                 <input type="text" id="nama_tk_asal" name="nama_tk_asal" value="<?= old('nama_tk_asal') ?>">
             </div>
             <div class="form-group">
-                <label for="alamat_sekolah">Alamat TK</label>
-                <input type="text" id="alamat_sekolah" name="alamat_sekolah" value="<?= old('alamat_sekolah') ?>">
+                <label for="alamat_tk_asal">Alamat SD</label>
+                <input type="text" id="alamat_tk_asal" name="alamat_tk_asal" value="<?= old('alamat_tk_asal') ?>">
             </div>
 
             <div class="button-group">
-                <button type="submit" name="redirect_to" value="orangt" id="btnKandung">Orang Tua Kandung</button>
-                <button type="submit" name="redirect_to" value="orangtua_wali" id="btnWali">Orang Tua Wali</button>
+                <button type="submit" name="redirect_to" value="orangtua_kandung" id="btnOrangTua">Orang Tua</button>
+                <button type="submit" name="redirect_to" value="orangtua_wali" id="btnOrangTuaWali">Orang Tua Wali</button>
             </div>
         </form>
     </div>
 
     <script>
         const form = document.getElementById('siswaForm');
-        const btnKandung = document.getElementById('btnKandung');
-        const btnWali = document.getElementById('btnWali');
+        const btnOrangTua = document.getElementById('btnOrangTua');
+        const btnOrangTuaWali = document.getElementById('btnOrangTuaWali');
+        const tanggalLahirInput = document.getElementById('tanggal_lahir');
 
         const requiredFields = [
             'nama_lengkap', 'nama_panggilan', 'nomor_induk_asal', 'nisn',
             'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama',
             'anak_ke', 'status_anak', 'alamat_siswa', 'nama_tk_asal',
-            'telepon', 'alamat_sekolah'
+            'telepon_siswa', 'alamat_tk_asal'
         ];
 
         function checkFormValidity() {
@@ -310,9 +310,26 @@
                     allFilled = false;
                 }
             });
-            btnKandung.disabled = !allFilled;
-            btnWali.disabled = !allFilled;
+            btnOrangTua.disabled = !allFilled;
+            btnOrangTuaWali.disabled = !allFilled;
         }
+
+        // Validasi tanggal lahir di sisi klien
+        tanggalLahirInput.addEventListener('change', function() {
+            const selectedDate = new Date(this.value);
+            const minDate = new Date('2013-01-01');
+            const today = new Date();
+
+            if (selectedDate < minDate) {
+                alert('Tanggal lahir minimal harus pada tahun 2013.');
+                this.value = '';
+                checkFormValidity();
+            } else if (selectedDate > today) {
+                alert('Tanggal lahir tidak boleh melebihi tanggal saat ini.');
+                this.value = '';
+                checkFormValidity();
+            }
+        });
 
         requiredFields.forEach(fieldId => {
             const input = document.getElementById(fieldId);
@@ -320,14 +337,14 @@
             input.addEventListener('change', checkFormValidity);
         });
 
-        btnKandung.addEventListener('click', function(event) {
+        btnOrangTua.addEventListener('click', function(event) {
             if (this.disabled) {
                 event.preventDefault();
-                alert("Form tidak boleh kosong! Semua kolom wajib diisi sebelum melanjutkan ke Orang Tua Kandung.");
+                alert("Form tidak boleh kosong! Semua kolom wajib diisi sebelum melanjutkan ke Orang Tua.");
             }
         });
 
-        btnWali.addEventListener('click', function(event) {
+        btnOrangTuaWali.addEventListener('click', function(event) {
             if (this.disabled) {
                 event.preventDefault();
                 alert("Form tidak boleh kosong! Semua kolom wajib diisi sebelum melanjutkan ke Orang Tua Wali.");

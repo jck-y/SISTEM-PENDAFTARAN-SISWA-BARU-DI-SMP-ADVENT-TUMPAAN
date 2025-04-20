@@ -17,45 +17,30 @@ class Kepsek extends BaseController
             return redirect()->to('/auth');
         }
 
-        // Ambil parameter pencarian dari query string
         $search = $this->request->getGet('search');
 
+        $siswaQuery = $this->siswaModel;
+
         if ($search) {
-            // Jika ada pencarian, cari siswa berdasarkan nama_lengkap
-            $siswa = $this->siswaModel->like('nama_lengkap', $search)->findAll();
-        } else {
-            // Jika tidak ada pencarian, ambil semua data siswa
-            $siswa = $this->siswaModel->findAll();
+            $siswaQuery->like('nama_lengkap', $search);
         }
+        $siswa = $siswaQuery->findAll();
+
+        usort($siswa, function ($a, $b) {
+            $statusOrder = ['Diproses' => 1, 'Ditolak' => 2, 'Diterima' => 3];
+            $statusA = $statusOrder[$a['status']] ?? 4;
+            $statusB = $statusOrder[$b['status']] ?? 4;
+            return $statusA <=> $statusB;
+        });
 
         $data = [
             'role' => session()->get('role'),
             'nama' => session()->get('nama'),
             'siswa' => $siswa,
-            'search' => $search // Tambahkan ini untuk mempertahankan nilai pencarian di form
+            'search' => $search
         ];
 
-        return view('kepsek/kepsek', $data);
-    }
-
-    public function update_status()
-    {
-        if (!session()->get('logged_in')) {
-            return redirect()->to('/auth');
-        }
-
-        $id_siswa = $this->request->getPost('id_siswa');
-        $status = $this->request->getPost('status');
-
-        $data = [
-            'status' => $status
-        ];
-
-        if ($this->siswaModel->update($id_siswa, $data)) {
-            return redirect()->to('/kepsek')->with('success', 'Status siswa berhasil diperbarui');
-        } else {
-            return redirect()->to('/kepsek')->with('error', 'Gagal memperbarui status siswa');
-        }
+        return view('Kepsek/Kepsek', $data);
     }
 
     public function detailSiswa($id)
@@ -64,24 +49,32 @@ class Kepsek extends BaseController
             return redirect()->to('/auth');
         }
 
-        // Ambil data siswa
         $siswa = $this->siswaModel->find($id);
         if (!$siswa) {
-            return redirect()->to('/kepsek')->with('error', 'Siswa tidak ditemukan');
+            return redirect()->to('/Kepsek')->with('error', 'Siswa tidak ditemukan');
         }
 
-        // Ambil data orang tua dan wali
         $orangTuaModel = new \App\Models\OrangTuaModel();
         $waliModel = new \App\Models\WaliModel();
         $orang_tua = $orangTuaModel->where('id_siswa', $id)->first();
         $wali = $waliModel->where('id_siswa', $id)->first();
+        $documents = ['gambar', 'kk', 'akta', 'raport', 'skl'];
+        $documentPaths = [];
+        foreach ($documents as $doc) {
+            if (!empty($siswa[$doc]) && file_exists(FCPATH . $siswa[$doc])) {
+                $documentPaths[$doc] = base_url($siswa[$doc]);
+            } else {
+                $documentPaths[$doc] = null; 
+            }
+        }
 
         $data = [
             'siswa' => $siswa,
             'orang_tua' => $orang_tua,
             'wali' => $wali,
+            'documents' => $documentPaths,
             'nama' => session()->get('nama'),
-            'role' => 'kepsek' // Tambahkan role untuk menentukan tombol kembali
+            'role' => 'kepsek'
         ];
 
         return view('detail_siswa/detail_siswa', $data);

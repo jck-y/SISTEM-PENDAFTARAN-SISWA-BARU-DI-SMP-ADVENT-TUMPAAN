@@ -7,5 +7,7 @@ class KepalaSekolahModel extends Model
 {
     protected $table = 'kepala_sekolah';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['nama', 'password'];
+    protected $allowedFields = ['username', 'password']; 
+    protected $returnType = 'array';
+    protected $useTimestamps = false;
 }

@@ -4,22 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             background: url('https://static.vecteezy.com/system/resources/previews/009/006/369/non_2x/abstract-blue-and-yellow-geometric-gradient-background-vector.jpg') no-repeat center center fixed;
             background-size: cover;
+            position: relative;
+            overflow: hidden;
         }
+
         body::before {
             content: "";
             position: absolute;
@@ -32,106 +36,172 @@
             z-index: -1;
         }
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 47, 135, 0.5); /* Overlay biru tua (#002F87) dengan opacity */
+            z-index: -1;
         }
 
-        .siswa-row {
+        .container {
+            background: rgba(0, 47, 135, 0.9); /* Background semi-transparan dengan #002F87 */
+            backdrop-filter: blur(10px); /* Efek glassmorphism */
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
             display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 20px;
         }
 
-        h1 {
-            margin: 0;
-            font-size: 24px;
+        .logo {
+            width: 100px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
         }
 
-        .status-label {
-            padding: 8px 16px;
+        h1 {
+            font-size: 28px;
             font-weight: bold;
-            border-radius: 5px;
-            color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 400px; /* Lebar maksimum */
-            margin: 20px; /* Margin aman di kanan-kiri pada layar kecil */
-            text-align: center;
+            color: #FFC107; /* Warna kuning untuk aksen */
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
         }
-        .logo {
-            margin-bottom: 20px;
-        }
+
         .status {
-            margin-top: 20px;
-            padding: 15px; /* Padding seimbang di semua sisi */
-            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 20px;
+            border-radius: 10px;
             font-weight: bold;
-            display: block; /* Mengubah dari inline-block ke block agar memenuhi lebar */
-            text-align: center;
-            width: 100%; /* Memastikan lebar penuh */
-            box-sizing: border-box; /* Memastikan padding tidak menambah lebar */
+            width: 100%;
+            box-sizing: border-box;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid #FFC107; /* Border kuning */
         }
+
+        .status:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .status i {
+            font-size: 20px;
+            color: #FFC107; /* Ikon berwarna kuning */
+        }
+
+        .status-pending {
+            background-color: #007bff;
+            color: white;
+        }
+
         .status-diproses {
-            background-color: #FFC107; /* Kuning */
-            color: #002F87;
+            background-color: #FFD63A;
+            color: white;
         }
 
         .status-diterima {
-            background-color: #28a745; 
-        }
-
-        .status-diproses {
-            background-color: #ffc107; 
-            color: black;
+            background-color: #28a745;
+            color: white;
         }
 
         .status-ditolak {
-            background-color: #dc3545; /* Merah */
+            background-color: #dc3545;
+            color: white;
         }
-        .status-diterima h2 {
-            font-size: 1.5em;
+
+        .status h3 {
+            font-size: 1.2em;
             margin: 0;
-            line-height: 1.2;
+            line-height: 1.4;
         }
+
         .logout-btn {
             display: inline-block;
-            padding: 10px 20px;
-            background-color: #fff;
-            color: #002F87;
+            padding: 12px 25px;
+            background-color: #002F87; /* Warna biru tua */
+            color: white;
             text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
+            border-radius: 8px;
             font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border: 2px solid #FFC107; /* Border kuning */
         }
+
         .logout-btn:hover {
-            background-color: #FFC107;
+            background-color: #FFC107; /* Warna kuning saat hover */
             color: #002F87;
+            transform: scale(1.05);
+        }
+
+        /* Responsivitas */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .status {
+                padding: 10px 15px;
+            }
+
+            .status h3 {
+                font-size: 1em;
+            }
+
+            .logout-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <img src="https://www.simivalleyelementary.org/build/image/3.png?h=200&fit=max&s=db9ab56df5b6520e116417b618007eff" alt="Logo" class="logo" width="80">
-        <h1>Selamat Datang, <?= esc($nama_lengkap) ?>!</h1>
+        <img src="https://www.simivalleyelementary.org/build/image/3.png?h=200&fit=max&s=db9ab56df5b6520e116417b618007eff" alt="Logo" class="logo">
+        <h1>Selamat Datang, <?= esc($nama_lengkap ?? 'Pengguna') ?>!</h1>
         <?php
-        $statusLower = strtolower($status);
-        if ($statusLower === 'diterima') {
-            $message = "<h3>SELAMAT! ANDA DINYATAKAN LULUS SELEKSI MASUK SEKOLAH INI</h3>";
+        $statusLower = strtolower($status ?? 'pending');
+        $icon = '';
+        $message = '';
+
+        if ($statusLower === 'pending') {
+            $icon = '<i class="fas fa-clock"></i>';
+            $message = "Status Anda saat ini: Pending. Silakan menunggu proses pendaftaran.";
         } elseif ($statusLower === 'diproses') {
-            $message = "Mohon bersabar, pihak sekolah masih memproses pendaftaran Anda. Kami akan segera memberi kabar lebih lanjut.";
+            $icon = '<i class="fas fa-spinner fa-spin"></i>';
+            $message = "Pendaftaran Anda sedang dalam proses peninjauan. Mohon bersabar menunggu keputusan dari pihak sekolah.";
+        } elseif ($statusLower === 'diterima') {
+            $icon = '<i class="fas fa-check-circle"></i>';
+            $message = "<h3>SELAMAT! ANDA DINYATAKAN LULUS SELEKSI MASUK SEKOLAH INI</h3>";
         } elseif ($statusLower === 'ditolak') {
+            $icon = '<i class="fas fa-times-circle"></i>';
             $message = "Mohon maaf, Anda belum diterima di sekolah ini. Silakan hubungi pihak sekolah untuk informasi lebih lanjut atau coba lagi di periode berikutnya.";
         } else {
-            $message = "Status: " . esc($status);
+            $icon = '<i class="fas fa-info-circle"></i>';
+            $message = "Status: " . esc($statusLower);
         }
         ?>
-        <div class="status <?= 'status-' . $statusLower ?>">
-            <?= $message ?>
+        <div class="status status-<?= esc($statusLower) ?>">
+            <?= $icon ?>
+            <span><?= $message ?></span>
         </div>
         <a href="<?= base_url('/auth/logout') ?>" class="logout-btn">Logout</a>
     </div>
