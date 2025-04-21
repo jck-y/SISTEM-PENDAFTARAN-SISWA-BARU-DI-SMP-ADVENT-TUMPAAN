@@ -353,6 +353,11 @@
                 <!-- Data Orang Tua -->
                 <div class="data-card">
                     <h2>Data Orang Tua</h2>
+                    <?php
+                    // Debugging: Tampilkan isi variabel wali dan orangTua
+                    log_message('debug', 'Wali di view: ' . json_encode($wali));
+                    log_message('debug', 'Orang Tua di view: ' . json_encode($orangTua));
+                    ?>
                     <?php if (!empty($wali)): ?>
                         <div class="data-row">
                             <span class="data-label">Nama Ayah</span>
@@ -374,26 +379,26 @@
                             <span class="data-label">Nomor Telepon</span>
                             <span class="data-value"><?= esc($wali['telepon_hp'] ?? '-') ?></span>
                         </div>
-                    <?php elseif (!empty($orang_tua)): ?>
+                    <?php elseif (!empty($orangTua)): ?>
                         <div class="data-row">
                             <span class="data-label">Nama Ayah</span>
-                            <span class="data-value"><?= esc($orang_tua['nama_ayah'] ?? '-') ?></span>
+                            <span class="data-value"><?= esc($orangTua['nama_ayah'] ?? '-') ?></span>
                         </div>
                         <div class="data-row">
                             <span class="data-label">Alamat Ayah</span>
-                            <span class="data-value"><?= esc($orang_tua['alamat_ayah'] ?? '-') ?></span>
+                            <span class="data-value"><?= esc($orangTua['alamat_ayah'] ?? '-') ?></span>
                         </div>
                         <div class="data-row">
                             <span class="data-label">Nama Ibu</span>
-                            <span class="data-value"><?= esc($orang_tua['nama_ibu'] ?? '-') ?></span>
+                            <span class="data-value"><?= esc($orangTua['nama_ibu'] ?? '-') ?></span>
                         </div>
                         <div class="data-row">
                             <span class="data-label">Alamat Ibu</span>
-                            <span class="data-value"><?= esc($orang_tua['alamat_ibu'] ?? '-') ?></span>
+                            <span class="data-value"><?= esc($orangTua['alamat_ibu'] ?? '-') ?></span>
                         </div>
                         <div class="data-row">
                             <span class="data-label">Nomor Telepon</span>
-                            <span class="data-value"><?= esc($orang_tua['telepon_hp'] ?? '-') ?></span>
+                            <span class="data-value"><?= esc($orangTua['telepon_hp'] ?? '-') ?></span>
                         </div>
                     <?php else: ?>
                         <div class="data-row">
