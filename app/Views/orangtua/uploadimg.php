@@ -416,7 +416,7 @@
             reader.onload = (e) => {
                 previewImg.src = e.target.result;
                 fileName.textContent = file.name;
-                fileSize.textContent = `${Math.round(file.size / 1024)}kb`;
+                fileSize.textContent = `${Math.round(file.size / 5120)}kb`;
                 filePreview.style.display = 'flex';
             };
             reader.readAsDataURL(file);

@@ -43,31 +43,45 @@ class Auth extends BaseController
 
             $username = $this->request->getPost('username');
             $password = $this->request->getPost('password');
+            $selectedRole = $this->request->getPost('role'); // Ambil role yang dipilih dari form
 
-            if (empty($username) || empty($password)) {
-                log_message('error', 'Username atau password kosong');
-                session()->setFlashdata('error', 'Username dan password harus diisi.');
+            if (empty($username) || empty($password) || empty($selectedRole)) {
+                log_message('error', 'Username, password, atau role kosong');
+                session()->setFlashdata('error', 'Username, password, dan role harus diisi.');
                 return redirect()->to('auth/login');
             }
 
-            // Cek di tabel users (untuk siswa, password di-hash)
-            $user = $this->userModel->where('LOWER(username)', strtolower($username))->first();
-            log_message('debug', 'Hasil query users: ' . json_encode($user));
-            if ($user && password_verify($password, $user['password'])) {
-                $role = 'siswa';
-                $id = $user['id_user'];
-                $usernameFound = $user['username'];
-                log_message('debug', 'Siswa ditemukan: ' . $usernameFound);
-            } else {
-                // Cek di tabel admin (password plaintext)
-                $admin = $this->adminModel->where('LOWER(username)', strtolower($username))->first();
-                log_message('debug', 'Hasil query admin: ' . json_encode($admin));
-                if ($admin && $password === $admin['password']) { // Password plaintext
-                    $role = 'admin';
-                    $id = $admin['id']; // Primary key dari tabel admin
-                    $usernameFound = $admin['username'];
-                    log_message('debug', 'Admin ditemukan: ' . $usernameFound);
-                } else {
+            $role = null;
+            $id = null;
+            $usernameFound = null;
+
+            // Cek berdasarkan role yang dipilih
+            switch ($selectedRole) {
+                case 'siswa':
+                    // Cek di tabel users (untuk siswa, password di-hash)
+                    $user = $this->userModel->where('LOWER(username)', strtolower($username))->first();
+                    log_message('debug', 'Hasil query users: ' . json_encode($user));
+                    if ($user && password_verify($password, $user['password'])) {
+                        $role = 'siswa';
+                        $id = $user['id_user'];
+                        $usernameFound = $user['username'];
+                        log_message('debug', 'Siswa ditemukan: ' . $usernameFound);
+                    }
+                    break;
+
+                case 'admin':
+                    // Cek di tabel admin (password plaintext)
+                    $admin = $this->adminModel->where('LOWER(username)', strtolower($username))->first();
+                    log_message('debug', 'Hasil query admin: ' . json_encode($admin));
+                    if ($admin && $password === $admin['password']) { // Password plaintext
+                        $role = 'admin';
+                        $id = $admin['id'];
+                        $usernameFound = $admin['username'];
+                        log_message('debug', 'Admin ditemukan: ' . $usernameFound);
+                    }
+                    break;
+
+                case 'operator':
                     // Cek di tabel operator (password plaintext)
                     $operator = $this->operatorModel->where('LOWER(username)', strtolower($username))->first();
                     log_message('debug', 'Hasil query operator: ' . json_encode($operator));
@@ -76,22 +90,32 @@ class Auth extends BaseController
                         $id = $operator['id'];
                         $usernameFound = $operator['username'];
                         log_message('debug', 'Operator ditemukan: ' . $usernameFound);
-                    } else {
-                        // Cek di tabel kepsek (password plaintext)
-                        $kepalaSekolah = $this->kepalaSekolahModel->where('LOWER(username)', strtolower($username))->first();
-                        log_message('debug', 'Hasil query kepala_sekolah: ' . json_encode($kepalaSekolah));
-                        if ($kepalaSekolah && $password === $kepalaSekolah['password']) { // Password plaintext
-                            $role = 'kepsek';
-                            $id = $kepalaSekolah['id'];
-                            $usernameFound = $kepalaSekolah['username'];
-                            log_message('debug', 'Kepala Sekolah ditemukan: ' . $usernameFound);
-                        } else {
-                            log_message('error', 'User tidak ditemukan: ' . $username);
-                            session()->setFlashdata('error', 'Username atau password salah.');
-                            return redirect()->to('auth/login');
-                        }
                     }
-                }
+                    break;
+
+                case 'kepsek':
+                    // Cek di tabel kepsek (password plaintext)
+                    $kepalaSekolah = $this->kepalaSekolahModel->where('LOWER(username)', strtolower($username))->first();
+                    log_message('debug', 'Hasil query kepala_sekolah: ' . json_encode($kepalaSekolah));
+                    if ($kepalaSekolah && $password === $kepalaSekolah['password']) { // Password plaintext
+                        $role = 'kepsek';
+                        $id = $kepalaSekolah['id'];
+                        $usernameFound = $kepalaSekolah['username'];
+                        log_message('debug', 'Kepala Sekolah ditemukan: ' . $usernameFound);
+                    }
+                    break;
+
+                default:
+                    log_message('error', 'Role tidak valid: ' . $selectedRole);
+                    session()->setFlashdata('error', 'Role tidak valid.');
+                    return redirect()->to('auth/login');
+            }
+
+            // Jika tidak ditemukan kecocokan berdasarkan role yang dipilih
+            if (!$role) {
+                log_message('error', 'User tidak ditemukan untuk role ' . $selectedRole . ': ' . $username);
+                session()->setFlashdata('error', 'Username atau password salah untuk role yang dipilih.');
+                return redirect()->to('auth/login');
             }
 
             // Jika pengguna ditemukan, simpan data ke sesi dan redirect
