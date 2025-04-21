@@ -21,7 +21,7 @@
             background: url('https://static.vecteezy.com/system/resources/previews/009/006/369/non_2x/abstract-blue-and-yellow-geometric-gradient-background-vector.jpg') no-repeat center center fixed;
             background-size: cover;
             position: relative;
-            overflow: hidden;
+            overflow: auto;
         }
 
         body::before {
@@ -52,7 +52,7 @@
             backdrop-filter: blur(10px); /* Efek glassmorphism */
             border-radius: 15px;
             padding: 30px;
-            max-width: 500px;
+            max-width: 600px;
             width: 90%;
             text-align: center;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
@@ -62,6 +62,7 @@
             flex-direction: column;
             align-items: center;
             gap: 20px;
+            margin: 20px 0;
         }
 
         .logo {
@@ -147,6 +148,77 @@
             transform: scale(1.05);
         }
 
+        /* Styling untuk data diri siswa */
+        .profile-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #FFC107; /* Border kuning */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-picture:hover {
+            transform: scale(1.05);
+        }
+
+        .data-card {
+            background: rgba(255, 255, 255, 0.1); /* Background semi-transparan putih */
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .data-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .data-card h2 {
+            font-size: 20px;
+            color: #FFC107;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 5px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .data-row:last-child {
+            border-bottom: none;
+        }
+
+        .data-label {
+            font-weight: bold;
+            color: #FFC107;
+            flex: 1;
+        }
+
+        .data-value {
+            color: white;
+            flex: 2;
+            text-align: right;
+        }
+
         /* Responsivitas */
         @media (max-width: 480px) {
             .container {
@@ -169,6 +241,30 @@
             .logout-btn {
                 padding: 10px 20px;
                 font-size: 14px;
+            }
+
+            .profile-picture {
+                width: 120px;
+                height: 120px;
+            }
+
+            .data-card {
+                padding: 15px;
+            }
+
+            .data-card h2 {
+                font-size: 18px;
+            }
+
+            .data-row {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .data-label,
+            .data-value {
+                text-align: left;
+                flex: none;
             }
         }
     </style>
@@ -203,6 +299,112 @@
             <?= $icon ?>
             <span><?= $message ?></span>
         </div>
+
+        <?php if ($statusLower === 'diterima'): ?>
+            <div class="profile-section">
+                <!-- Foto Profil -->
+                <?php if (!empty($siswa['gambar'])): ?>
+                    <img src="<?= base_url($siswa['gambar']) ?>" alt="Foto Profil" class="profile-picture">
+                <?php else: ?>
+                    <img src="https://via.placeholder.com/150?text=No+Image" alt="Foto Profil" class="profile-picture">
+                <?php endif; ?>
+
+                <!-- Data Diri Siswa -->
+                <div class="data-card">
+                    <h2>Data Diri Siswa</h2>
+                    <div class="data-row">
+                        <span class="data-label">Nomor Induk</span>
+                        <span class="data-value"><?= esc($siswa['nomor_induk'] ?? '-') ?></span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">NISN</span>
+                        <span class="data-value"><?= esc($siswa['nisn'] ?? '-') ?></span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Jenis Kelamin</span>
+                        <span class="data-value"><?= esc($siswa['jenis_kelamin'] ?? '-') ?></span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Tempat Lahir</span>
+                        <span class="data-value"><?= esc($siswa['tempat_lahir'] ?? '-') ?></span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Tanggal Lahir</span>
+                        <span class="data-value"><?= esc($siswa['tanggal_lahir'] ?? '-') ?></span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Agama</span>
+                        <span class="data-value"><?= esc($siswa['agama'] ?? '-') ?></span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Anak Ke-</span>
+                        <span class="data-value"><?= esc($siswa['anak_ke'] ?? '-') ?></span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Alamat</span>
+                        <span class="data-value"><?= esc($siswa['alamat_siswa'] ?? '-') ?></span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Nomor Telepon</span>
+                        <span class="data-value"><?= esc($siswa['telepon_siswa'] ?? '-') ?></span>
+                    </div>
+                </div>
+
+                <!-- Data Orang Tua -->
+                <div class="data-card">
+                    <h2>Data Orang Tua</h2>
+                    <?php if (!empty($wali)): ?>
+                        <div class="data-row">
+                            <span class="data-label">Nama Ayah</span>
+                            <span class="data-value"><?= esc($wali['nama_ayah_wali'] ?? '-') ?></span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Alamat Ayah</span>
+                            <span class="data-value"><?= esc($wali['alamat_ayah_wali'] ?? '-') ?></span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Nama Ibu</span>
+                            <span class="data-value"><?= esc($wali['nama_ibu_wali'] ?? '-') ?></span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Alamat Ibu</span>
+                            <span class="data-value"><?= esc($wali['alamat_ibu_wali'] ?? '-') ?></span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Nomor Telepon</span>
+                            <span class="data-value"><?= esc($wali['telepon_hp'] ?? '-') ?></span>
+                        </div>
+                    <?php elseif (!empty($orang_tua)): ?>
+                        <div class="data-row">
+                            <span class="data-label">Nama Ayah</span>
+                            <span class="data-value"><?= esc($orang_tua['nama_ayah'] ?? '-') ?></span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Alamat Ayah</span>
+                            <span class="data-value"><?= esc($orang_tua['alamat_ayah'] ?? '-') ?></span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Nama Ibu</span>
+                            <span class="data-value"><?= esc($orang_tua['nama_ibu'] ?? '-') ?></span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Alamat Ibu</span>
+                            <span class="data-value"><?= esc($orang_tua['alamat_ibu'] ?? '-') ?></span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Nomor Telepon</span>
+                            <span class="data-value"><?= esc($orang_tua['telepon_hp'] ?? '-') ?></span>
+                        </div>
+                    <?php else: ?>
+                        <div class="data-row">
+                            <span class="data-label">Data Orang Tua</span>
+                            <span class="data-value">Belum tersedia</span>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <a href="<?= base_url('/auth/logout') ?>" class="logout-btn">Logout</a>
     </div>
 </body>

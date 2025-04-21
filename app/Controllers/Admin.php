@@ -200,6 +200,10 @@ class Admin extends BaseController
     
             // Cek apakah data siswa sudah ada
             $siswa = $this->siswaModel->where('id_user', $id_user)->first();
+            if (!$siswa) {
+                throw new \Exception('Data siswa tidak ditemukan.');
+            }
+            $id_siswa = $siswa['id_siswa'];
     
             // Upload file jika ada
             $gambar = $this->uploadFile('gambar');
@@ -235,24 +239,15 @@ class Admin extends BaseController
             if ($akta) $siswaData['akta'] = $akta;
             if ($skl) $siswaData['skl'] = $skl;
     
-            // Jika data siswa belum ada, lakukan insert
-            if (!$siswa) {
-                $id_siswa = $this->siswaModel->insert($siswaData, true);
-                if (!$id_siswa) {
-                    throw new \Exception('Gagal menyimpan data siswa.');
-                }
-            } else {
-                // Jika sudah ada, lakukan update
-                $this->siswaModel->update($siswa['id_siswa'], $siswaData);
-                $id_siswa = $siswa['id_siswa'];
-            }
+            // Update data siswa
+            $this->siswaModel->update($id_siswa, $siswaData);
     
             // Tentukan jenis orang tua yang diisi
             $parentType = $this->request->getPost('parent_type');
             $orangTuaModel = new \App\Models\OrangTuaModel();
     
             if ($parentType === 'wali') {
-                // Simpan data wali
+                // Siapkan data wali
                 $waliData = [
                     'id_siswa' => $id_siswa,
                     'nama_ayah_wali' => $this->request->getPost('wali')['nama_ayah_wali'] ?? '',
@@ -268,21 +263,28 @@ class Admin extends BaseController
                     'penghasilan_ibu_wali' => $this->request->getPost('wali')['penghasilan_ibu_wali'] ?? ''
                 ];
     
-                // Cek apakah data wali sudah ada, jika ada update, jika tidak insert
+                // Cek apakah data wali sudah ada
                 $existingWali = $this->waliModel->where('id_siswa', $id_siswa)->first();
-                if ($existingWali && isset($existingWali['id'])) {
-                    $this->waliModel->update($existingWali['id'], $waliData);
+                log_message('debug', 'Existing Wali for id_siswa ' . $id_siswa . ': ' . json_encode($existingWali));
+    
+                if ($existingWali && isset($existingWali['id_wali'])) {
+                    // Update data wali yang sudah ada
+                    $this->waliModel->update($existingWali['id_wali'], $waliData);
+                    log_message('debug', 'Updated Wali with id_wali ' . $existingWali['id_wali']);
                 } else {
+                    // Insert data wali baru
                     $this->waliModel->insert($waliData);
+                    log_message('debug', 'Inserted new Wali for id_siswa ' . $id_siswa);
                 }
     
                 // Hapus data orang tua kandung jika ada
                 $existingOrangTua = $orangTuaModel->where('id_siswa', $id_siswa)->first();
                 if ($existingOrangTua && isset($existingOrangTua['id'])) {
                     $orangTuaModel->delete($existingOrangTua['id']);
+                    log_message('debug', 'Deleted Orang Tua with id ' . $existingOrangTua['id']);
                 }
             } else {
-                // Simpan data orang tua kandung
+                // Siapkan data orang tua kandung
                 $orangTuaData = [
                     'id_siswa' => $id_siswa,
                     'nama_ayah' => $this->request->getPost('orang_tua')['nama_ayah'] ?? '',
@@ -298,28 +300,34 @@ class Admin extends BaseController
                     'penghasilan_ibu' => $this->request->getPost('orang_tua')['penghasilan_ibu'] ?? ''
                 ];
     
-                // Cek apakah data orang tua kandung sudah ada, jika ada update, jika tidak insert
+                // Cek apakah data orang tua kandung sudah ada
                 $existingOrangTua = $orangTuaModel->where('id_siswa', $id_siswa)->first();
-                log_message('debug', 'Existing Orang Tua: ' . json_encode($existingOrangTua)); // Debugging
-                if ($existingOrangTua && isset($existingOrangTua['id'])) {
-                    $orangTuaModel->update($existingOrangTua['id'], $orangTuaData);
+                log_message('debug', 'Existing Orang Tua for id_siswa ' . $id_siswa . ': ' . json_encode($existingOrangTua));
+    
+                if ($existingOrangTua && isset($existingOrangTua['id_orangtua'])) {
+                    // Update data orang tua kandung yang sudah ada
+                    $orangTuaModel->update($existingOrangTua['id_orangtua'], $orangTuaData);
+                    log_message('debug', 'Updated Orang Tua with id ' . $existingOrangTua['id']);
                 } else {
+                    // Insert data orang tua kandung baru
                     $orangTuaModel->insert($orangTuaData);
+                    log_message('debug', 'Inserted new Orang Tua for id_siswa ' . $id_siswa);
                 }
     
                 // Hapus data wali jika ada
                 $existingWali = $this->waliModel->where('id_siswa', $id_siswa)->first();
-                if ($existingWali && isset($existingWali['id'])) {
-                    $this->waliModel->delete($existingWali['id']);
+                if ($existingWali && isset($existingWali['id_wali'])) {
+                    $this->waliModel->delete($existingWali['id_wali']);
+                    log_message('debug', 'Deleted Wali with id_wali ' . $existingWali['id_wali']);
                 }
             }
     
             return redirect()->to('/admin/siswa')->with('success', 'Data siswa dan data orang tua berhasil diperbarui');
         } catch (\Exception $e) {
+            log_message('error', 'Error updating siswa: ' . $e->getMessage());
             return redirect()->to('/admin/siswa')->with('error', 'Gagal memperbarui data siswa: ' . $e->getMessage());
         }
     }
-
     private function uploadFile($fieldName)
     {
         $file = $this->request->getFile($fieldName);

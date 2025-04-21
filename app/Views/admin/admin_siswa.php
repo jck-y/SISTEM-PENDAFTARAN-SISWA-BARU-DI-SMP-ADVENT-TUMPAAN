@@ -1226,10 +1226,10 @@
             <label>SKL</label>
             <div id="detail_skl"></div>
         </div>
-        <div class="detail-row">
+        <!-- <div class="detail-row">
             <label>ID Login</label>
             <span id="detail_id_login"></span>
-        </div>
+        </div> -->
         <div class="detail-row">
             <label>Nomor Induk Asal</label>
             <span id="detail_nomor_induk_asal"></span>

@@ -208,11 +208,11 @@
                                 <td><?= esc($siswa['telepon_siswa'] ?? '-') ?></td>
                             </tr>
                             <tr>
-                                <th>Asal TK</th>
+                                <th>Asal SD</th>
                                 <td><?= esc($siswa['nama_tk_asal'] ?? '-') ?></td>
                             </tr>
                             <tr>
-                                <th>Alamat TK</th>
+                                <th>Alamat SD</th>
                                 <td><?= esc($siswa['alamat_tk_asal'] ?? '-') ?></td>
                             </tr>
                             <tr>
