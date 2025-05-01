@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 class OrangTuaModel extends Model
 {
     protected $table = 'orang_tua';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_orangtua';
     protected $allowedFields = [
         'id_siswa', 'nama_ayah', 'alamat_ayah', 'pekerjaan_ayah', 'pendidikan_ayah', 'penghasilan_ayah',
         'nama_ibu', 'alamat_ibu', 'pekerjaan_ibu', 'pendidikan_ibu', 'penghasilan_ibu', 'telepon_hp'

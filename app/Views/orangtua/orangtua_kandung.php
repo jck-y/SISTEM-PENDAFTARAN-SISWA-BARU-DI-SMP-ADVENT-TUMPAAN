@@ -1,4 +1,3 @@
-<!-- app/Views/orangtua_kandung.php -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -126,7 +125,7 @@
 </head>
 <body>
     <div class="form-wrapper">
-    <img class="back" src="<?= base_url('assets/back.png'); ?>" alt="close" class="img-fluid mx-auto d-block" width="32" onclick="window.history.back();">
+        <img class="back" src="<?= base_url('assets/back.png'); ?>" alt="close" class="img-fluid mx-auto d-block" width="32" onclick="window.history.back();">
         <div class="form-header">
             <img src="https://www.simivalleyelementary.org/build/image/3.png?h=200&fit=max&s=db9ab56df5b6520e116417b618007eff" alt="Logo" width="50">
             <h2>FORMULIR PENDAFTARAN SISWA BARU</h2>
@@ -134,73 +133,140 @@
         <div class="header-section">
             <h2>ORANG TUA KANDUNG</h2>
         </div>
-        <form action="<?= base_url('siswa/save_orangtua_kandung'); ?>" method="post">
+        <?php if (session()->getFlashdata('validation')): ?>
+            <div class="alert alert-danger">
+                <?php foreach (session()->getFlashdata('validation') as $field => $error): ?>
+                    <p><?= esc($error) ?></p>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+        <form action="<?= base_url('siswa/save_orangtua_kandung'); ?>" method="post" id="orangTuaForm">
             <div class="form-group">
-                <label for="nama_lengkap_ayah">Nama Lengkap Ayah</label>
-                <input type="text" id="nama_lengkap_ayah" name="nama_lengkap_ayah" required>
+                <label for="nama_ayah">Nama Lengkap Ayah</label>
+                <input type="text" id="nama_ayah" name="nama_ayah" value="<?= old('nama_ayah') ?>" required>
             </div>
             <div class="form-group">
-                <label for="nama_lengkap_ibu">Nama Lengkap Ibu</label>
-                <input type="text" id="nama_lengkap_ibu" name="nama_lengkap_ibu" required>
+                <label for="nama_ibu">Nama Lengkap Ibu</label>
+                <input type="text" id="nama_ibu" name="nama_ibu" value="<?= old('nama_ibu') ?>" required>
             </div>
             <div class="form-group">
                 <label for="alamat_ayah">Alamat Ayah</label>
-                <input type="text" id="alamat_ayah" name="alamat_ayah" required>
+                <input type="text" id="alamat_ayah" name="alamat_ayah" value="<?= old('alamat_ayah') ?>" required>
             </div>
             <div class="form-group">
                 <label for="alamat_ibu">Alamat Ibu</label>
-                <input type="text" id="alamat_ibu" name="alamat_ibu" required>
+                <input type="text" id="alamat_ibu" name="alamat_ibu" value="<?= old('alamat_ibu') ?>" required>
             </div>
             <div class="form-group">
-                <label for="telepon">Telepon/No HP</label>
-                <input type="tel" id="telepon" name="telepon" required>
+                <label for="telepon_hp">Telepon/No HP</label>
+                <input type="tel" id="telepon_hp" name="telepon_hp" value="<?= old('telepon_hp') ?>" required>
             </div>
             <div class="form-group">
                 <label for="pekerjaan_ayah">Pekerjaan Ayah</label>
-                <input type="text" id="pekerjaan_ayah" name="pekerjaan_ayah" required>
+                <input type="text" id="pekerjaan_ayah" name="pekerjaan_ayah" value="<?= old('pekerjaan_ayah') ?>" required>
             </div>
             <div class="form-group">
                 <label for="pekerjaan_ibu">Pekerjaan Ibu</label>
-                <input type="text" id="pekerjaan_ibu" name="pekerjaan_ibu" required>
+                <input type="text" id="pekerjaan_ibu" name="pekerjaan_ibu" value="<?= old('pekerjaan_ibu') ?>" required>
             </div>
             <div class="form-group">
                 <label for="pendidikan_ayah">Pendidikan Ayah</label>
                 <select id="pendidikan_ayah" name="pendidikan_ayah" required>
                     <option value="">Pilih Pendidikan</option>
-                    <option value="SD">SD</option>
-                    <option value="SMP">SMP</option>
-                    <option value="SMA">SMA</option>
-                    <option value="D3">D3</option>
-                    <option value="S1">S1</option>
-                    <option value="S2">S2</option>
-                    <option value="S3">S3</option>
+                    <option value="SD" <?= old('pendidikan_ayah') == 'SD' ? 'selected' : '' ?>>SD</option>
+                    <option value="SMP" <?= old('pendidikan_ayah') == 'SMP' ? 'selected' : '' ?>>SMP</option>
+                    <option value="SMA" <?= old('pendidikan_ayah') == 'SMA' ? 'selected' : '' ?>>SMA</option>
+                    <option value="D3" <?= old('pendidikan_ayah') == 'D3' ? 'selected' : '' ?>>D3</option>
+                    <option value="S1" <?= old('pendidikan_ayah') == 'S1' ? 'selected' : '' ?>>S1</option>
+                    <option value="S2" <?= old('pendidikan_ayah') == 'S2' ? 'selected' : '' ?>>S2</option>
+                    <option value="S3" <?= old('pendidikan_ayah') == 'S3' ? 'selected' : '' ?>>S3</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="pendidikan_ibu">Pendidikan Ibu</label>
                 <select id="pendidikan_ibu" name="pendidikan_ibu" required>
                     <option value="">Pilih Pendidikan</option>
-                    <option value="SD">SD</option>
-                    <option value="SMP">SMP</option>
-                    <option value="SMA">SMA</option>
-                    <option value="D3">D3</option>
-                    <option value="S1">S1</option>
-                    <option value="S2">S2</option>
-                    <option value="S3">S3</option>
+                    <option value="SD" <?= old('pendidikan_ibu') == 'SD' ? 'selected' : '' ?>>SD</option>
+                    <option value="SMP" <?= old('pendidikan_ibu') == 'SMP' ? 'selected' : '' ?>>SMP</option>
+                    <option value="SMA" <?= old('pendidikan_ibu') == 'SMA' ? 'selected' : '' ?>>SMA</option>
+                    <option value="D3" <?= old('pendidikan_ibu') == 'D3' ? 'selected' : '' ?>>D3</option>
+                    <option value="S1" <?= old('pendidikan_ibu') == 'S1' ? 'selected' : '' ?>>S1</option>
+                    <option value="S2" <?= old('pendidikan_ibu') == 'S2' ? 'selected' : '' ?>>S2</option>
+                    <option value="S3" <?= old('pendidikan_ibu') == 'S3' ? 'selected' : '' ?>>S3</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="pekerjaan_ayah">Penghasilan Perbulan Ayah</label>
-                <input type="text" id="penghasilan_ayah" name="penghasilan_ayah" required>
+                <label for="penghasilan_ayah">Penghasilan Perbulan Ayah</label>
+                <select id="penghasilan_ayah" name="penghasilan_ayah" required>
+                    <option value="">Pilih Penghasilan</option>
+                    <option value="0-2.500.000" <?= old('penghasilan_ayah') == '0-2.500.000' ? 'selected' : '' ?>>0-2.500.000</option>
+                    <option value="2.500.000-5.000.000" <?= old('penghasilan_ayah') == '2.500.000-5.000.000' ? 'selected' : '' ?>>2.500.000-5.000.000</option>
+                    <option value="lebih dari 5.000.000" <?= old('penghasilan_ayah') == 'lebih dari 5.000.000' ? 'selected' : '' ?>>lebih dari 5.000.000</option>
+                </select>
             </div>
             <div class="form-group">
-                <label for="pekerjaan_ayah">Penghasilan Perbulan Ibu</label>
-                <input type="text" id="penghasilan_ibu" name="penghasilan_ibu" required>
+                <label for="penghasilan_ibu">Penghasilan Perbulan Ibu</label>
+                <select id="penghasilan_ibu" name="penghasilan_ibu" required>
+                    <option value="">Pilih Penghasilan</option>
+                    <option value="0-2.500.000" <?= old('penghasilan_ibu') == '0-2.500.000' ? 'selected' : '' ?>>0-2.500.000</option>
+                    <option value="2.500.000-5.000.000" <?= old('penghasilan_ibu') == '2.500.000-5.000.000' ? 'selected' : '' ?>>2.500.000-5.000.000</option>
+                    <option value="lebih dari 5.000.000" <?= old('penghasilan_ibu') == 'lebih dari 5.000.000' ? 'selected' : '' ?>>lebih dari 5.000.000</option>
+                </select>
             </div>
             <div class="button-group">
-                <button type="submit">Berikutnya</button>
+                <button type="submit" id="btnBerikutnya">Berikutnya</button>
             </div>
         </form>
     </div>
+    <script>
+        const form = document.getElementById('orangTuaForm');
+        const btnBerikutnya = document.getElementById('btnBerikutnya');
+
+        const requiredFields = [
+            'nama_ayah', 'nama_ibu', 'alamat_ayah', 'alamat_ibu', 'telepon_hp',
+            'pekerjaan_ayah', 'pekerjaan_ibu', 'pendidikan_ayah', 'pendidikan_ibu',
+            'penghasilan_ayah', 'penghasilan_ibu'
+        ];
+
+        function checkFormValidity() {
+            let allFilled = true;
+            requiredFields.forEach(fieldId => {
+                const input = document.getElementById(fieldId);
+                if (!input.value.trim() || (input.tagName === 'SELECT' && input.value === '')) {
+                    allFilled = false;
+                }
+            });
+            btnBerikutnya.disabled = !allFilled;
+        }
+
+        requiredFields.forEach(fieldId => {
+            const input = document.getElementById(fieldId);
+            input.addEventListener('input', checkFormValidity);
+            input.addEventListener('change', checkFormValidity);
+        });
+
+        form.addEventListener('submit', function(event) {
+            let valid = true;
+            let emptyFields = [];
+
+            requiredFields.forEach(fieldId => {
+                const input = document.getElementById(fieldId);
+                if (!input.value.trim() || (input.tagName === 'SELECT' && input.value === '')) {
+                    valid = false;
+                    emptyFields.push(input.previousElementSibling.textContent);
+                    input.style.borderColor = 'red';
+                } else {
+                    input.style.borderColor = '';
+                }
+            });
+
+            if (!valid) {
+                event.preventDefault();
+                alert(`Harap mengisi semua kolom yang wajib. Kolom yang masih kosong: \n- ${emptyFields.join('\n- ')}`);
+            }
+        });
+
+        checkFormValidity();
+    </script>
 </body>
 </html>

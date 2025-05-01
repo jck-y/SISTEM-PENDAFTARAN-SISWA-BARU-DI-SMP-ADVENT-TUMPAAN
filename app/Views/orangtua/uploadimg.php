@@ -232,102 +232,109 @@
 </head>
 <body>
     <div class="form-wrapper">
-    <img class="back" src="<?= base_url('assets/back.png'); ?>" alt="close" class="img-fluid mx-auto d-block" width="32" onclick="window.history.back();">
+        <img class="back" src="<?= base_url('assets/back.png'); ?>" alt="close" class="img-fluid mx-auto d-block" width="32" onclick="window.history.back();">
         <div class="form-header">       
             <img src="https://www.simivalleyelementary.org/build/image/3.png?h=200&fit=max&s=db9ab56df5b6520e116417b618007eff" alt="Logo" width="50">
             <h2>FORMULIR PENDAFTARAN SISWA BARU</h2>
         </div>
         <div class="header-section">
-            <h2>Upload Gambar</h2>
+            <h2>Upload Dokumen</h2>
         </div>
+        <?php if (session()->getFlashdata('validation')): ?>
+            <div class="alert alert-danger">
+                <?php foreach (session()->getFlashdata('validation') as $field => $error): ?>
+                    <p><?= esc($error) ?></p>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
         <form action="<?= base_url('siswa/upload'); ?>" method="post" enctype="multipart/form-data" id="uploadForm">
-        <div class="upload-section">    
-        <div class="drop-area" id="dropArea">
-                <div class="icon">📷</div>
-                <p>Tambahkan Foto Anda Disini</p>
-                <span class="browse-link" id="browseLink">Browse files</span>
-                <input type="file" id="fileInput" name="gambar" accept="image/*">
-            </div>
-            <div class="file-preview" id="filePreview">
-                <img id="previewImg" src="#" alt="Pratinjau Gambar">
-                <div class="file-info">
-                    <p id="fileName"></p>
-                    <p class="file-size" id="fileSize"></p>
+            <div class="upload-section">    
+                <!-- Foto -->
+                <div class="drop-area" id="dropArea">
+                    <div class="icon">📷</div>
+                    <p>Tambahkan Foto Anda Disini</p>
+                    <span class="browse-link" id="browseLink">Browse files</span>
+                    <input type="file" id="fileInput" name="gambar" accept="image/*">
                 </div>
-                <button type="button" class="remove-btn" id="removeBtn">✖</button>
-            </div>
+                <div class="file-preview" id="filePreview">
+                    <img id="previewImg" src="#" alt="Pratinjau Gambar">
+                    <div class="file-info">
+                        <p id="fileName"></p>
+                        <p class="file-size" id="fileSize"></p>
+                    </div>
+                    <button type="button" class="remove-btn" id="removeBtn">✖</button>
+                </div>
 
-            <!-- Kartu Keluarga -->
-            <div class="drop-area" onclick="document.getElementById('kk').click()">
-                <div class="icon">📷</div>
-                <p>Upload Kartu Keluarga</p>
-                <span class="browse-link" id="browseLink">Browse files</span>
-                <input type="file" id="kk" name="kk" accept=".jpg,.jpeg,.png,.pdf" style="display:none">
-            </div>
-            <div class="file-preview" id="previewKK" style="display:none">
-                <img id="previewImgKK" src="#" alt="Pratinjau Gambar">
-                <div class="file-info">
-                    <p id="fileNameKK"></p>
-                    <p class="file-size" id="fileSizeKK"></p>
+                <!-- Kartu Keluarga -->
+                <div class="drop-area" onclick="document.getElementById('kk').click()">
+                    <div class="icon">📷</div>
+                    <p>Upload Kartu Keluarga</p>
+                    <span class="browse-link">Browse files</span>
+                    <input type="file" id="kk" name="kk" accept=".jpg,.jpeg,.png,.pdf" style="display:none">
                 </div>
-                <button type="button" class="remove-btn" onclick="removeFile('kk', 'previewKK')">✖</button>
-            </div>
+                <div class="file-preview" id="previewKK" style="display:none">
+                    <img id="previewImgKK" src="#" alt="Pratinjau Gambar">
+                    <div class="file-info">
+                        <p id="fileNameKK"></p>
+                        <p class="file-size" id="fileSizeKK"></p>
+                    </div>
+                    <button type="button" class="remove-btn" onclick="removeFile('kk', 'previewKK')">✖</button>
+                </div>
 
-            <!-- Raport -->
-            <div class="drop-area" onclick="document.getElementById('raport').click()">
-                <div class="icon">📷</div>
-                <p>Upload Raport</p>
-                <span class="browse-link" id="browseLink">Browse files</span>
-                <input type="file" id="raport" name="raport" accept=".jpg,.jpeg,.png,.pdf" style="display:none">
-            </div>
-            <div class="file-preview" id="previewRaport" style="display:none">
-                <img id="previewImgRaport" src="#" alt="Pratinjau Gambar">
-                <div class="file-info">
-                    <p id="fileNameRaport"></p>
-                    <p class="file-size" id="fileSizeRaport"></p>
+                <!-- Raport -->
+                <div class="drop-area" onclick="document.getElementById('raport').click()">
+                    <div class="icon">📷</div>
+                    <p>Upload Raport</p>
+                    <span class="browse-link">Browse files</span>
+                    <input type="file" id="raport" name="raport" accept=".jpg,.jpeg,.png,.pdf" style="display:none">
                 </div>
-                <button type="button" class="remove-btn" onclick="removeFile('raport', 'previewRaport')">✖</button>
-            </div>
+                <div class="file-preview" id="previewRaport" style="display:none">
+                    <img id="previewImgRaport" src="#" alt="Pratinjau Gambar">
+                    <div class="file-info">
+                        <p id="fileNameRaport"></p>
+                        <p class="file-size" id="fileSizeRaport"></p>
+                    </div>
+                    <button type="button" class="remove-btn" onclick="removeFile('raport', 'previewRaport')">✖</button>
+                </div>
 
-            <!-- Akta Kelahiran -->
-            <div class="drop-area" onclick="document.getElementById('akta').click()">
-                <div class="icon">📷</div>
-                <p>Upload Akta Kelahiran</p>
-                <span class="browse-link" id="browseLink">Browse files</span>
-                <input type="file" id="akta" name="akta" accept=".jpg,.jpeg,.png,.pdf" style="display:none">
-            </div>
-            <div class="file-preview" id="previewAkta" style="display:none">
-            <img id="previewImgAkta" src="#" alt="Pratinjau Gambar">
-                <div class="file-info">
-                    <p id="fileNameAkta"></p>
-                    <p class="file-size" id="fileSizeAkta"></p>
+                <!-- Akta Kelahiran -->
+                <div class="drop-area" onclick="document.getElementById('akta').click()">
+                    <div class="icon">📷</div>
+                    <p>Upload Akta Kelahiran</p>
+                    <span class="browse-link">Browse files</span>
+                    <input type="file" id="akta" name="akta" accept=".jpg,.jpeg,.png,.pdf" style="display:none">
                 </div>
-                <button type="button" class="remove-btn" onclick="removeFile('akta', 'previewAkta')">✖</button>
-            </div>
+                <div class="file-preview" id="previewAkta" style="display:none">
+                    <img id="previewImgAkta" src="#" alt="Pratinjau Gambar">
+                    <div class="file-info">
+                        <p id="fileNameAkta"></p>
+                        <p class="file-size" id="fileSizeAkta"></p>
+                    </div>
+                    <button type="button" class="remove-btn" onclick="removeFile('akta', 'previewAkta')">✖</button>
+                </div>
 
-            <!-- Surat Keterangan Lulus -->
-            <div class="drop-area" onclick="document.getElementById('skl').click()">
-                <div class="icon">📷</div>
-                <p>Upload Surat Keterangan Lulus</p>
-                <span class="browse-link" id="browseLink">Browse files</span>
-                <input type="file" id="skl" name="skl" accept=".jpg,.jpeg,.png,.pdf" style="display:none">
-            </div>
-            <div class="file-preview" id="previewSKL" style="display:none">
-            <img id="previewImgSKL" src="#" alt="Pratinjau Gambar">
-                <div class="file-info">
-                    <p id="fileNameSKL"></p>
-                    <p class="file-size" id="fileSizeSKL"></p>
+                <!-- Surat Keterangan Lulus -->
+                <div class="drop-area" onclick="document.getElementById('skl').click()">
+                    <div class="icon">📷</div>
+                    <p>Upload Surat Keterangan Lulus</p>
+                    <span class="browse-link">Browse files</span>
+                    <input type="file" id="skl" name="skl" accept=".jpg,.jpeg,.png,.pdf" style="display:none">
                 </div>
-                <button type="button" class="remove-btn" onclick="removeFile('skl', 'previewSKL')">✖</button>
+                <div class="file-preview" id="previewSKL" style="display:none">
+                    <img id="previewImgSKL" src="#" alt="Pratinjau Gambar">
+                    <div class="file-info">
+                        <p id="fileNameSKL"></p>
+                        <p class="file-size" id="fileSizeSKL"></p>
+                    </div>
+                    <button type="button" class="remove-btn" onclick="removeFile('skl', 'previewSKL')">✖</button>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" id="submitButton" disabled>Selesai</button>
+                </div>
             </div>
-            
-            <div class="button-group">
-                <button type="submit" id="submitButton" disabled>Selesai</button>
-            </div>
-        </div>
         </form>
     </div>
- 
     <script>
         const dropArea = document.getElementById('dropArea');
         const fileInput = document.getElementById('fileInput');
@@ -339,13 +346,7 @@
         const removeBtn = document.getElementById('removeBtn');
         const submitButton = document.getElementById('submitButton');
         const uploadForm = document.getElementById('uploadForm');
-        function toggleSubmitButton() {
-            if (fileInput.files.length > 0) {
-                submitButton.disabled = false;
-            } else {
-                submitButton.disabled = true;
-            }
-        }
+
         function checkAllFilesFilled() {
             const requiredFiles = ['fileInput', 'kk', 'raport', 'akta', 'skl'];
             const allFilled = requiredFiles.every(id => {
@@ -356,9 +357,14 @@
         }
 
         uploadForm.addEventListener('submit', (e) => {
-            if (fileInput.files.length === 0) {
-                e.preventDefault(); 
-                alert("Harap unggah gambar terlebih dahulu!");
+            const requiredFiles = ['fileInput', 'kk', 'raport', 'akta', 'skl'];
+            for (let id of requiredFiles) {
+                const input = document.getElementById(id);
+                if (input.files.length === 0) {
+                    e.preventDefault();
+                    alert("Harap unggah semua dokumen yang diperlukan!");
+                    return;
+                }
             }
         });
 
@@ -367,7 +373,7 @@
         });
 
         browseLink.addEventListener('click', (e) => {
-            e.stopPropagation(); 
+            e.stopPropagation();
             fileInput.click();
         });
 
@@ -400,7 +406,7 @@
         });
 
         removeBtn.addEventListener('click', () => {
-            fileInput.value = ''; 
+            fileInput.value = '';
             filePreview.style.display = 'none';
             checkAllFilesFilled();
         });
@@ -410,7 +416,7 @@
             reader.onload = (e) => {
                 previewImg.src = e.target.result;
                 fileName.textContent = file.name;
-                fileSize.textContent = `${Math.round(file.size / 1024)}kb`;
+                fileSize.textContent = `${Math.round(file.size / 5120)}kb`;
                 filePreview.style.display = 'flex';
             };
             reader.readAsDataURL(file);
@@ -421,7 +427,7 @@
             const preview = document.getElementById(previewId);
             const nameElem = document.getElementById(nameId);
             const sizeElem = document.getElementById(sizeId);
-            const imgElem = document.getElementById(imgId); // Correctly reference the image element
+            const imgElem = document.getElementById(imgId);
 
             input.addEventListener('change', () => {
                 const file = input.files[0];
@@ -433,32 +439,33 @@
                     if (file.type.startsWith('image/')) {
                         const reader = new FileReader();
                         reader.onload = (e) => {
-                            imgElem.src = e.target.result; // Set the image source
-                            imgElem.style.display = 'block'; // Ensure it’s visible
+                            imgElem.src = e.target.result;
+                            imgElem.style.display = 'block';
                         };
                         reader.readAsDataURL(file);
                     } else {
-                        imgElem.src = ''; // Clear the image for non-image files (e.g., PDFs)
-                        imgElem.style.display = 'none'; // Hide the image preview
+                        imgElem.src = '';
+                        imgElem.style.display = 'none';
                     }
                 } else {
-                    preview.style.display = 'none'; // Hide preview if no file
+                    preview.style.display = 'none';
                 }
-                checkAllFilesFilled(); // Update the submit button state
+                checkAllFilesFilled();
             });
         }
 
-    function removeFile(inputId, previewId) {
-        const input = document.getElementById(inputId);
-        const preview = document.getElementById(previewId);
-        input.value = '';
-        preview.style.display = 'none';
-    }
+        function removeFile(inputId, previewId) {
+            const input = document.getElementById(inputId);
+            const preview = document.getElementById(previewId);
+            input.value = '';
+            preview.style.display = 'none';
+            checkAllFilesFilled();
+        }
 
-    handlePreview('kk', 'previewKK', 'fileNameKK', 'fileSizeKK', 'previewImgKK');
-    handlePreview('raport', 'previewRaport', 'fileNameRaport', 'fileSizeRaport', 'previewImgRaport');
-    handlePreview('akta', 'previewAkta', 'fileNameAkta', 'fileSizeAkta', 'previewImgAkta');
-    handlePreview('skl', 'previewSKL', 'fileNameSKL', 'fileSizeSKL', 'previewImgSKL');
+        handlePreview('kk', 'previewKK', 'fileNameKK', 'fileSizeKK', 'previewImgKK');
+        handlePreview('raport', 'previewRaport', 'fileNameRaport', 'fileSizeRaport', 'previewImgRaport');
+        handlePreview('akta', 'previewAkta', 'fileNameAkta', 'fileSizeAkta', 'previewImgAkta');
+        handlePreview('skl', 'previewSKL', 'fileNameSKL', 'fileSizeSKL', 'previewImgSKL');
     </script>
 </body>
 </html>

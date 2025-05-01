@@ -4,18 +4,27 @@ namespace App\Controllers;
 use App\Models\SiswaModel;
 use App\Models\KepalaSekolahModel;
 use App\Models\OperatorModel;
+use App\Models\UserModel;
+use App\Models\WaliModel;
 
 class Admin extends BaseController
 {
     protected $siswaModel;
     protected $kepsekModel;
     protected $operatorModel;
+    protected $userModel;
+    protected $waliModel;
 
     public function __construct()
     {
+        // Inisialisasi model
         $this->siswaModel = new SiswaModel();
         $this->kepsekModel = new KepalaSekolahModel();
         $this->operatorModel = new OperatorModel();
+        $this->userModel = new UserModel();
+        $this->waliModel = new WaliModel();
+
+        // Tidak perlu $this->load->model atau $this->load->library
     }
 
     public function index()
@@ -27,13 +36,13 @@ class Admin extends BaseController
         $keyword = $this->request->getGet('keyword');
 
         if ($keyword) {
-            $kepsek = $this->kepsekModel->like('nama', $keyword)->findAll();
+            $kepsek = $this->kepsekModel->like('username', $keyword)->findAll();
         } else {
             $kepsek = $this->kepsekModel->findAll();
         }
         
         $data = [
-            'nama' => session()->get('nama'),
+            'username' => session()->get('username'),
             'kepsek' => $kepsek, 
             'keyword' => $keyword,
         ];
@@ -41,10 +50,299 @@ class Admin extends BaseController
         return view('admin/admin_kepsek', $data);
     }
 
+    public function index2()
+    {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/auth');
+        }
+
+        $keyword = $this->request->getGet('keyword');
+
+        if ($keyword) {
+            $operator = $this->operatorModel->like('username', $keyword)->findAll();
+        } else {
+            $operator = $this->operatorModel->findAll();
+        }
+        
+        $data = [
+            'username' => session()->get('username'),
+            'operator' => $operator, 
+            'keyword' => $keyword, 
+        ];
+
+        return view('admin/admin_operator', $data);
+    }
+
+    public function index3()
+    {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/auth');
+        }
+    
+        $keyword = $this->request->getGet('keyword');
+    
+        if ($keyword) {
+            $users = $this->userModel->where('role', 'siswa')->like('username', $keyword)->findAll();
+        } else {
+            $users = $this->userModel->where('role', 'siswa')->findAll();
+        }
+    
+        // Ambil data siswa, wali, dan orang tua kandung untuk setiap user
+        $userData = [];
+        $orangTuaModel = new \App\Models\OrangTuaModel();
+        foreach ($users as $user) {
+            $siswa = $this->siswaModel->where('id_user', $user['id_user'])->first();
+            $wali = null;
+            $orangTua = null;
+            if ($siswa) {
+                $wali = $this->waliModel->where('id_siswa', $siswa['id_siswa'])->first();
+                $orangTua = $orangTuaModel->where('id_siswa', $siswa['id_siswa'])->first();
+            }
+            $userData[] = [
+                'user' => $user,
+                'siswa' => $siswa,
+                'wali' => $wali,
+                'orang_tua' => $orangTua
+            ];
+        }
+    
+        $data = [
+            'username' => session()->get('username'),
+            'users' => $userData,
+            'keyword' => $keyword,
+        ];
+        return view('admin/admin_siswa', $data);
+    }
+
+    public function add_siswa()
+    {
+        // Simpan data ke tabel users
+        $userData = [
+            'username' => $this->request->getPost('nama_lengkap'),
+            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+            'role' => 'siswa'
+        ];
+        $id_user = $this->userModel->insert($userData, true);
+
+        // Upload file
+        $gambar = $this->uploadFile('gambar');
+        $kk = $this->uploadFile('kk');
+        $raport = $this->uploadFile('raport');
+        $akta = $this->uploadFile('akta');
+        $skl = $this->uploadFile('skl');
+
+        // Simpan data ke tabel siswa
+        $siswaData = [
+            'id_user' => $id_user,
+            'nama_lengkap' => $this->request->getPost('nama_lengkap'),
+            'nama_panggilan' => $this->request->getPost('nama_panggilan'),
+            'nomor_induk' => $this->request->getPost('nomor_induk'),
+            'nomor_induk_asal' => $this->request->getPost('nomor_induk_asal'),
+            'nisn' => $this->request->getPost('nisn'),
+            'tempat_lahir' => $this->request->getPost('tempat_lahir'),
+            'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
+            'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+            'agama' => $this->request->getPost('agama'),
+            'anak_ke' => $this->request->getPost('anak_ke'),
+            'status_anak' => $this->request->getPost('status_anak'),
+            'alamat_siswa' => $this->request->getPost('alamat_siswa'),
+            'telepon_siswa' => $this->request->getPost('telepon_siswa'),
+            'nama_tk_asal' => $this->request->getPost('nama_tk_asal'),
+            'alamat_tk_asal' => $this->request->getPost('alamat_tk_asal'),
+            'status' => 'diproses',
+            'gambar' => $gambar,
+            'kk' => $kk,
+            'raport' => $raport,
+            'akta' => $akta,
+            'skl' => $skl,
+            'id_login' => $this->request->getPost('id_login')
+        ];
+
+        $id_siswa = $this->siswaModel->insert($siswaData, true);
+
+        // Simpan data wali
+        $waliData = [
+            'id_siswa' => $id_siswa,
+            'nama_ayah_wali' => $this->request->getPost('nama_ayah_wali'),
+            'nama_ibu_wali' => $this->request->getPost('nama_ibu_wali'),
+            'alamat_ayah_wali' => $this->request->getPost('alamat_ayah_wali'),
+            'alamat_ibu_wali' => $this->request->getPost('alamat_ibu_wali'),
+            'telepon_hp' => $this->request->getPost('telepon_hp'),
+            'pekerjaan_ayah_wali' => $this->request->getPost('pekerjaan_ayah_wali'),
+            'pekerjaan_ibu_wali' => $this->request->getPost('pekerjaan_ibu_wali'),
+            'pendidikan_ayah_wali' => $this->request->getPost('pendidikan_ayah_wali'),
+            'pendidikan_ibu_wali' => $this->request->getPost('pendidikan_ibu_wali'),
+            'penghasilan_ayah_wali' => $this->request->getPost('penghasilan_ayah_wali'),
+            'penghasilan_ibu_wali' => $this->request->getPost('penghasilan_ibu_wali')
+        ];
+
+        $this->waliModel->insert($waliData);
+
+        return redirect()->to('/admin/siswa')->with('success', 'Siswa dan data wali berhasil ditambahkan');
+    }
+
+    public function update_siswa()
+    {
+        try {
+            $id_user = $this->request->getPost('id_user');
+            if (!$id_user) {
+                throw new \Exception('ID User tidak ditemukan.');
+            }
+    
+            // Update tabel users jika ada password baru
+            $userData = [];
+            if ($this->request->getPost('password')) {
+                $userData['password'] = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
+            }
+            if (!empty($userData)) {
+                $this->userModel->update($id_user, $userData);
+            }
+    
+            // Cek apakah data siswa sudah ada
+            $siswa = $this->siswaModel->where('id_user', $id_user)->first();
+            if (!$siswa) {
+                throw new \Exception('Data siswa tidak ditemukan.');
+            }
+            $id_siswa = $siswa['id_siswa'];
+    
+            // Upload file jika ada
+            $gambar = $this->uploadFile('gambar');
+            $kk = $this->uploadFile('kk');
+            $raport = $this->uploadFile('raport');
+            $akta = $this->uploadFile('akta');
+            $skl = $this->uploadFile('skl');
+    
+            // Siapkan data siswa
+            $siswaData = [
+                'id_user' => $id_user,
+                'nama_lengkap' => $this->request->getPost('nama_lengkap'),
+                'nama_panggilan' => $this->request->getPost('nama_panggilan'),
+                'nomor_induk' => $this->request->getPost('nomor_induk'),
+                'nomor_induk_asal' => $this->request->getPost('nomor_induk_asal'),
+                'nisn' => $this->request->getPost('nisn'),
+                'tempat_lahir' => $this->request->getPost('tempat_lahir'),
+                'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
+                'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+                'agama' => $this->request->getPost('agama'),
+                'anak_ke' => $this->request->getPost('anak_ke'),
+                'status_anak' => $this->request->getPost('status_anak'),
+                'alamat_siswa' => $this->request->getPost('alamat_siswa'),
+                'telepon_siswa' => $this->request->getPost('telepon_siswa'),
+                'nama_tk_asal' => $this->request->getPost('nama_tk_asal'),
+                'alamat_tk_asal' => $this->request->getPost('alamat_tk_asal'),
+                'status' => $this->request->getPost('status') ?: 'diproses',
+            ];
+    
+            if ($gambar) $siswaData['gambar'] = $gambar;
+            if ($kk) $siswaData['kk'] = $kk;
+            if ($raport) $siswaData['raport'] = $raport;
+            if ($akta) $siswaData['akta'] = $akta;
+            if ($skl) $siswaData['skl'] = $skl;
+    
+            // Update data siswa
+            $this->siswaModel->update($id_siswa, $siswaData);
+    
+            // Tentukan jenis orang tua yang diisi
+            $parentType = $this->request->getPost('parent_type');
+            $orangTuaModel = new \App\Models\OrangTuaModel();
+    
+            if ($parentType === 'wali') {
+                // Siapkan data wali
+                $waliData = [
+                    'id_siswa' => $id_siswa,
+                    'nama_ayah_wali' => $this->request->getPost('wali')['nama_ayah_wali'] ?? '',
+                    'nama_ibu_wali' => $this->request->getPost('wali')['nama_ibu_wali'] ?? '',
+                    'alamat_ayah_wali' => $this->request->getPost('wali')['alamat_ayah_wali'] ?? '',
+                    'alamat_ibu_wali' => $this->request->getPost('wali')['alamat_ibu_wali'] ?? '',
+                    'telepon_hp' => $this->request->getPost('wali')['telepon_hp'] ?? '',
+                    'pekerjaan_ayah_wali' => $this->request->getPost('wali')['pekerjaan_ayah_wali'] ?? '',
+                    'pekerjaan_ibu_wali' => $this->request->getPost('wali')['pekerjaan_ibu_wali'] ?? '',
+                    'pendidikan_ayah_wali' => $this->request->getPost('wali')['pendidikan_ayah_wali'] ?? '',
+                    'pendidikan_ibu_wali' => $this->request->getPost('wali')['pendidikan_ibu_wali'] ?? '',
+                    'penghasilan_ayah_wali' => $this->request->getPost('wali')['penghasilan_ayah_wali'] ?? '',
+                    'penghasilan_ibu_wali' => $this->request->getPost('wali')['penghasilan_ibu_wali'] ?? ''
+                ];
+    
+                // Cek apakah data wali sudah ada
+                $existingWali = $this->waliModel->where('id_siswa', $id_siswa)->first();
+                log_message('debug', 'Existing Wali for id_siswa ' . $id_siswa . ': ' . json_encode($existingWali));
+    
+                if ($existingWali && isset($existingWali['id_wali'])) {
+                    // Update data wali yang sudah ada
+                    $this->waliModel->update($existingWali['id_wali'], $waliData);
+                    log_message('debug', 'Updated Wali with id_wali ' . $existingWali['id_wali']);
+                } else {
+                    // Insert data wali baru
+                    $this->waliModel->insert($waliData);
+                    log_message('debug', 'Inserted new Wali for id_siswa ' . $id_siswa);
+                }
+    
+                // Hapus data orang tua kandung jika ada
+                $existingOrangTua = $orangTuaModel->where('id_siswa', $id_siswa)->first();
+                if ($existingOrangTua && isset($existingOrangTua['id'])) {
+                    $orangTuaModel->delete($existingOrangTua['id']);
+                    log_message('debug', 'Deleted Orang Tua with id ' . $existingOrangTua['id']);
+                }
+            } else {
+                // Siapkan data orang tua kandung
+                $orangTuaData = [
+                    'id_siswa' => $id_siswa,
+                    'nama_ayah' => $this->request->getPost('orang_tua')['nama_ayah'] ?? '',
+                    'nama_ibu' => $this->request->getPost('orang_tua')['nama_ibu'] ?? '',
+                    'alamat_ayah' => $this->request->getPost('orang_tua')['alamat_ayah'] ?? '',
+                    'alamat_ibu' => $this->request->getPost('orang_tua')['alamat_ibu'] ?? '',
+                    'telepon_hp' => $this->request->getPost('orang_tua')['telepon_hp'] ?? '',
+                    'pekerjaan_ayah' => $this->request->getPost('orang_tua')['pekerjaan_ayah'] ?? '',
+                    'pekerjaan_ibu' => $this->request->getPost('orang_tua')['pekerjaan_ibu'] ?? '',
+                    'pendidikan_ayah' => $this->request->getPost('orang_tua')['pendidikan_ayah'] ?? '',
+                    'pendidikan_ibu' => $this->request->getPost('orang_tua')['pendidikan_ibu'] ?? '',
+                    'penghasilan_ayah' => $this->request->getPost('orang_tua')['penghasilan_ayah'] ?? '',
+                    'penghasilan_ibu' => $this->request->getPost('orang_tua')['penghasilan_ibu'] ?? ''
+                ];
+    
+                // Cek apakah data orang tua kandung sudah ada
+                $existingOrangTua = $orangTuaModel->where('id_siswa', $id_siswa)->first();
+                log_message('debug', 'Existing Orang Tua for id_siswa ' . $id_siswa . ': ' . json_encode($existingOrangTua));
+    
+                if ($existingOrangTua && isset($existingOrangTua['id_orangtua'])) {
+                    // Update data orang tua kandung yang sudah ada
+                    $orangTuaModel->update($existingOrangTua['id_orangtua'], $orangTuaData);
+                    log_message('debug', 'Updated Orang Tua with id ' . $existingOrangTua['id']);
+                } else {
+                    // Insert data orang tua kandung baru
+                    $orangTuaModel->insert($orangTuaData);
+                    log_message('debug', 'Inserted new Orang Tua for id_siswa ' . $id_siswa);
+                }
+    
+                // Hapus data wali jika ada
+                $existingWali = $this->waliModel->where('id_siswa', $id_siswa)->first();
+                if ($existingWali && isset($existingWali['id_wali'])) {
+                    $this->waliModel->delete($existingWali['id_wali']);
+                    log_message('debug', 'Deleted Wali with id_wali ' . $existingWali['id_wali']);
+                }
+            }
+    
+            return redirect()->to('/admin/siswa')->with('success', 'Data siswa dan data orang tua berhasil diperbarui');
+        } catch (\Exception $e) {
+            log_message('error', 'Error updating siswa: ' . $e->getMessage());
+            return redirect()->to('/admin/siswa')->with('error', 'Gagal memperbarui data siswa: ' . $e->getMessage());
+        }
+    }
+    private function uploadFile($fieldName)
+    {
+        $file = $this->request->getFile($fieldName);
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            $newName = $file->getRandomName();
+            $file->move(ROOTPATH . 'public/uploads', $newName);
+            return 'uploads/' . $newName;
+        }
+        return null;
+    }
+
     public function set_password_siswa($id)
     {
-        $password = $this->request->getPost('password'); // Tanpa hash
-        $this->siswaModel->update($id, ['password' => $password]);
+        $password = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
+        $this->userModel->update($id, ['password' => $password]);
         return redirect()->to('/admin/siswa')->with('success', 'Password siswa berhasil diatur');
     }
 
@@ -65,7 +363,7 @@ class Admin extends BaseController
     public function add_kepsek()
     {
         $data = [
-            'nama' => $this->request->getPost('nama'),
+            'username' => $this->request->getPost('username'),
             'password' => $this->request->getPost('password') // Tanpa hash
         ];
         $this->kepsekModel->save($data);
@@ -75,35 +373,34 @@ class Admin extends BaseController
     public function add_operator()
     {
         $data = [
-            'nama' => $this->request->getPost('nama'),
+            'username' => $this->request->getPost('username'),
             'password' => $this->request->getPost('password') // Tanpa hash
         ];
         $this->operatorModel->save($data);
         return redirect()->to('/admin/operator')->with('success', 'Operator berhasil ditambahkan');
     }
 
-    // public function delete_siswa($id)
-    // {
-    //     $this->siswaModel->delete($id);
-    //     return redirect()->to('/admin/siswa')->with('success', 'Data siswa berhasil dihapus');
-    // }
     public function delete_siswa($id)
     {
-        $siswa = $this->siswaModel->find($id);
+        $user = $this->userModel->find($id);
     
-        if (!$siswa) {
-            return redirect()->to('/admin/siswa')->with('error', 'Siswa tidak ditemukan');
+        if (!$user) {
+            return redirect()->to('/admin/siswa')->with('error', 'User tidak ditemukan');
         }
     
-        // Hapus data orang tua dan wali sebelum hapus siswa
-        $db = \Config\Database::connect();
-        $db->table('orang_tua')->where('id_siswa', $id)->delete();
-        $db->table('wali')->where('id_siswa', $id)->delete();
+        // Hapus data terkait siswa (jika ada) sebelum hapus user
+        $siswa = $this->siswaModel->where('id_user', $id)->first();
+        if ($siswa) {
+            $db = \Config\Database::connect();
+            $db->table('orang_tua')->where('id_siswa', $siswa['id_siswa'])->delete();
+            $db->table('wali')->where('id_siswa', $siswa['id_siswa'])->delete();
+            $this->siswaModel->delete($siswa['id_siswa']);
+        }
     
-        // Hapus data siswa
-        $this->siswaModel->delete($id);
+        // Hapus user
+        $this->userModel->delete($id);
     
-        return redirect()->to('/admin/siswa')->with('success', 'Data siswa dan data terkait berhasil dihapus');
+        return redirect()->to('/admin/siswa')->with('success', 'User dan data terkait berhasil dihapus');
     }
     
     public function delete_kepsek($id)
@@ -118,55 +415,8 @@ class Admin extends BaseController
         return redirect()->to('/admin/operator')->with('success', 'Data operator berhasil dihapus');
     }
 
-    public function index2()
-    {
-        if (!session()->get('logged_in')) {
-            return redirect()->to('/auth');
-        }
-
-        $keyword = $this->request->getGet('keyword');
-
-        if ($keyword) {
-            $operator = $this->operatorModel->like('nama', $keyword)->findAll();
-        } else {
-            $operator = $this->operatorModel->findAll();
-        }
-        
-        $data = [
-            'nama' => session()->get('nama'),
-            'operator' => $operator, 
-            'keyword' => $keyword, 
-        ];
-
-        return view('admin/admin_operator', $data);
-    }
-
-    public function index3()
-    {
-        if (!session()->get('logged_in')) {
-            return redirect()->to('/auth');
-        }
-
-        $keyword = $this->request->getGet('keyword');
-
-        if ($keyword) {
-            $siswa = $this->siswaModel->like('nama_lengkap', $keyword)->findAll();
-        } else {
-            $siswa = $this->siswaModel->findAll();
-        }
-
-        $data = [
-            'nama' => session()->get('nama'),
-            'siswa' => $siswa,
-            // 'kepsek' => $this->kepsekModel->findAll(),
-            // 'operator' => $this->operatorModel->findAll(),
-            'keyword' => $keyword,
-        ];
-        return view('admin/admin_siswa', $data);
-    }
-
     public function detailSiswa($id)
-        {
+    {
         if (!session()->get('logged_in')) {
             return redirect()->to('/auth');
         }
@@ -177,9 +427,9 @@ class Admin extends BaseController
             return redirect()->to('/admin/siswa')->with('error', 'Siswa tidak ditemukan');
         }
 
-        // Ambil data orang tua dan wali (asumsi ada model dan tabel terpisah)
-        $orangTuaModel = new \App\Models\OrangTuaModel(); // Sesuaikan nama model
-        $waliModel = new \App\Models\WaliModel(); // Sesuaikan nama model
+        // Ambil data orang tua dan wali
+        $orangTuaModel = new \App\Models\OrangTuaModel();
+        $waliModel = new \App\Models\WaliModel();
         $orang_tua = $orangTuaModel->where('id_siswa', $id)->first();
         $wali = $waliModel->where('id_siswa', $id)->first();
 
@@ -187,9 +437,56 @@ class Admin extends BaseController
             'siswa' => $siswa,
             'orang_tua' => $orang_tua,
             'wali' => $wali,
-            'nama' => session()->get('nama')
+            'username' => session()->get('username')
+        ];
+        return view('admin/admin_detail_siswa', $data);
+    }
+
+    public function add_user_only()
+    {
+        // Aturan validasi
+        $validationRules = [
+            'email' => [
+                'rules' => 'required|valid_email|is_unique[users.email]',
+                'errors' => [
+                    'required' => 'Email harus diisi.',
+                    'valid_email' => 'Email tidak valid.',
+                    'is_unique' => 'Email sudah digunakan.'
+                ]
+            ],
+            'username' => [
+                'rules' => 'required|is_unique[users.username]',
+                'errors' => [
+                    'required' => 'Username harus diisi.',
+                    'is_unique' => 'Username sudah digunakan.'
+                ]
+            ],
+            'password' => [
+                'rules' => 'required|min_length[6]',
+                'errors' => [
+                    'required' => 'Password harus diisi.',
+                    'min_length' => 'Password minimal 6 karakter.'
+                ]
+            ]
         ];
 
-        return view('admin/admin_detail_siswa', $data);
+        if (!$this->validate($validationRules)) {
+            // Jika validasi gagal, redirect kembali dengan pesan error
+            return redirect()->to('/admin/siswa')->with('error', $this->validator->getErrors());
+        }
+
+        // Ambil data dari form
+        $data = [
+            'email' => $this->request->getPost('email'),
+            'username' => $this->request->getPost('username'),
+            'password' => password_hash($this->request->getPost('password'), PASSWORD_BCRYPT),
+            'role' => $this->request->getPost('role') // Default: siswa
+        ];
+
+        // Simpan ke database
+        $this->userModel->insert($data);
+
+        // Redirect dengan pesan sukses
+        return redirect()->to('/admin/siswa')->with('success', 'Akun siswa berhasil ditambahkan!');
     }
 }
