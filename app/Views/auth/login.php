@@ -67,7 +67,6 @@
             margin-bottom: 20px;
         }
 
-
         .form-group label {
             display: block;
             margin-bottom: 8px;
@@ -122,6 +121,42 @@
             background-color: #FFC107;
             transform: translateY(-2px);
         }
+        
+        .form-roles {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .form-roles label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        .form-roles input, 
+        .form-roles select {
+            width: 104%;
+            padding: 12px 1px 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-roles input:focus,
+        .form-roles select:focus {
+            outline: none;
+            border-color: #2148C0;
+            box-shadow: 0 0 5px rgba(33, 72, 192, 0.3);
+        }
+        .form-roles i {
+            position: absolute;
+            right: 15px;
+            top: 70%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
 
         .alert {
             padding: 12px;
@@ -170,7 +205,7 @@
 
             .form-group input, 
             .form-group select {
-                padding: 10px 35px 10px 12px;
+                padding: 10px 1px 10px 12px;
                 font-size: 14px;
             }
 
@@ -193,7 +228,7 @@
             </div>
         <?php endif; ?>
         <form action="<?= base_url('auth/login') ?>" method="post">
-            <div class="form-group">
+            <div class="form-roles">
                 <label for="role">Role</label>
                 <select id="role" name="role" required>
                     <option value="siswa">Siswa</option>

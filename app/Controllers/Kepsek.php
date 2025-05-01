@@ -40,7 +40,7 @@ class Kepsek extends BaseController
             'search' => $search
         ];
 
-        return view('Kepsek/Kepsek', $data);
+        return view('kepsek/kepsek', $data);
     }
 
     public function detailSiswa($id)
