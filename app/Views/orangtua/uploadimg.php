@@ -183,6 +183,20 @@
             color: #666;
             cursor: not-allowed;
         }
+
+        .validation-message {
+            color: #ffcc00;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .button-group button:disabled {
+            background-color: #cccccc;
+            color: #666666;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
         
         @media (min-width: 768px) {
             .form-wrapper {
@@ -328,7 +342,10 @@
                     </div>
                     <button type="button" class="remove-btn" onclick="removeFile('skl', 'previewSKL')">✖</button>
                 </div>
-
+                
+                <div class="validation-message" id="validationMessage" style="color: white; text-align: center; margin-bottom: 10px; display: none;">
+                    Harap unggah semua dokumen yang diperlukan
+                </div>
                 <div class="button-group">
                     <button type="submit" id="submitButton" disabled>Selesai</button>
                 </div>
@@ -348,12 +365,14 @@
         const uploadForm = document.getElementById('uploadForm');
 
         function checkAllFilesFilled() {
-            const requiredFiles = ['fileInput', 'kk', 'raport', 'akta', 'skl'];
-            const allFilled = requiredFiles.every(id => {
+            const requiredInputs = ['fileInput', 'kk', 'raport', 'akta', 'skl'];
+            const allFilled = requiredInputs.every(id => {
                 const input = document.getElementById(id);
-                return input.files.length > 0;
+                return input.files && input.files.length > 0;
             });
-            submitButton.disabled = !allFilled;
+            
+            document.getElementById('submitButton').disabled = !allFilled;
+            return allFilled;
         }
 
         uploadForm.addEventListener('submit', (e) => {
@@ -366,6 +385,17 @@
                     return;
                 }
             }
+        });
+
+        document.getElementById('uploadForm').addEventListener('submit', (e) => {
+            if (!checkAllFilesFilled()) {
+                e.preventDefault();
+                alert("Harap unggah semua dokumen yang diperlukan sebelum melanjutkan!");
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('submitButton').disabled = true;
         });
 
         dropArea.addEventListener('click', () => {
