@@ -459,6 +459,6 @@
     handlePreview('raport', 'previewRaport', 'fileNameRaport', 'fileSizeRaport', 'previewImgRaport');
     handlePreview('akta', 'previewAkta', 'fileNameAkta', 'fileSizeAkta', 'previewImgAkta');
     handlePreview('skl', 'previewSKL', 'fileNameSKL', 'fileSizeSKL', 'previewImgSKL');
-        </script>
+    </script>
 </body>
 </html>
