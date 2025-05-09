@@ -40,12 +40,19 @@ class Home extends BaseController
         $wali = $this->waliModel->where('id_siswa', $siswa['id_siswa'])->first();
         log_message('debug', 'Data wali: ' . json_encode($wali));
 
-        // Jika belum ada data orang tua maupun wali, arahkan ke form siswa
-        if (!$orangTua && !$wali) {
-            log_message('debug', 'Data orang tua dan wali tidak ditemukan, redirect ke /siswa');
-            return redirect()->to('siswa')->with('error', 'Silakan isi data orang tua atau wali terlebih dahulu.');
+        // Hanya redirect ke /siswa jika data siswa benar-benar kosong dan pengguna belum mengisi data orang tua/wali
+        if (empty($siswa['nama_lengkap']) && !$orangTua && !$wali) {
+            log_message('debug', 'Data siswa kosong, orang tua dan wali tidak ditemukan, redirect ke /siswa');
+            return redirect()->to('siswa')->with('error', 'Silakan isi data siswa terlebih dahulu.');
         }
 
+        // Cek apakah pengguna sudah mengisi data orang tua atau wali
+        if (!$orangTua && !$wali) {
+            log_message('debug', 'Data orang tua dan wali tidak ditemukan, redirect ke /siswa/orangtua_kandung');
+            return redirect()->to('siswa/orangtua_kandung')->with('error', 'Silakan isi data orang tua atau wali terlebih dahulu.');
+        }
+
+        // Cek dokumen yang hilang
         $documents = ['gambar', 'kk', 'raport', 'akta', 'skl'];
         $missingDocs = [];
         foreach ($documents as $doc) {
@@ -53,7 +60,7 @@ class Home extends BaseController
                 $missingDocs[] = $doc;
             }
         }
-        if (!empty($missingDocs)) {
+        if (!empty($missingDocs) && $siswa['status'] !== 'diterima') {
             log_message('error', 'Dokumen tidak lengkap: ' . implode(', ', $missingDocs) . ', redirect ke /siswa/uploadimg');
             return redirect()->to('siswa/uploadimg')->with('error', 'Silakan unggah semua dokumen: ' . implode(', ', $missingDocs));
         }

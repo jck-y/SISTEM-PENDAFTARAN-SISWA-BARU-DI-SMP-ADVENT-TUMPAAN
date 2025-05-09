@@ -20,18 +20,39 @@ class Siswa extends BaseController
 
     public function index()
     {
+        if (!session()->get('logged_in') || session()->get('role') !== 'siswa') {
+            log_message('debug', 'Sesi tidak valid atau bukan siswa, redirect ke auth/login');
+            return redirect()->to('auth/login');
+        }
+
         $id_user = session()->get('id_user');
         $siswa = $this->siswaModel->where('id_user', $id_user)->first();
 
         if ($siswa) {
+            // Cek apakah data orang tua atau wali sudah diisi
+            $orangTua = $this->orangTuaModel->where('id_siswa', $siswa['id_siswa'])->first();
+            $wali = $this->waliModel->where('id_siswa', $siswa['id_siswa'])->first();
+
+            if (!$orangTua && !$wali) {
+                log_message('debug', 'Data orang tua dan wali tidak ditemukan, redirect ke /siswa/orangtua_kandung');
+                return redirect()->to('/siswa/orangtua_kandung')->with('error', 'Silakan isi data orang tua atau wali terlebih dahulu.');
+            }
+
             // Cek semua dokumen
-            if (empty($siswa['gambar']) || empty($siswa['kk']) || empty($siswa['raport']) || 
-                empty($siswa['akta']) || empty($siswa['skl'])) {
-                return redirect()->to('/siswa/uploadimg')->with('error', 'Silakan unggah semua dokumen.');
+            $documents = ['gambar', 'kk', 'raport', 'akta', 'skl'];
+            $missingDocs = [];
+            foreach ($documents as $doc) {
+                if (empty($siswa[$doc]) || trim($siswa[$doc]) === '') {
+                    $missingDocs[] = $doc;
+                }
+            }
+            if (!empty($missingDocs)) {
+                log_message('error', 'Dokumen tidak lengkap: ' . implode(', ', $missingDocs) . ', redirect ke /siswa/uploadimg');
+                return redirect()->to('/siswa/uploadimg')->with('error', 'Silakan unggah semua dokumen: ' . implode(', ', $missingDocs));
             }
 
             // Jika semua lengkap, ke dashboard
-            return redirect()->to('/home/index');
+            return redirect()->to('/home');
         }
 
         // Jika belum ada data siswa, tampilkan form
@@ -40,10 +61,15 @@ class Siswa extends BaseController
 
     public function save_siswa()
     {
+        if (!$this->request->is('post')) {
+            return redirect()->to('/siswa');
+        }
+
         $rules = [
             'nama_lengkap' => 'required',
             'nama_panggilan' => 'required',
             'nomor_induk_asal' => 'required',
+            'nomor_induk'=> 'required',
             'nisn' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required|valid_date',
@@ -62,14 +88,14 @@ class Siswa extends BaseController
             return redirect()->to('/siswa')->withInput();
         }
 
-        // Validasi tanggal lahir minimal 2013
+        // Validasi tanggal lahir maksimal 2013-12-31
         $tanggal_lahir = $this->request->getPost('tanggal_lahir');
-        $min_date = new \DateTime('2013-01-01');
+        $max_date = new \DateTime('2013-12-31');
         $selected_date = new \DateTime($tanggal_lahir);
         $today = new \DateTime();
 
-        if ($selected_date < $min_date) {
-            session()->setFlashdata('validation', ['tanggal_lahir' => 'Tanggal lahir minimal harus pada tahun 2013.']);
+        if ($selected_date > $max_date) {
+            session()->setFlashdata('validation', ['tanggal_lahir' => 'Tanggal lahir maksimal harus pada atau sebelum 31 Desember 2013.']);
             return redirect()->to('/siswa')->withInput();
         }
 
@@ -83,6 +109,7 @@ class Siswa extends BaseController
             'nama_lengkap' => $this->request->getPost('nama_lengkap'),
             'nama_panggilan' => $this->request->getPost('nama_panggilan'),
             'nomor_induk_asal' => $this->request->getPost('nomor_induk_asal'),
+            'nomor_induk' => $this->request->getPost('nomor_induk'),
             'nisn' => $this->request->getPost('nisn'),
             'tempat_lahir' => $this->request->getPost('tempat_lahir'),
             'tanggal_lahir' => $tanggal_lahir,
@@ -94,13 +121,18 @@ class Siswa extends BaseController
             'telepon_siswa' => $this->request->getPost('telepon_siswa'),
             'nama_tk_asal' => $this->request->getPost('nama_tk_asal'),
             'alamat_tk_asal' => $this->request->getPost('alamat_tk_asal'),
-            'status' => 'diproses'
+            'status' => 'pending'
         ];
 
-        $this->siswaModel->insert($data);
-        $id_siswa = $this->siswaModel->insertID();
+        $siswa = $this->siswaModel->where('id_user', session()->get('id_user'))->first();
+        if ($siswa) {
+            $this->siswaModel->update($siswa['id_siswa'], $data);
+            $id_siswa = $siswa['id_siswa'];
+        } else {
+            $id_siswa = $this->siswaModel->insert($data);
+        }
         session()->set('id_siswa', $id_siswa);
-        log_message('debug', 'Data siswa disimpan dengan status: diproses untuk id_user: ' . session()->get('id_user'));
+        log_message('debug', 'Data siswa disimpan dengan status: pending untuk id_user: ' . session()->get('id_user'));
 
         // Ambil nilai redirect_to dari form
         $redirectTo = $this->request->getPost('redirect_to');
@@ -142,8 +174,8 @@ class Siswa extends BaseController
             'pekerjaan_ibu' => 'required',
             'pendidikan_ayah' => 'required',
             'pendidikan_ibu' => 'required',
-            'penghasilan_ayah' => 'required|in_list[0-2.500.000,2.500.000-5.000.000,lebih dari 5.000.000]',
-            'penghasilan_ibu' => 'required|in_list[0-2.500.000,2.500.000-5.000.000,lebih dari 5.000.000]'
+            'penghasilan_ayah' => 'required|in_list[0-2.600.000,2.600.000-5.000.000,lebih dari 5.000.000]',
+            'penghasilan_ibu' => 'required|in_list[0-2.600.000,2.600.000-5.000.000,lebih dari 5.000.000]'
         ];
 
         if (!$this->validate($rules)) {
@@ -197,8 +229,8 @@ class Siswa extends BaseController
             'pekerjaan_ibu_wali' => 'required',
             'pendidikan_ayah_wali' => 'required',
             'pendidikan_ibu_wali' => 'required',
-            'penghasilan_ayah_wali' => 'required|in_list[0-2.500.000,2.500.000-5.000.000,lebih dari 5.000.000]',
-            'penghasilan_ibu_wali' => 'required|in_list[0-2.500.000,2.500.000-5.000.000,lebih dari 5.000.000]'
+            'penghasilan_ayah_wali' => 'required|in_list[0-2.600.000,2.600.000-5.000.000,lebih dari 5.000.000]',
+            'penghasilan_ibu_wali' => 'required|in_list[0-2.600.000,2.600.000-5.000.000,lebih dari 5.000.000]'
         ];
 
         if (!$this->validate($rules)) {
@@ -240,7 +272,7 @@ class Siswa extends BaseController
         $wali = $this->waliModel->where('id_siswa', $siswa['id_siswa'])->first();
 
         if (!$orangTua && !$wali) {
-            return redirect()->to('/siswa')->with('error', 'Silakan isi data orang tua atau wali terlebih dahulu.');
+            return redirect()->to('/siswa/orangtua_kandung')->with('error', 'Silakan isi data orang tua atau wali terlebih dahulu.');
         }
 
         return view('orangtua/uploadimg', ['siswa' => $siswa]);
@@ -328,7 +360,7 @@ class Siswa extends BaseController
     {
         $siswa = $this->siswaModel->find($id);
         if (!$siswa) {
-            return redirect()->to('/home/index')->with('error', 'Data siswa tidak ditemukan.');
+            return redirect()->to('/home')->with('error', 'Data siswa tidak ditemukan.');
         }
 
         $orangTua = $this->orangTuaModel->where('id_siswa', $id)->first();

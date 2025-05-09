@@ -217,8 +217,8 @@
                 <input type="text" id="nama_panggilan" name="nama_panggilan" value="<?= old('nama_panggilan') ?>">
             </div>
             <div class="form-group">
-                <label for="nomor_induk_asal">Nomor Induk Asal</label>
-                <input type="text" id="nomor_induk_asal" name="nomor_induk_asal" value="<?= old('nomor_induk_asal') ?>">
+                <label for="nomor_induk">Nomor Induk Asal</label>
+                <input type="text" id="nomor_induk" name="nomor_induk" value="<?= old('nomor_induk') ?>">
             </div>
             <div class="form-group">
                 <label for="nisn">NISN</label>
@@ -230,7 +230,7 @@
             </div>
             <div class="form-group">
                 <label for="tanggal_lahir">Tanggal Lahir</label>
-                <input type="date" id="tanggal_lahir" name="tanggal_lahir" value="<?= old('tanggal_lahir') ?: '2013-01-01' ?>" min="2013-01-01" max="<?= date('Y-m-d') ?>">
+                <input type="date" id="tanggal_lahir" name="tanggal_lahir" value="<?= old('tanggal_lahir') ?: '2013-01-01' ?>" min="1900-01-01" max="2013-12-31">
                 <small id="tanggal_lahir_error" class="text-danger" style="display: none;"></small>
             </div>
             <div class="form-group">
@@ -296,121 +296,121 @@
         </form>
     </div>
 
-    <script>
-        const form = document.getElementById('siswaForm');
-        const btnOrangTua = document.getElementById('btnOrangTua');
-        const btnOrangTuaWali = document.getElementById('btnOrangTuaWali');
-        const tanggalLahirInput = document.getElementById('tanggal_lahir');
-        const tanggalLahirError = document.getElementById('tanggal_lahir_error');
+<script>
+    const form = document.getElementById('siswaForm');
+const btnOrangTua = document.getElementById('btnOrangTua');
+const btnOrangTuaWali = document.getElementById('btnOrangTuaWali');
+const tanggalLahirInput = document.getElementById('tanggal_lahir');
+const tanggalLahirError = document.getElementById('tanggal_lahir_error');
 
-        const requiredFields = [
-            'nama_lengkap', 'nama_panggilan', 'nomor_induk_asal', 'nisn',
-            'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama',
-            'anak_ke', 'status_anak', 'alamat_siswa', 'nama_tk_asal',
-            'telepon_siswa', 'alamat_tk_asal'
-        ];
+const requiredFields = [
+    'nama_lengkap', 'nama_panggilan', 'nomor_induk', 'nisn',
+    'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama',
+    'anak_ke', 'status_anak', 'alamat_siswa', 'nama_tk_asal',
+    'telepon_siswa', 'alamat_tk_asal'
+];
 
-        function checkFormValidity() {
-            let allFilled = true;
-            let tanggalValid = true;
+function checkFormValidity() {
+    let allFilled = true;
+    let tanggalValid = true;
 
-            requiredFields.forEach(fieldId => {
-                const input = document.getElementById(fieldId);
-                if (!input.value.trim() || (input.tagName === 'SELECT' && input.value === '')) {
-                    allFilled = false;
-                }
-            });
-
-            // Validasi tanggal lahir
-            const tanggalValue = tanggalLahirInput.value;
-            if (tanggalValue) {
-                const selectedDate = new Date(tanggalValue);
-                const minDate = new Date('2013-01-01');
-                const today = new Date();
-
-                if (selectedDate < minDate) {
-                    tanggalValid = false;
-                    tanggalLahirError.style.display = 'block';
-                    tanggalLahirError.textContent = 'Tanggal lahir minimal harus pada tahun 2013.';
-                } else if (selectedDate > today) {
-                    tanggalValid = false;
-                    tanggalLahirError.style.display = 'block';
-                    tanggalLahirError.textContent = 'Tanggal lahir tidak boleh melebihi tanggal saat ini.';
-                } else {
-                    tanggalLahirError.style.display = 'none';
-                    tanggalLahirError.textContent = '';
-                }
-            }
-
-            btnOrangTua.disabled = !allFilled || !tanggalValid;
-            btnOrangTuaWali.disabled = !allFilled || !tanggalValid;
+    requiredFields.forEach(fieldId => {
+        const input = document.getElementById(fieldId);
+        if (!input.value.trim() || (input.tagName === 'SELECT' && input.value === '')) {
+            allFilled = false;
         }
+    });
 
-        // Validasi tanggal lahir di sisi klien
-        tanggalLahirInput.addEventListener('change', function() {
-            checkFormValidity();
-        });
+    // Validasi tanggal lahir
+    const tanggalValue = tanggalLahirInput.value;
+    if (tanggalValue) {
+        const selectedDate = new Date(tanggalValue);
+        const maxDate = new Date('2013-12-31');
+        const today = new Date();
 
-        requiredFields.forEach(fieldId => {
-            const input = document.getElementById(fieldId);
-            input.addEventListener('input', checkFormValidity);
-            input.addEventListener('change', checkFormValidity);
-        });
+        if (selectedDate > maxDate) {
+            tanggalValid = false;
+            tanggalLahirError.style.display = 'block';
+            tanggalLahirError.textContent = 'Tanggal lahir maksimal harus pada atau sebelum 31 Desember 2013.';
+        } else if (selectedDate > today) {
+            tanggalValid = false;
+            tanggalLahirError.style.display = 'block';
+            tanggalLahirError.textContent = 'Tanggal lahir tidak boleh melebihi tanggal saat ini.';
+        } else {
+            tanggalLahirError.style.display = 'none';
+            tanggalLahirError.textContent = '';
+        }
+    }
 
-        btnOrangTua.addEventListener('click', function(event) {
-            if (this.disabled) {
-                event.preventDefault();
-                alert("Form tidak boleh kosong atau terdapat kesalahan! Semua kolom wajib diisi dengan benar sebelum melanjutkan ke Orang Tua.");
-            }
-        });
+    btnOrangTua.disabled = !allFilled || !tanggalValid;
+    btnOrangTuaWali.disabled = !allFilled || !tanggalValid;
+}
 
-        btnOrangTuaWali.addEventListener('click', function(event) {
-            if (this.disabled) {
-                event.preventDefault();
-                alert("Form tidak boleh kosong atau terdapat kesalahan! Semua kolom wajib diisi dengan benar sebelum melanjutkan ke Orang Tua Wali.");
-            }
-        });
+// Validasi tanggal lahir di sisi klien
+tanggalLahirInput.addEventListener('change', function() {
+    checkFormValidity();
+});
 
-        form.addEventListener('submit', function(event) {
-            let valid = true;
-            let emptyFields = [];
+requiredFields.forEach(fieldId => {
+    const input = document.getElementById(fieldId);
+    input.addEventListener('input', checkFormValidity);
+    input.addEventListener('change', checkFormValidity);
+});
 
-            requiredFields.forEach(fieldId => {
-                const input = document.getElementById(fieldId);
-                if (!input.value.trim() || (input.tagName === 'SELECT' && input.value === '')) {
-                    valid = false;
-                    emptyFields.push(input.previousElementSibling.textContent);
-                    input.style.borderColor = 'red';
-                } else {
-                    input.style.borderColor = '';
-                }
-            });
+btnOrangTua.addEventListener('click', function(event) {
+    if (this.disabled) {
+        event.preventDefault();
+        alert("Form tidak boleh kosong atau terdapat kesalahan! Semua kolom wajib diisi dengan benar sebelum melanjutkan ke Orang Tua.");
+    }
+});
 
-            // Validasi tambahan untuk tanggal lahir sebelum submit
-            const tanggalValue = tanggalLahirInput.value;
-            if (tanggalValue) {
-                const selectedDate = new Date(tanggalValue);
-                const minDate = new Date('2013-01-01');
-                const today = new Date();
+btnOrangTuaWali.addEventListener('click', function(event) {
+    if (this.disabled) {
+        event.preventDefault();
+        alert("Form tidak boleh kosong atau terdapat kesalahan! Semua kolom wajib diisi dengan benar sebelum melanjutkan ke Orang Tua Wali.");
+    }
+});
 
-                if (selectedDate < minDate) {
-                    valid = false;
-                    tanggalLahirError.style.display = 'block';
-                    tanggalLahirError.textContent = 'Tanggal lahir minimal harus pada tahun 2013.';
-                } else if (selectedDate > today) {
-                    valid = false;
-                    tanggalLahirError.style.display = 'block';
-                    tanggalLahirError.textContent = 'Tanggal lahir tidak boleh melebihi tanggal saat ini.';
-                }
-            }
+form.addEventListener('submit', function(event) {
+    let valid = true;
+    let emptyFields = [];
 
-            if (!valid) {
-                event.preventDefault();
-                alert(`Form tidak boleh kosong atau terdapat kesalahan! Semua kolom wajib diisi dengan benar. Kolom yang masih kosong: \n- ${emptyFields.join('\n- ')}`);
-            }
-        });
+    requiredFields.forEach(fieldId => {
+        const input = document.getElementById(fieldId);
+        if (!input.value.trim() || (input.tagName === 'SELECT' && input.value === '')) {
+            valid = false;
+            emptyFields.push(input.previousElementSibling.textContent);
+            input.style.borderColor = 'red';
+        } else {
+            input.style.borderColor = '';
+        }
+    });
 
-        checkFormValidity();
-    </script>
+    // Validasi tambahan untuk tanggal lahir sebelum submit
+    const tanggalValue = tanggalLahirInput.value;
+    if (tanggalValue) {
+        const selectedDate = new Date(tanggalValue);
+        const maxDate = new Date('2013-12-31');
+        const today = new Date();
+
+        if (selectedDate > maxDate) {
+            valid = false;
+            tanggalLahirError.style.display = 'block';
+            tanggalLahirError.textContent = 'Tanggal lahir maksimal harus pada atau sebelum 31 Desember 2013.';
+        } else if (selectedDate > today) {
+            valid = false;
+            tanggalLahirError.style.display = 'block';
+            tanggalLahirError.textContent = 'Tanggal lahir tidak boleh melebihi tanggal saat ini.';
+        }
+    }
+
+    if (!valid) {
+        event.preventDefault();
+        alert(`Form tidak boleh kosong atau terdapat kesalahan! Semua kolom wajib diisi dengan benar. Kolom yang masih kosong: \n- ${emptyFields.join('\n- ')}`);
+    }
+});
+
+checkFormValidity();
+</script>
 </body>
 </html>

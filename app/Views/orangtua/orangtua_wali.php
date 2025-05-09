@@ -200,8 +200,8 @@
                 <label for="penghasilan_ayah_wali">Penghasilan Perbulan Ayah Wali</label>
                 <select id="penghasilan_ayah_wali" name="penghasilan_ayah_wali" required>
                     <option value="">Pilih Penghasilan</option>
-                    <option value="0-2.500.000" <?= old('penghasilan_ayah_wali') == '0-2.500.000' ? 'selected' : '' ?>>0-2.500.000</option>
-                    <option value="2.500.000-5.000.000" <?= old('penghasilan_ayah_wali') == '2.500.000-5.000.000' ? 'selected' : '' ?>>2.500.000-5.000.000</option>
+                    <option value="0-2.600.000" <?= old('penghasilan_ayah_wali') == '0-2.600.000' ? 'selected' : '' ?>>0-2.600.000</option>
+                    <option value="2.600.000-5.000.000" <?= old('penghasilan_ayah_wali') == '2.600.000-5.000.000' ? 'selected' : '' ?>>2.600.000-5.000.000</option>
                     <option value="lebih dari 5.000.000" <?= old('penghasilan_ayah_wali') == 'lebih dari 5.000.000' ? 'selected' : '' ?>>lebih dari 5.000.000</option>
                 </select>
             </div>
@@ -209,8 +209,8 @@
                 <label for="penghasilan_ibu_wali">Penghasilan Perbulan Ibu Wali</label>
                 <select id="penghasilan_ibu_wali" name="penghasilan_ibu_wali" required>
                     <option value="">Pilih Penghasilan</option>
-                    <option value="0-2.500.000" <?= old('penghasilan_ibu_wali') == '0-2.500.000' ? 'selected' : '' ?>>0-2.500.000</option>
-                    <option value="2.500.000-5.000.000" <?= old('penghasilan_ibu_wali') == '2.500.000-5.000.000' ? 'selected' : '' ?>>2.500.000-5.000.000</option>
+                    <option value="0-2.600.000" <?= old('penghasilan_ibu_wali') == '0-2.600.000' ? 'selected' : '' ?>>0-2.600.000</option>
+                    <option value="2.600.000-5.000.000" <?= old('penghasilan_ibu_wali') == '2.600.000-5.000.000' ? 'selected' : '' ?>>2.600.000-5.000.000</option>
                     <option value="lebih dari 5.000.000" <?= old('penghasilan_ibu_wali') == 'lebih dari 5.000.000' ? 'selected' : '' ?>>lebih dari 5.000.000</option>
                 </select>
             </div>

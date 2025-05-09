@@ -174,7 +174,7 @@
                             </tr>
                             <tr>
                                 <th>Nomor Induk</th>
-                                <td><?= esc($siswa['nomor_induk'] ?? '-') ?></td>
+                                <td><?= esc($siswa['nomor_induk_asal'] ?? '-') ?></td>
                             </tr>
                             <tr>
                                 <th>NISN</th>
@@ -269,14 +269,14 @@
                                 <td>
                                     <?php
                                     $penghasilan_ayah = $orang_tua['penghasilan_ayah'] ?? '0';
-                                    if ($penghasilan_ayah == '0-2.500.000') {
-                                        echo 'Rp. 0 - Rp. 2.500.000';
-                                    } elseif ($penghasilan_ayah == '2.500.000-5.000.000') {
-                                        echo 'Rp. 2.500.000 - Rp. 5.000.000';
+                                    if ($penghasilan_ayah == '0-2.600.000') {
+                                        echo 'Rp. 0 - Rp. 2.600.000';
+                                    } elseif ($penghasilan_ayah == '2.600.000-5.000.000') {
+                                        echo 'Rp. 2.600.000 - Rp. 5.000.000';
                                     } elseif ($penghasilan_ayah == 'lebih dari 5.000.000') {
                                         echo 'Lebih dari Rp. 5.000.000';
                                     } elseif ($penghasilan_ayah == '2.50') {
-                                        echo 'Rp. 0 - Rp. 2.500.000'; // Untuk data lama
+                                        echo 'Rp. 0 - Rp. 2.600.000'; // Untuk data lama
                                     } else {
                                         echo 'Rp. ' . number_format(floatval($penghasilan_ayah) * 1000000, 0, ',', '.');
                                     }
@@ -309,10 +309,10 @@
                                 <td>
                                     <?php
                                     $penghasilan_ibu = $orang_tua['penghasilan_ibu'] ?? '0';
-                                    if ($penghasilan_ibu == '0-2.500.000') {
-                                        echo 'Rp. 0 - Rp. 2.500.000';
-                                    } elseif ($penghasilan_ibu == '2.500.000-5.000.000') {
-                                        echo 'Rp. 2.500.000 - Rp. 5.000.000';
+                                    if ($penghasilan_ibu == '0-2.600.000') {
+                                        echo 'Rp. 0 - Rp. 2.600.000';
+                                    } elseif ($penghasilan_ibu == '2.600.000-5.000.000') {
+                                        echo 'Rp. 2.600.000 - Rp. 5.000.000';
                                     } elseif ($penghasilan_ibu == 'lebih dari 5.000.000') {
                                         echo 'Lebih dari Rp. 5.000.000';
                                     } elseif ($penghasilan_ibu == '0.00') {
@@ -369,14 +369,14 @@
                                 <td>
                                     <?php
                                     $penghasilan_ayah_wali = $wali['penghasilan_ayah_wali'] ?? '0';
-                                    if ($penghasilan_ayah_wali == '0-2.500.000') {
-                                        echo 'Rp. 0 - Rp. 2.500.000';
-                                    } elseif ($penghasilan_ayah_wali == '2.500.000-5.000.000') {
-                                        echo 'Rp. 2.500.000 - Rp. 5.000.000';
+                                    if ($penghasilan_ayah_wali == '0-2.600.000') {
+                                        echo 'Rp. 0 - Rp. 2.600.000';
+                                    } elseif ($penghasilan_ayah_wali == '2.600.000-5.000.000') {
+                                        echo 'Rp. 2.600.000 - Rp. 5.000.000';
                                     } elseif ($penghasilan_ayah_wali == 'lebih dari 5.000.000') {
                                         echo 'Lebih dari Rp. 5.000.000';
                                     } elseif ($penghasilan_ayah_wali == '2.50') {
-                                        echo 'Rp. 0 - Rp. 2.500.000'; // Untuk data lama
+                                        echo 'Rp. 0 - Rp. 2.600.000'; // Untuk data lama
                                     } else {
                                         echo 'Rp. ' . number_format(floatval($penghasilan_ayah_wali) * 1000000, 0, ',', '.');
                                     }
@@ -409,10 +409,10 @@
                                 <td>
                                     <?php
                                     $penghasilan_ibu_wali = $wali['penghasilan_ibu_wali'] ?? '0';
-                                    if ($penghasilan_ibu_wali == '0-2.500.000') {
-                                        echo 'Rp. 0 - Rp. 2.500.000';
-                                    } elseif ($penghasilan_ibu_wali == '2.500.000-5.000.000') {
-                                        echo 'Rp. 2.500.000 - Rp. 5.000.000';
+                                    if ($penghasilan_ibu_wali == '0-2.600.000') {
+                                        echo 'Rp. 0 - Rp. 2.600.000';
+                                    } elseif ($penghasilan_ibu_wali == '2.600.000-5.000.000') {
+                                        echo 'Rp. 2.600.000 - Rp. 5.000.000';
                                     } elseif ($penghasilan_ibu_wali == 'lebih dari 5.000.000') {
                                         echo 'Lebih dari Rp. 5.000.000';
                                     } elseif ($penghasilan_ibu_wali == '0.00') {

@@ -199,8 +199,8 @@
                 <label for="penghasilan_ayah">Penghasilan Perbulan Ayah</label>
                 <select id="penghasilan_ayah" name="penghasilan_ayah" required>
                     <option value="">Pilih Penghasilan</option>
-                    <option value="0-2.500.000" <?= old('penghasilan_ayah') == '0-2.500.000' ? 'selected' : '' ?>>0-2.500.000</option>
-                    <option value="2.500.000-5.000.000" <?= old('penghasilan_ayah') == '2.500.000-5.000.000' ? 'selected' : '' ?>>2.500.000-5.000.000</option>
+                    <option value="0-2.600.000" <?= old('penghasilan_ayah') == '0-2.600.000' ? 'selected' : '' ?>>0-2.600.000</option>
+                    <option value="2.600.000-5.000.000" <?= old('penghasilan_ayah') == '2.600.000-5.000.000' ? 'selected' : '' ?>>2.600.000-5.000.000</option>
                     <option value="lebih dari 5.000.000" <?= old('penghasilan_ayah') == 'lebih dari 5.000.000' ? 'selected' : '' ?>>lebih dari 5.000.000</option>
                 </select>
             </div>
@@ -208,8 +208,8 @@
                 <label for="penghasilan_ibu">Penghasilan Perbulan Ibu</label>
                 <select id="penghasilan_ibu" name="penghasilan_ibu" required>
                     <option value="">Pilih Penghasilan</option>
-                    <option value="0-2.500.000" <?= old('penghasilan_ibu') == '0-2.500.000' ? 'selected' : '' ?>>0-2.500.000</option>
-                    <option value="2.500.000-5.000.000" <?= old('penghasilan_ibu') == '2.500.000-5.000.000' ? 'selected' : '' ?>>2.500.000-5.000.000</option>
+                    <option value="0-2.600.000" <?= old('penghasilan_ibu') == '0-2.600.000' ? 'selected' : '' ?>>0-2.600.000</option>
+                    <option value="2.600.000-5.000.000" <?= old('penghasilan_ibu') == '2.600.000-5.000.000' ? 'selected' : '' ?>>2.600.000-5.000.000</option>
                     <option value="lebih dari 5.000.000" <?= old('penghasilan_ibu') == 'lebih dari 5.000.000' ? 'selected' : '' ?>>lebih dari 5.000.000</option>
                 </select>
             </div>

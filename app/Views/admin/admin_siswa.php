@@ -1043,8 +1043,8 @@
                 <text>Penghasilan Ayah Wali</text>
                 <select name="wali[penghasilan_ayah_wali]" id="penghasilan_ayah_wali">
                     <option value="">Pilih penghasilan ayah wali...</option>
-                    <option value="0-2.500.000">0 - 2.500.000</option>
-                    <option value="2.500.001-5.000.000">2.500.001 - 5.000.000</option>
+                    <option value="0-2.600.000">0 - 2.600.000</option>
+                    <option value="2.600.001-5.000.000">2.600.001 - 5.000.000</option>
                     <option value="lebih dari 5.000.000">Lebih dari 5.000.000</option>
                 </select>
             </div>
@@ -1052,8 +1052,8 @@
                 <text>Penghasilan Ibu Wali</text>
                 <select name="wali[penghasilan_ibu_wali]" id="penghasilan_ibu_wali">
                     <option value="">Pilih penghasilan ibu wali...</option>
-                    <option value="0-2.500.000">0 - 2.500.000</option>
-                    <option value="2.500.001-5.000.000">2.500.001 - 5.000.000</option>
+                    <option value="0-2.600.000">0 - 2.600.000</option>
+                    <option value="2.600.001-5.000.000">2.600.001 - 5.000.000</option>
                     <option value="lebih dari 5.000.000">Lebih dari 5.000.000</option>
                 </select>
             </div>
@@ -1120,8 +1120,8 @@
                 <text>Penghasilan Ayah</text>
                 <select name="orang_tua[penghasilan_ayah]" id="penghasilan_ayah">
                     <option value="">Pilih penghasilan ayah...</option>
-                    <option value="0-2.500.000">0 - 2.500.000</option>
-                    <option value="2.500.001-5.000.000">2.500.001 - 5.000.000</option>
+                    <option value="0-2.600.000">0 - 2.600.000</option>
+                    <option value="2.600.001-5.000.000">2.600.001 - 5.000.000</option>
                     <option value="lebih dari 5.000.000">Lebih dari 5.000.000</option>
                 </select>
             </div>
@@ -1129,8 +1129,8 @@
                 <text>Penghasilan Ibu</text>
                 <select name="orang_tua[penghasilan_ibu]" id="penghasilan_ibu">
                     <option value="">Pilih penghasilan ibu...</option>
-                    <option value="0-2.500.000">0 - 2.500.000</option>
-                    <option value="2.500.001-5.000.000">2.500.001 - 5.000.000</option>
+                    <option value="0-2.600.000">0 - 2.600.000</option>
+                    <option value="2.600.001-5.000.000">2.600.001 - 5.000.000</option>
                     <option value="lebih dari 5.000.000">Lebih dari 5.000.000</option>
                 </select>
             </div>
