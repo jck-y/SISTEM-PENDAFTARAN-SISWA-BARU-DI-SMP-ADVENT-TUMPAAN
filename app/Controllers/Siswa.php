@@ -68,7 +68,7 @@ class Siswa extends BaseController
         $rules = [
             'nama_lengkap' => 'required',
             'nama_panggilan' => 'required',
-            'nomor_induk_asal' => 'required',
+            // 'nomor_induk_asal' => 'required',
             'nomor_induk'=> 'required',
             'nisn' => 'required',
             'tempat_lahir' => 'required',

@@ -766,8 +766,8 @@
         }
     </style>
 </head>
-<body>
 
+<body>
     <div class="container">
         <!-- Header -->
         <header class="header">
@@ -843,7 +843,7 @@
         </div>
     </div>
 
-    <!-- Popup Add User Simple (Hanya untuk tabel users) -->
+    <!-- Popup Add User Simple -->
     <div id="overlayAddUserSimple">
         <form id="formAddUserSimple" action="/admin/add_user_only" method="post">
             <img src="<?= base_url('assets/close.png'); ?>" alt="close" onClick="offAddUserSimple()">
@@ -867,280 +867,276 @@
         </form>
     </div>
 
-<!-- Popup Edit User (For Editing Siswa Data) -->
-<div id="overlayAddUser">
-    <form id="formAddUser" action="/admin/update_siswa" method="post" enctype="multipart/form-data">
-        <img src="<?= base_url('assets/close.png'); ?>" alt="close" onClick="offAddUser()">
-        <h1 id="formTitle">EDIT DATA SISWA</h1>
-        <input type="hidden" name="id_user" id="id_user">
-        <input type="hidden" name="status" id="status" value="diproses">
-        <div>
-            <text>Nama Lengkap</text>
-            <input type="text" name="nama_lengkap" id="nama_lengkap" placeholder="Masukkan nama lengkap..." required>
-        </div>
-        <div>
-            <text>Nama Panggilan</text>
-            <input type="text" name="nama_panggilan" id="nama_panggilan" placeholder="Masukkan nama panggilan...">
-        </div>
-        <div>
-            <text>Nomor Induk</text>
-            <input type="text" name="nomor_induk" id="nomor_induk" placeholder="Masukkan nomor induk...">
-        </div>
-        <div>
-            <text>NISN</text>
-            <input type="text" name="nisn" id="nisn" placeholder="Masukkan NISN...">
-        </div>
-        <div>
-            <text>Tempat Lahir</text>
-            <input type="text" name="tempat_lahir" id="tempat_lahir" placeholder="Masukkan tempat lahir...">
-        </div>
-        <div>
-            <text>Tanggal Lahir</text>
-            <input type="date" name="tanggal_lahir" id="tanggal_lahir">
-        </div>
-        <div>
-            <text>Jenis Kelamin</text>
-            <select name="jenis_kelamin" id="jenis_kelamin">
-                <option value="">Pilih jenis kelamin...</option>
-                <option value="Laki-laki">Laki-laki</option>
-                <option value="Perempuan">Perempuan</option>
-            </select>
-        </div>
-        <div>
-            <text>Agama</text>
-            <select name="agama" id="agama">
-                <option value="">Pilih agama...</option>
-                <option value="Islam">Islam</option>
-                <option value="Kristen">Kristen</option>
-                <option value="Katolik">Katolik</option>
-                <option value="Hindu">Hindu</option>
-                <option value="Buddha">Buddha</option>
-                <option value="Konghucu">Konghucu</option>
-            </select>
-        </div>
-        <div>
-            <text>Anak Ke-</text>
-            <input type="number" name="anak_ke" id="anak_ke" placeholder="Masukkan anak ke...">
-        </div>
-        <div>
-            <text>Status Anak</text>
-            <select name="status_anak" id="status_anak">
-                <option value="">Pilih status anak...</option>
-                <option value="Anak Kandung">Anak Kandung</option>
-                <option value="Anak Angkat">Anak Angkat</option>
-            </select>
-        </div>
-        <div>
-            <text>Alamat Siswa</text>
-            <input type="text" name="alamat_siswa" id="alamat_siswa" placeholder="Masukkan alamat siswa...">
-        </div>
-        <div>
-            <text>Telepon Siswa</text>
-            <input type="text" name="telepon_siswa" id="telepon_siswa" placeholder="Masukkan telepon siswa...">
-        </div>
-        <div>
-            <text>Nama SD Asal</text>
-            <input type="text" name="nama_tk_asal" id="nama_tk_asal" placeholder="Masukkan nama SD asal...">
-        </div>
-        <div>
-            <text>Alamat SD Asal</text>
-            <input type="text" name="alamat_tk_asal" id="alamat_tk_asal" placeholder="Masukkan alamat SD asal...">
-        </div>
-        <div>
-            <text>Gambar</text>
-            <input type="file" name="gambar" id="gambar">
-        </div>
-        <div>
-            <text>KK</text>
-            <input type="file" name="kk" id="kk">
-        </div>
-        <div>
-            <text>Raport</text>
-            <input type="file" name="raport" id="raport">
-        </div>
-        <div>
-            <text>Akta</text>
-            <input type="file" name="akta" id="akta">
-        </div>
-        <div>
-            <text>SKL</text>
-            <input type="file" name="skl" id="skl">
-        </div>
-        <div>
-            <text>Nomor Induk Asal</text>
-            <input type="text" name="nomor_induk_asal" id="nomor_induk_asal" placeholder="Masukkan nomor induk asal...">
-        </div>
+    <!-- Popup Edit User -->
+    <div id="overlayAddUser">
+        <form id="formAddUser" action="/admin/update_siswa" method="post" enctype="multipart/form-data">
+            <img src="<?= base_url('assets/close.png'); ?>" alt="close" onClick="offAddUser()">
+            <h1 id="formTitle">EDIT DATA SISWA</h1>
+            <input type="hidden" name="id_user" id="id_user">
+            <input type="hidden" name="status" id="status" value="diproses">
+            <div>
+                <text>Nama Lengkap</text>
+                <input type="text" name="nama_lengkap" id="nama_lengkap" placeholder="Masukkan nama lengkap..." required>
+            </div>
+            <div>
+                <text>Nama Panggilan</text>
+                <input type="text" name="nama_panggilan" id="nama_panggilan" placeholder="Masukkan nama panggilan...">
+            </div>
+            <div>
+                <text>Nomor Induk</text>
+                <input type="text" name="nomor_induk" id="nomor_induk" placeholder="Masukkan nomor induk...">
+            </div>
+            <div>
+                <text>NISN</text>
+                <input type="text" name="nisn" id="nisn" placeholder="Masukkan NISN...">
+            </div>
+            <div>
+                <text>Tempat Lahir</text>
+                <input type="text" name="tempat_lahir" id="tempat_lahir" placeholder="Masukkan tempat lahir...">
+            </div>
+            <div>
+                <text>Tanggal Lahir</text>
+                <input type="date" name="tanggal_lahir" id="tanggal_lahir">
+            </div>
+            <div>
+                <text>Jenis Kelamin</text>
+                <select name="jenis_kelamin" id="jenis_kelamin">
+                    <option value="">Pilih jenis kelamin...</option>
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                </select>
+            </div>
+            <div>
+                <text>Agama</text>
+                <select name="agama" id="agama">
+                    <option value="">Pilih agama...</option>
+                    <option value="Islam">Islam</option>
+                    <option value="Kristen">Kristen</option>
+                    <option value="Katolik">Katolik</option>
+                    <option value="Hindu">Hindu</option>
+                    <option value="Buddha">Buddha</option>
+                    <option value="Konghucu">Konghucu</option>
+                </select>
+            </div>
+            <div>
+                <text>Anak Ke-</text>
+                <input type="number" name="anak_ke" id="anak_ke" placeholder="Masukkan anak ke...">
+            </div>
+            <div>
+                <text>Status Anak</text>
+                <select name="status_anak" id="status_anak">
+                    <option value="">Pilih status anak...</option>
+                    <option value="Anak Kandung">Anak Kandung</option>
+                    <option value="Anak Angkat">Anak Angkat</option>
+                </select>
+            </div>
+            <div>
+                <text>Alamat Siswa</text>
+                <input type="text" name="alamat_siswa" id="alamat_siswa" placeholder="Masukkan alamat siswa...">
+            </div>
+            <div>
+                <text>Telepon Siswa</text>
+                <input type="text" name="telepon_siswa" id="telepon_siswa" placeholder="Masukkan telepon siswa...">
+            </div>
+            <div>
+                <text>Nama SD Asal</text>
+                <input type="text" name="nama_tk_asal" id="nama_tk_asal" placeholder="Masukkan nama SD asal...">
+            </div>
+            <div>
+                <text>Alamat SD Asal</text>
+                <input type="text" name="alamat_tk_asal" id="alamat_tk_asal" placeholder="Masukkan alamat SD asal...">
+            </div>
+            <div>
+                <text>Gambar</text>
+                <input type="file" name="gambar" id="gambar">
+            </div>
+            <div>
+                <text>KK</text>
+                <input type="file" name="kk" id="kk">
+            </div>
+            <div>
+                <text>Raport</text>
+                <input type="file" name="raport" id="raport">
+            </div>
+            <div>
+                <text>Akta</text>
+                <input type="file" name="akta" id="akta">
+            </div>
+            <div>
+                <text>SKL</text>
+                <input type="file" name="skl" id="skl">
+            </div>
 
-        <!-- Pilihan Jenis Orang Tua -->
-        <h2>Pilih Jenis Orang Tua</h2>
-        <div style="margin-bottom: 15px;">
-            <label style="color: #fff; margin-right: 20px;">
-                <input type="radio" name="parent_type" value="wali" checked onclick="toggleParentForm()"> Orang Tua Wali
-            </label>
-            <label style="color: #fff;">
-                <input type="radio" name="parent_type" value="orang_tua" onclick="toggleParentForm()"> Orang Tua Kandung
-            </label>
-        </div>
+            <!-- Pilihan Jenis Orang Tua -->
+            <h2>Pilih Jenis Orang Tua</h2>
+            <div style="margin-bottom: 15px;">
+                <label style="color: #fff; margin-right: 20px;">
+                    <input type="radio" name="parent_type" value="wali" checked onclick="toggleParentForm()"> Orang Tua Wali
+                </label>
+                <label style="color: #fff;">
+                    <input type="radio" name="parent_type" value="orang_tua" onclick="toggleParentForm()"> Orang Tua Kandung
+                </label>
+            </div>
 
-        <!-- Bagian Data Orang Tua Wali -->
-        <div id="waliForm">
-            <h2>Data Orang Tua Wali</h2>
-            <div>
-                <text>Nama Ayah Wali</text>
-                <input type="text" name="wali[nama_ayah_wali]" id="nama_ayah_wali" placeholder="Masukkan nama ayah wali...">
+            <!-- Bagian Data Orang Tua Wali -->
+            <div id="waliForm">
+                <h2>Data Orang Tua Wali</h2>
+                <div>
+                    <text>Nama Ayah Wali</text>
+                    <input type="text" name="wali[nama_ayah_wali]" id="nama_ayah_wali" placeholder="Masukkan nama ayah wali...">
+                </div>
+                <div>
+                    <text>Nama Ibu Wali</text>
+                    <input type="text" name="wali[nama_ibu_wali]" id="nama_ibu_wali" placeholder="Masukkan nama ibu wali...">
+                </div>
+                <div>
+                    <text>Alamat Ayah Wali</text>
+                    <input type="text" name="wali[alamat_ayah_wali]" id="alamat_ayah_wali" placeholder="Masukkan alamat ayah wali...">
+                </div>
+                <div>
+                    <text>Alamat Ibu Wali</text>
+                    <input type="text" name="wali[alamat_ibu_wali]" id="alamat_ibu_wali" placeholder="Masukkan alamat ibu wali...">
+                </div>
+                <div>
+                    <text>Telepon HP</text>
+                    <input type="text" name="wali[telepon_hp]" id="telepon_hp" placeholder="Masukkan telepon HP...">
+                </div>
+                <div>
+                    <text>Pekerjaan Ayah Wali</text>
+                    <input type="text" name="wali[pekerjaan_ayah_wali]" id="pekerjaan_ayah_wali" placeholder="Masukkan pekerjaan ayah wali...">
+                </div>
+                <div>
+                    <text>Pekerjaan Ibu Wali</text>
+                    <input type="text" name="wali[pekerjaan_ibu_wali]" id="pekerjaan_ibu_wali" placeholder="Masukkan pekerjaan ibu wali...">
+                </div>
+                <div>
+                    <text>Pendidikan Ayah Wali</text>
+                    <select name="wali[pendidikan_ayah_wali]" id="pendidikan_ayah_wali">
+                        <option value="">Pilih pendidikan ayah wali...</option>
+                        <option value="SD">SD</option>
+                        <option value="SMP">SMP</option>
+                        <option value="SMA">SMA</option>
+                        <option value="D3">D3</option>
+                        <option value="S1">S1</option>
+                        <option value="S2">S2</option>
+                        <option value="S3">S3</option>
+                    </select>
+                </div>
+                <div>
+                    <text>Pendidikan Ibu Wali</text>
+                    <select name="wali[pendidikan_ibu_wali]" id="pendidikan_ibu_wali">
+                        <option value="">Pilih pendidikan ibu wali...</option>
+                        <option value="SD">SD</option>
+                        <option value="SMP">SMP</option>
+                        <option value="SMA">SMA</option>
+                        <option value="D3">D3</option>
+                        <option value="S1">S1</option>
+                        <option value="S2">S2</option>
+                        <option value="S3">S3</option>
+                    </select>
+                </div>
+                <div>
+                    <text>Penghasilan Ayah Wali</text>
+                    <select name="wali[penghasilan_ayah_wali]" id="penghasilan_ayah_wali">
+                        <option value="">Pilih penghasilan ayah wali...</option>
+                        <option value="0-2.600.000">0 - 2.600.000</option>
+                        <option value="2.600.001-5.000.000">2.600.001 - 5.000.000</option>
+                        <option value="lebih dari 5.000.000">Lebih dari 5.000.000</option>
+                    </select>
+                </div>
+                <div>
+                    <text>Penghasilan Ibu Wali</text>
+                    <select name="wali[penghasilan_ibu_wali]" id="penghasilan_ibu_wali">
+                        <option value="">Pilih penghasilan ibu wali...</option>
+                        <option value="0-2.600.000">0 - 2.600.000</option>
+                        <option value="2.600.001-5.000.000">2.600.001 - 5.000.000</option>
+                        <option value="lebih dari 5.000.000">Lebih dari 5.000.000</option>
+                    </select>
+                </div>
             </div>
-            <div>
-                <text>Nama Ibu Wali</text>
-                <input type="text" name="wali[nama_ibu_wali]" id="nama_ibu_wali" placeholder="Masukkan nama ibu wali...">
-            </div>
-            <div>
-                <text>Alamat Ayah Wali</text>
-                <input type="text" name="wali[alamat_ayah_wali]" id="alamat_ayah_wali" placeholder="Masukkan alamat ayah wali...">
-            </div>
-            <div>
-                <text>Alamat Ibu Wali</text>
-                <input type="text" name="wali[alamat_ibu_wali]" id="alamat_ibu_wali" placeholder="Masukkan alamat ibu wali...">
-            </div>
-            <div>
-                <text>Telepon HP</text>
-                <input type="text" name="wali[telepon_hp]" id="telepon_hp" placeholder="Masukkan telepon HP...">
-            </div>
-            <div>
-                <text>Pekerjaan Ayah Wali</text>
-                <input type="text" name="wali[pekerjaan_ayah_wali]" id="pekerjaan_ayah_wali" placeholder="Masukkan pekerjaan ayah wali...">
-            </div>
-            <div>
-                <text>Pekerjaan Ibu Wali</text>
-                <input type="text" name="wali[pekerjaan_ibu_wali]" id="pekerjaan_ibu_wali" placeholder="Masukkan pekerjaan ibu wali...">
-            </div>
-            <div>
-                <text>Pendidikan Ayah Wali</text>
-                <select name="wali[pendidikan_ayah_wali]" id="pendidikan_ayah_wali">
-                    <option value="">Pilih pendidikan ayah wali...</option>
-                    <option value="SD">SD</option>
-                    <option value="SMP">SMP</option>
-                    <option value="SMA">SMA</option>
-                    <option value="D3">D3</option>
-                    <option value="S1">S1</option>
-                    <option value="S2">S2</option>
-                    <option value="S3">S3</option>
-                </select>
-            </div>
-            <div>
-                <text>Pendidikan Ibu Wali</text>
-                <select name="wali[pendidikan_ibu_wali]" id="pendidikan_ibu_wali">
-                    <option value="">Pilih pendidikan ibu wali...</option>
-                    <option value="SD">SD</option>
-                    <option value="SMP">SMP</option>
-                    <option value="SMA">SMA</option>
-                    <option value="D3">D3</option>
-                    <option value="S1">S1</option>
-                    <option value="S2">S2</option>
-                    <option value="S3">S3</option>
-                </select>
-            </div>
-            <div>
-                <text>Penghasilan Ayah Wali</text>
-                <select name="wali[penghasilan_ayah_wali]" id="penghasilan_ayah_wali">
-                    <option value="">Pilih penghasilan ayah wali...</option>
-                    <option value="0-2.600.000">0 - 2.600.000</option>
-                    <option value="2.600.001-5.000.000">2.600.001 - 5.000.000</option>
-                    <option value="lebih dari 5.000.000">Lebih dari 5.000.000</option>
-                </select>
-            </div>
-            <div>
-                <text>Penghasilan Ibu Wali</text>
-                <select name="wali[penghasilan_ibu_wali]" id="penghasilan_ibu_wali">
-                    <option value="">Pilih penghasilan ibu wali...</option>
-                    <option value="0-2.600.000">0 - 2.600.000</option>
-                    <option value="2.600.001-5.000.000">2.600.001 - 5.000.000</option>
-                    <option value="lebih dari 5.000.000">Lebih dari 5.000.000</option>
-                </select>
-            </div>
-        </div>
 
-        <!-- Bagian Data Orang Tua Kandung -->
-        <div id="orangTuaForm" style="display: none;">
-            <h2>Data Orang Tua Kandung</h2>
-            <div>
-                <text>Nama Ayah</text>
-                <input type="text" name="orang_tua[nama_ayah]" id="nama_ayah" placeholder="Masukkan nama ayah...">
+            <!-- Bagian Data Orang Tua Kandung -->
+            <div id="orangTuaForm" style="display: none;">
+                <h2>Data Orang Tua Kandung</h2>
+                <div>
+                    <text>Nama Ayah</text>
+                    <input type="text" name="orang_tua[nama_ayah]" id="nama_ayah" placeholder="Masukkan nama ayah...">
+                </div>
+                <div>
+                    <text>Nama Ibu</text>
+                    <input type="text" name="orang_tua[nama_ibu]" id="nama_ibu" placeholder="Masukkan nama ibu...">
+                </div>
+                <div>
+                    <text>Alamat Ayah</text>
+                    <input type="text" name="orang_tua[alamat_ayah]" id="alamat_ayah" placeholder="Masukkan alamat ayah...">
+                </div>
+                <div>
+                    <text>Alamat Ibu</text>
+                    <input type="text" name="orang_tua[alamat_ibu]" id="alamat_ibu" placeholder="Masukkan alamat ibu...">
+                </div>
+                <div>
+                    <text>Telepon HP</text>
+                    <input type="text" name="orang_tua[telepon_hp]" id="orang_tua_telepon_hp" placeholder="Masukkan telepon HP...">
+                </div>
+                <div>
+                    <text>Pekerjaan Ayah</text>
+                    <input type="text" name="orang_tua[pekerjaan_ayah]" id="pekerjaan_ayah" placeholder="Masukkan pekerjaan ayah...">
+                </div>
+                <div>
+                    <text>Pekerjaan Ibu</text>
+                    <input type="text" name="orang_tua[pekerjaan_ibu]" id="pekerjaan_ibu" placeholder="Masukkan pekerjaan ibu...">
+                </div>
+                <div>
+                    <text>Pendidikan Ayah</text>
+                    <select name="orang_tua[pendidikan_ayah]" id="pendidikan_ayah">
+                        <option value="">Pilih pendidikan ayah...</option>
+                        <option value="SD">SD</option>
+                        <option value="SMP">SMP</option>
+                        <option value="SMA">SMA</option>
+                        <option value="D3">D3</option>
+                        <option value="S1">S1</option>
+                        <option value="S2">S2</option>
+                        <option value="S3">S3</option>
+                    </select>
+                </div>
+                <div>
+                    <text>Pendidikan Ibu</text>
+                    <select name="orang_tua[pendidikan_ibu]" id="pendidikan_ibu">
+                        <option value="">Pilih pendidikan ibu...</option>
+                        <option value="SD">SD</option>
+                        <option value="SMP">SMP</option>
+                        <option value="SMA">SMA</option>
+                        <option value="D3">D3</option>
+                        <option value="S1">S1</option>
+                        <option value="S2">S2</option>
+                        <option value="S3">S3</option>
+                    </select>
+                </div>
+                <div>
+                    <text>Penghasilan Ayah</text>
+                    <select name="orang_tua[penghasilan_ayah]" id="penghasilan_ayah">
+                        <option value="">Pilih penghasilan ayah...</option>
+                        <option value="0-2.600.000">0 - 2.600.000</option>
+                        <option value="2.600.001-5.000.000">2.600.001 - 5.000.000</option>
+                        <option value="lebih dari 5.000.000">Lebih dari 5.000.000</option>
+                    </select>
+                </div>
+                <div>
+                    <text>Penghasilan Ibu</text>
+                    <select name="orang_tua[penghasilan_ibu]" id="penghasilan_ibu">
+                        <option value="">Pilih penghasilan ibu...</option>
+                        <option value="0-2.600.000">0 - 2.600.000</option>
+                        <option value="2.600.001-5.000.000">2.600.001 - 5.000.000</option>
+                        <option value="lebih dari 5.000.000">Lebih dari 5.000.000</option>
+                    </select>
+                </div>
             </div>
-            <div>
-                <text>Nama Ibu</text>
-                <input type="text" name="orang_tua[nama_ibu]" id="nama_ibu" placeholder="Masukkan nama ibu...">
-            </div>
-            <div>
-                <text>Alamat Ayah</text>
-                <input type="text" name="orang_tua[alamat_ayah]" id="alamat_ayah" placeholder="Masukkan alamat ayah...">
-            </div>
-            <div>
-                <text>Alamat Ibu</text>
-                <input type="text" name="orang_tua[alamat_ibu]" id="alamat_ibu" placeholder="Masukkan alamat ibu...">
-            </div>
-            <div>
-                <text>Telepon HP</text>
-                <input type="text" name="orang_tua[telepon_hp]" id="orang_tua_telepon_hp" placeholder="Masukkan telepon HP...">
-            </div>
-            <div>
-                <text>Pekerjaan Ayah</text>
-                <input type="text" name="orang_tua[pekerjaan_ayah]" id="pekerjaan_ayah" placeholder="Masukkan pekerjaan ayah...">
-            </div>
-            <div>
-                <text>Pekerjaan Ibu</text>
-                <input type="text" name="orang_tua[pekerjaan_ibu]" id="pekerjaan_ibu" placeholder="Masukkan pekerjaan ibu...">
-            </div>
-            <div>
-                <text>Pendidikan Ayah</text>
-                <select name="orang_tua[pendidikan_ayah]" id="pendidikan_ayah">
-                    <option value="">Pilih pendidikan ayah...</option>
-                    <option value="SD">SD</option>
-                    <option value="SMP">SMP</option>
-                    <option value="SMA">SMA</option>
-                    <option value="D3">D3</option>
-                    <option value="S1">S1</option>
-                    <option value="S2">S2</option>
-                    <option value="S3">S3</option>
-                </select>
-            </div>
-            <div>
-                <text>Pendidikan Ibu</text>
-                <select name="orang_tua[pendidikan_ibu]" id="pendidikan_ibu">
-                    <option value="">Pilih pendidikan ibu...</option>
-                    <option value="SD">SD</option>
-                    <option value="SMP">SMP</option>
-                    <option value="SMA">SMA</option>
-                    <option value="D3">D3</option>
-                    <option value="S1">S1</option>
-                    <option value="S2">S2</option>
-                    <option value="S3">S3</option>
-                </select>
-            </div>
-            <div>
-                <text>Penghasilan Ayah</text>
-                <select name="orang_tua[penghasilan_ayah]" id="penghasilan_ayah">
-                    <option value="">Pilih penghasilan ayah...</option>
-                    <option value="0-2.600.000">0 - 2.600.000</option>
-                    <option value="2.600.001-5.000.000">2.600.001 - 5.000.000</option>
-                    <option value="lebih dari 5.000.000">Lebih dari 5.000.000</option>
-                </select>
-            </div>
-            <div>
-                <text>Penghasilan Ibu</text>
-                <select name="orang_tua[penghasilan_ibu]" id="penghasilan_ibu">
-                    <option value="">Pilih penghasilan ibu...</option>
-                    <option value="0-2.600.000">0 - 2.600.000</option>
-                    <option value="2.600.001-5.000.000">2.600.001 - 5.000.000</option>
-                    <option value="lebih dari 5.000.000">Lebih dari 5.000.000</option>
-                </select>
-            </div>
-        </div>
 
-        <button type="submit" class="submit-btn">
-            <img src="<?= base_url('assets/send.png'); ?>" alt="submit">
-        </button>
-    </form>
-</div>
+            <button type="submit" class="submit-btn">
+                <img src="<?= base_url('assets/send.png'); ?>" alt="submit">
+            </button>
+        </form>
+    </div>
 
     <!-- Popup Detail Siswa -->
     <div id="overlayDetailSiswa">
@@ -1230,14 +1226,6 @@
             <label>SKL</label>
             <div id="detail_skl"></div>
         </div>
-        <!-- <div class="detail-row">
-            <label>ID Login</label>
-            <span id="detail_id_login"></span>
-        </div> -->
-        <div class="detail-row">
-            <label>Nomor Induk Asal</label>
-            <span id="detail_nomor_induk_asal"></span>
-        </div>
     </div>
 
     <!-- Sidenav -->
@@ -1251,176 +1239,171 @@
 
     <script>
         // Fungsi untuk membuka dan menutup sidenav
-function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-}
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
 
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-}
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
 
-// Fungsi untuk Change Password
-function onChangePassword(id) {
-    document.getElementById('overlayChangePass').style.display = 'block';
-    document.querySelector('#overlayChangePass form').action = "/admin/set_password_siswa/" + id;
-}
+        // Fungsi untuk Change Password
+        function onChangePassword(id) {
+            document.getElementById('overlayChangePass').style.display = 'block';
+            document.querySelector('#overlayChangePass form').action = "/admin/set_password_siswa/" + id;
+        }
 
-function offChangePassword() {
-    document.getElementById('overlayChangePass').style.display = 'none';
-}
+        function offChangePassword() {
+            document.getElementById('overlayChangePass').style.display = 'none';
+        }
 
-// Fungsi untuk Delete User
-function onDeleteUser(id) {
-    document.getElementById('deleteForm').action = "/admin/delete_siswa/" + id;
-    document.getElementById('overlayDeleteUser').style.display = 'block';
-}
+        // Fungsi untuk Delete User
+        function onDeleteUser(id) {
+            document.getElementById('deleteForm').action = "/admin/delete_siswa/" + id;
+            document.getElementById('overlayDeleteUser').style.display = 'block';
+        }
 
-function offDeleteUser() {
-    document.getElementById('overlayDeleteUser').style.display = 'none';
-}
+        function offDeleteUser() {
+            document.getElementById('overlayDeleteUser').style.display = 'none';
+        }
 
-// Fungsi untuk Tambah Akun Siswa (Hanya Users)
-function onAddUser() {
-    document.getElementById('formAddUserSimple').reset(); // Reset form
-    document.getElementById('overlayAddUserSimple').style.display = 'block';
-}
+        // Fungsi untuk Tambah Akun Siswa (Hanya Users)
+        function onAddUser() {
+            document.getElementById('formAddUserSimple').reset();
+            document.getElementById('overlayAddUserSimple').style.display = 'block';
+        }
 
-function offAddUserSimple() {
-    document.getElementById('overlayAddUserSimple').style.display = 'none';
-}
+        function offAddUserSimple() {
+            document.getElementById('overlayAddUserSimple').style.display = 'none';
+        }
 
-// Fungsi untuk toggle form Orang Tua Wali atau Orang Tua Kandung
-function toggleParentForm() {
-    const waliForm = document.getElementById('waliForm');
-    const orangTuaForm = document.getElementById('orangTuaForm');
-    const parentType = document.querySelector('input[name="parent_type"]:checked').value;
+        // Fungsi untuk toggle form Orang Tua Wali atau Orang Tua Kandung
+        function toggleParentForm() {
+            const waliForm = document.getElementById('waliForm');
+            const orangTuaForm = document.getElementById('orangTuaForm');
+            const parentType = document.querySelector('input[name="parent_type"]:checked').value;
 
-    if (parentType === 'wali') {
-        waliForm.style.display = 'block';
-        orangTuaForm.style.display = 'none';
-    } else {
-        waliForm.style.display = 'none';
-        orangTuaForm.style.display = 'block';
-    }
-}
+            if (parentType === 'wali') {
+                waliForm.style.display = 'block';
+                orangTuaForm.style.display = 'none';
+            } else {
+                waliForm.style.display = 'none';
+                orangTuaForm.style.display = 'block';
+            }
+        }
 
-// Fungsi untuk Edit Siswa
-function onEditSiswa(siswa, id_user, wali, orangTua) {
-    console.log("Mengedit siswa dengan id_user:", id_user); // Debugging
-    console.log("Data siswa:", siswa); // Debugging
-    console.log("Data wali:", wali); // Debugging
-    console.log("Data orang tua:", orangTua); // Debugging
+        // Fungsi untuk Edit Siswa
+        function onEditSiswa(siswa, id_user, wali, orangTua) {
+            console.log("Mengedit siswa dengan id_user:", id_user);
+            console.log("Data siswa:", siswa);
+            console.log("Data wali:", wali);
+            console.log("Data orang tua:", orangTua);
 
-    document.getElementById('formTitle').innerText = "EDIT DATA SISWA";
-    document.getElementById('formAddUser').action = "/admin/update_siswa";
-    document.getElementById('id_user').value = id_user || "";
+            document.getElementById('formTitle').innerText = "EDIT DATA SISWA";
+            document.getElementById('formAddUser').action = "/admin/update_siswa";
+            document.getElementById('id_user').value = id_user || "";
 
-    // Isi form dengan data siswa (jika ada, jika tidak gunakan string kosong)
-    document.getElementById('nama_lengkap').value = siswa ? siswa.nama_lengkap || "" : "";
-    document.getElementById('nama_panggilan').value = siswa ? siswa.nama_panggilan || "" : "";
-    document.getElementById('nomor_induk').value = siswa ? siswa.nomor_induk || "" : "";
-    document.getElementById('nisn').value = siswa ? siswa.nisn || "" : "";
-    document.getElementById('tempat_lahir').value = siswa ? siswa.tempat_lahir || "" : "";
-    document.getElementById('tanggal_lahir').value = siswa ? siswa.tanggal_lahir || "" : "";
-    document.getElementById('jenis_kelamin').value = siswa ? siswa.jenis_kelamin || "" : "";
-    document.getElementById('agama').value = siswa ? siswa.agama || "" : "";
-    document.getElementById('anak_ke').value = siswa ? siswa.anak_ke || "" : "";
-    document.getElementById('status_anak').value = siswa ? siswa.status_anak || "" : "";
-    document.getElementById('alamat_siswa').value = siswa ? siswa.alamat_siswa || "" : "";
-    document.getElementById('telepon_siswa').value = siswa ? siswa.telepon_siswa || "" : "";
-    document.getElementById('nama_tk_asal').value = siswa ? siswa.nama_tk_asal || "" : "";
-    document.getElementById('alamat_tk_asal').value = siswa ? siswa.alamat_tk_asal || "" : "";
-    document.getElementById('status').value = siswa ? siswa.status || "diproses" : "diproses";
-    document.getElementById('nomor_induk_asal').value = siswa ? siswa.nomor_induk_asal || "" : "";
+            // Isi form dengan data siswa
+            siswa = siswa || {};
+            document.getElementById('nama_lengkap').value = siswa.nama_lengkap || "";
+            document.getElementById('nama_panggilan').value = siswa.nama_panggilan || "";
+            document.getElementById('nomor_induk').value = siswa.nomor_induk || "";
+            document.getElementById('nisn').value = siswa.nisn || "";
+            document.getElementById('tempat_lahir').value = siswa.tempat_lahir || "";
+            document.getElementById('tanggal_lahir').value = siswa.tanggal_lahir || "";
+            document.getElementById('jenis_kelamin').value = siswa.jenis_kelamin || "";
+            document.getElementById('agama').value = siswa.agama || "";
+            document.getElementById('anak_ke').value = siswa.anak_ke || "";
+            document.getElementById('status_anak').value = siswa.status_anak || "";
+            document.getElementById('alamat_siswa').value = siswa.alamat_siswa || "";
+            document.getElementById('telepon_siswa').value = siswa.telepon_siswa || "";
+            document.getElementById('nama_tk_asal').value = siswa.nama_tk_asal || "";
+            document.getElementById('alamat_tk_asal').value = siswa.alamat_tk_asal || "";
+            document.getElementById('status').value = siswa.status || "diproses";
 
-    // Kosongkan input file (karena tidak bisa diisi otomatis)
-    document.getElementById('gambar').value = "";
-    document.getElementById('kk').value = "";
-    document.getElementById('raport').value = "";
-    document.getElementById('akta').value = "";
-    document.getElementById('skl').value = "";
+            // Kosongkan input file
+            document.getElementById('gambar').value = "";
+            document.getElementById('kk').value = "";
+            document.getElementById('raport').value = "";
+            document.getElementById('akta').value = "";
+            document.getElementById('skl').value = "";
 
-    // Set radio button berdasarkan data yang ada
-    if (wali) {
-        document.querySelector('input[name="parent_type"][value="wali"]').checked = true;
-        toggleParentForm();
+            // Set radio button berdasarkan data yang ada
+            if (wali && Object.keys(wali).length > 0) {
+                document.querySelector('input[name="parent_type"][value="wali"]').checked = true;
+                toggleParentForm();
+                document.getElementById('nama_ayah_wali').value = wali.nama_ayah_wali || "";
+                document.getElementById('nama_ibu_wali').value = wali.nama_ibu_wali || "";
+                document.getElementById('alamat_ayah_wali').value = wali.alamat_ayah_wali || "";
+                document.getElementById('alamat_ibu_wali').value = wali.alamat_ibu_wali || "";
+                document.getElementById('telepon_hp').value = wali.telepon_hp || "";
+                document.getElementById('pekerjaan_ayah_wali').value = wali.pekerjaan_ayah_wali || "";
+                document.getElementById('pekerjaan_ibu_wali').value = wali.pekerjaan_ibu_wali || "";
+                document.getElementById('pendidikan_ayah_wali').value = wali.pendidikan_ayah_wali || "";
+                document.getElementById('pendidikan_ibu_wali').value = wali.pendidikan_ibu_wali || "";
+                document.getElementById('penghasilan_ayah_wali').value = wali.penghasilan_ayah_wali || "";
+                document.getElementById('penghasilan_ibu_wali').value = wali.penghasilan_ibu_wali || "";
+            } else if (orangTua && Object.keys(orangTua).length > 0) {
+                document.querySelector('input[name="parent_type"][value="orang_tua"]').checked = true;
+                toggleParentForm();
+                document.getElementById('nama_ayah').value = orangTua.nama_ayah || "";
+                document.getElementById('nama_ibu').value = orangTua.nama_ibu || "";
+                document.getElementById('alamat_ayah').value = orangTua.alamat_ayah || "";
+                document.getElementById('alamat_ibu').value = orangTua.alamat_ibu || "";
+                document.getElementById('orang_tua_telepon_hp').value = orangTua.telepon_hp || "";
+                document.getElementById('pekerjaan_ayah').value = orangTua.pekerjaan_ayah || "";
+                document.getElementById('pekerjaan_ibu').value = orangTua.pekerjaan_ibu || "";
+                document.getElementById('pendidikan_ayah').value = orangTua.pendidikan_ayah || "";
+                document.getElementById('pendidikan_ibu').value = orangTua.pendidikan_ibu || "";
+                document.getElementById('penghasilan_ayah').value = orangTua.penghasilan_ayah || "";
+                document.getElementById('penghasilan_ibu').value = orangTua.penghasilan_ibu || "";
+            } else {
+                document.querySelector('input[name="parent_type"][value="wali"]').checked = true;
+                toggleParentForm();
+            }
 
-        // Isi form wali
-        document.getElementById('nama_ayah_wali').value = wali.nama_ayah_wali || "";
-        document.getElementById('nama_ibu_wali').value = wali.nama_ibu_wali || "";
-        document.getElementById('alamat_ayah_wali').value = wali.alamat_ayah_wali || "";
-        document.getElementById('alamat_ibu_wali').value = wali.alamat_ibu_wali || "";
-        document.getElementById('telepon_hp').value = wali.telepon_hp || "";
-        document.getElementById('pekerjaan_ayah_wali').value = wali.pekerjaan_ayah_wali || "";
-        document.getElementById('pekerjaan_ibu_wali').value = wali.pekerjaan_ibu_wali || "";
-        document.getElementById('pendidikan_ayah_wali').value = wali.pendidikan_ayah_wali || "";
-        document.getElementById('pendidikan_ibu_wali').value = wali.pendidikan_ibu_wali || "";
-        document.getElementById('penghasilan_ayah_wali').value = wali.penghasilan_ayah_wali || "";
-        document.getElementById('penghasilan_ibu_wali').value = wali.penghasilan_ibu_wali || "";
-    } else if (orangTua) {
-        document.querySelector('input[name="parent_type"][value="orang_tua"]').checked = true;
-        toggleParentForm();
+            document.getElementById('overlayAddUser').style.display = 'block';
+        }
 
-        // Isi form orang tua kandung
-        document.getElementById('nama_ayah').value = orangTua.nama_ayah || "";
-        document.getElementById('nama_ibu').value = orangTua.nama_ibu || "";
-        document.getElementById('alamat_ayah').value = orangTua.alamat_ayah || "";
-        document.getElementById('alamat_ibu').value = orangTua.alamat_ibu || "";
-        document.getElementById('orang_tua_telepon_hp').value = orangTua.telepon_hp || "";
-        document.getElementById('pekerjaan_ayah').value = orangTua.pekerjaan_ayah || "";
-        document.getElementById('pekerjaan_ibu').value = orangTua.pekerjaan_ibu || "";
-        document.getElementById('pendidikan_ayah').value = orangTua.pendidikan_ayah || "";
-        document.getElementById('pendidikan_ibu').value = orangTua.pendidikan_ibu || "";
-        document.getElementById('penghasilan_ayah').value = orangTua.penghasilan_ayah || "";
-        document.getElementById('penghasilan_ibu').value = orangTua.penghasilan_ibu || "";
-    } else {
-        // Default ke wali jika tidak ada data
-        document.querySelector('input[name="parent_type"][value="wali"]').checked = true;
-        toggleParentForm();
-    }
+        function offAddUser() {
+            document.getElementById('overlayAddUser').style.display = 'none';
+        }
 
-    document.getElementById('overlayAddUser').style.display = 'block';
-}
+        // Fungsi untuk Detail Siswa
+        function onDetailSiswa(siswa) {
+            console.log("Menampilkan detail siswa:", siswa);
 
-function offAddUser() {
-    document.getElementById('overlayAddUser').style.display = 'none';
-}
+            siswa = siswa || {};
+            document.getElementById('detail_id_siswa').innerText = siswa.id_siswa || "-";
+            document.getElementById('detail_nama_lengkap').innerText = siswa.nama_lengkap || "-";
+            document.getElementById('detail_nama_panggilan').innerText = siswa.nama_panggilan || "-";
+            document.getElementById('detail_nomor_induk').innerText = siswa.nomor_induk || "-";
+            document.getElementById('detail_nisn').innerText = siswa.nisn || "-";
+            document.getElementById('detail_tempat_lahir').innerText = siswa.tempat_lahir || "-";
+            document.getElementById('detail_tanggal_lahir').innerText = siswa.tanggal_lahir || "-";
+            document.getElementById('detail_jenis_kelamin').innerText = siswa.jenis_kelamin || "-";
+            document.getElementById('detail_agama').innerText = siswa.agama || "-";
+            document.getElementById('detail_anak_ke').innerText = siswa.anak_ke || "-";
+            document.getElementById('detail_status_anak').innerText = siswa.status_anak || "-";
+            document.getElementById('detail_alamat_siswa').innerText = siswa.alamat_siswa || "-";
+            document.getElementById('detail_telepon_siswa').innerText = siswa.telepon_siswa || "-";
+            document.getElementById('detail_nama_tk_asal').innerText = siswa.nama_tk_asal || "-";
+            document.getElementById('detail_alamat_tk_asal').innerText = siswa.alamat_tk_asal || "-";
+            document.getElementById('detail_status').innerText = siswa.status || "-";
 
-// Fungsi untuk Detail Siswa
-function onDetailSiswa(siswa) {
-    console.log("Menampilkan detail siswa:", siswa); // Debugging
+            // Tampilkan gambar jika ada
+            document.getElementById('detail_gambar').innerHTML = siswa.gambar ? `<img src="<?= base_url(); ?>/${siswa.gambar}" alt="Gambar Siswa">` : "-";
+            document.getElementById('detail_kk').innerHTML = siswa.kk ? `<img src="<?= base_url(); ?>/${siswa.kk}" alt="KK">` : "-";
+            document.getElementById('detail_raport').innerHTML = siswa.raport ? `<img src="<?= base_url(); ?>/${siswa.raport}" alt="Raport">` : "-";
+            document.getElementById('detail_akta').innerHTML = siswa.akta ? `<img src="<?= base_url(); ?>/${siswa.akta}" alt="Akta">` : "-";
+            document.getElementById('detail_skl').innerHTML = siswa.skl ? `<img src="<?= base_url(); ?>/${siswa.skl}" alt="SKL">` : "-";
 
-    document.getElementById('detail_id_siswa').innerText = siswa ? siswa.id_siswa || "-" : "-";
-    document.getElementById('detail_nama_lengkap').innerText = siswa ? siswa.nama_lengkap || "-" : "-";
-    document.getElementById('detail_nama_panggilan').innerText = siswa ? siswa.nama_panggilan || "-" : "-";
-    document.getElementById('detail_nomor_induk').innerText = siswa ? siswa.nomor_induk || "-" : "-";
-    document.getElementById('detail_nisn').innerText = siswa ? siswa.nisn || "-" : "-";
-    document.getElementById('detail_tempat_lahir').innerText = siswa ? siswa.tempat_lahir || "-" : "-";
-    document.getElementById('detail_tanggal_lahir').innerText = siswa ? siswa.tanggal_lahir || "-" : "-";
-    document.getElementById('detail_jenis_kelamin').innerText = siswa ? siswa.jenis_kelamin || "-" : "-";
-    document.getElementById('detail_agama').innerText = siswa ? siswa.agama || "-" : "-";
-    document.getElementById('detail_anak_ke').innerText = siswa ? siswa.anak_ke || "-" : "-";
-    document.getElementById('detail_status_anak').innerText = siswa ? siswa.status_anak || "-" : "-";
-    document.getElementById('detail_alamat_siswa').innerText = siswa ? siswa.alamat_siswa || "-" : "-";
-    document.getElementById('detail_telepon_siswa').innerText = siswa ? siswa.telepon_siswa || "-" : "-";
-    document.getElementById('detail_nama_tk_asal').innerText = siswa ? siswa.nama_tk_asal || "-" : "-";
-    document.getElementById('detail_alamat_tk_asal').innerText = siswa ? siswa.alamat_tk_asal || "-" : "-";
-    document.getElementById('detail_status').innerText = siswa ? siswa.status || "-" : "-";
-    document.getElementById('detail_nomor_induk_asal').innerText = siswa ? siswa.nomor_induk_asal || "-" : "-";
+            document.getElementById('overlayDetailSiswa').style.display = 'block';
+        }
 
-    // Tampilkan gambar jika ada
-    document.getElementById('detail_gambar').innerHTML = siswa && siswa.gambar ? `<img src="<?= base_url(); ?>/${siswa.gambar}" alt="Gambar Siswa">` : "-";
-    document.getElementById('detail_kk').innerHTML = siswa && siswa.kk ? `<img src="<?= base_url(); ?>/${siswa.kk}" alt="KK">` : "-";
-    document.getElementById('detail_raport').innerHTML = siswa && siswa.raport ? `<img src="<?= base_url(); ?>/${siswa.raport}" alt="Raport">` : "-";
-    document.getElementById('detail_akta').innerHTML = siswa && siswa.akta ? `<img src="<?= base_url(); ?>/${siswa.akta}" alt="Akta">` : "-";
-    document.getElementById('detail_skl').innerHTML = siswa && siswa.skl ? `<img src="<?= base_url(); ?>/${siswa.skl}" alt="SKL">` : "-";
-
-    document.getElementById('overlayDetailSiswa').style.display = 'block';
-}
-
-function offDetailSiswa() {
-    document.getElementById('overlayDetailSiswa').style.display = 'none';
-}
+        function offDetailSiswa() {
+            document.getElementById('overlayDetailSiswa').style.display = 'none';
+        }
     </script>
 </body>
 </html>

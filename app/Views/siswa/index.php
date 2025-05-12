@@ -304,7 +304,7 @@ const tanggalLahirInput = document.getElementById('tanggal_lahir');
 const tanggalLahirError = document.getElementById('tanggal_lahir_error');
 
 const requiredFields = [
-    'nama_lengkap', 'nama_panggilan', 'nomor_induk', 'nisn',
+    'nama_lengkap', 'nama_panggilan', 'nomor_induk','nomor_induk_asal', 'nisn',
     'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama',
     'anak_ke', 'status_anak', 'alamat_siswa', 'nama_tk_asal',
     'telepon_siswa', 'alamat_tk_asal'

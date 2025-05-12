@@ -174,7 +174,7 @@
                             </tr>
                             <tr>
                                 <th>Nomor Induk</th>
-                                <td><?= esc($siswa['nomor_induk_asal'] ?? '-') ?></td>
+                                <td><?= esc($siswa['nomor_induk'] ?? '-') ?></td>
                             </tr>
                             <tr>
                                 <th>NISN</th>
