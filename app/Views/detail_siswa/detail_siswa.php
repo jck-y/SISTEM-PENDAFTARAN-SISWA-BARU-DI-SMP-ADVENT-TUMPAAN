@@ -196,6 +196,10 @@
                                 <td><?= esc($siswa['agama'] ?? '-') ?></td>
                             </tr>
                             <tr>
+                                <th>Kelas</th>
+                                <td><?= esc($siswa['kelas'] ?? '-') ?><?php if (isset($siswa['kelas'])) echo ' (Kelas ' . esc($siswa['kelas']) . ')'; ?></td>
+                            </tr>
+                            <tr>
                                 <th>Anak Ke</th>
                                 <td><?= esc($siswa['anak_ke'] ?? '-') ?></td>
                             </tr>
