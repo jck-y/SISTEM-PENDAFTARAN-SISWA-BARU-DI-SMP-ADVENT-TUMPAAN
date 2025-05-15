@@ -196,6 +196,28 @@
             background-color: #ffc107;
         }
 
+        /* Status Tampilan Statis */
+        .status-display {
+            width: 120px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            padding: 8px;
+        }
+
+        .status-display.green {
+            background-color: #28a745;
+        }
+
+        .status-display.red {
+            background-color: #dc3545;
+        }
+
+        .status-display.yellow {
+            background-color: #ffc107;
+        }
+
         /* Flash Messages */
         .flash-message {
             padding: 15px;
@@ -234,7 +256,7 @@
                 padding: 10px;
             }
 
-            .status-dropdown {
+            .status-dropdown, .status-display {
                 width: 100px;
                 padding: 6px;
             }
@@ -278,6 +300,7 @@
                 <thead>
                     <tr>
                         <th>NAME</th>
+                        <th>ACTION</th>
                         <th>STATUS</th>
                     </tr>
                 </thead>
@@ -297,11 +320,16 @@
                                         </select>
                                     </form>
                                 </td>
+                                <td>
+                                    <span class="status-display <?= ($s['status'] == 'diterima') ? 'green' : ($s['status'] == 'ditolak' ? 'red' : 'yellow') ?>" id="status-display-<?= $s['id_siswa'] ?>">
+                                        <?= ucfirst($s['status']) ?>
+                                    </span>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="2" style="text-align: center; padding: 20px;">
+                            <td colspan="3" style="text-align: center; padding: 20px;">
                                 <?php if ($search): ?>
                                     Data siswa dengan nama "<?= esc($search) ?>" tidak ditemukan
                                 <?php else: ?>
@@ -334,6 +362,7 @@
             // Hapus semua class status-dropdown sebelum menambahkan yang baru
             select.classList.remove("green", "red", "yellow");
 
+            // Tentukan class berdasarkan nilai yang dipilih
             if (select.value === "diterima") {
                 select.classList.add("green");
             } else if (select.value === "ditolak") {
@@ -341,6 +370,29 @@
             } else if (select.value === "diproses") {
                 select.classList.add("yellow");
             }
+
+            // Perbarui status tampilan statis di kolom sebelah kanan
+            const idSiswa = select.form.querySelector('input[name="id_siswa"]').value;
+            const statusDisplay = document.getElementById(`status-display-${idSiswa}`);
+            if (statusDisplay) {
+                statusDisplay.textContent = ucfirst(select.value);
+                statusDisplay.classList.remove("green", "red", "yellow");
+                if (select.value === "diterima") {
+                    statusDisplay.classList.add("green");
+                } else if (select.value === "ditolak") {
+                    statusDisplay.classList.add("red");
+                } else if (select.value === "diproses") {
+                    statusDisplay.classList.add("yellow");
+                }
+            }
+
+            // Submit form
+            select.form.submit();
+        }
+
+        // Fungsi untuk mengubah huruf pertama menjadi kapital
+        function ucfirst(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
         }
     </script>
 </body>

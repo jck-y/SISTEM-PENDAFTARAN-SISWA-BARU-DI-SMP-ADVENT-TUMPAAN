@@ -286,7 +286,7 @@
             $message = "Pendaftaran Anda sedang dalam proses peninjauan. Mohon bersabar menunggu keputusan dari pihak sekolah.";
         } elseif ($statusLower === 'diterima') {
             $icon = '<i class="fas fa-check-circle"></i>';
-            $message = "<h3>SELAMAT! ANDA DINYATAKAN LULUS SELEKSI MASUK SEKOLAH INI</h3>";
+            $message = "<h3>SELAMAT! BERKAS ANDA LENGKAP DAN DAPAT MASUK SEKOLAH INI</h3>";
         } elseif ($statusLower === 'ditolak') {
             $icon = '<i class="fas fa-times-circle"></i>';
             $message = "Mohon maaf, Anda belum diterima di sekolah ini. Silakan hubungi pihak sekolah untuk informasi lebih lanjut atau coba lagi di periode berikutnya.";
